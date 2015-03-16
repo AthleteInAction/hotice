@@ -1,0 +1,69 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">Teams</span>
+	</div>
+
+	<div class="head">
+		<div class="head-item head-icon-teams">Teams</div>
+		<div class="head-item">
+			<select ng:model="allteams">
+				<option value="false">My Teams</option>
+				<option value="true">All Teams</option>
+			</select>
+		</div>
+		<div class="head-item">
+			<select ng:model="sort" ng:change="teamSort()">
+				<option value="name">Sort by:</option>
+				<option value="wins">Wins</option>
+				<option value="losses">Losses</option>
+				<option value="otl">OTL</option>
+			</select>
+		</div>
+	</div>
+	<div class="body NO_PAD">
+
+		<table class="table">
+
+			<tr>
+				<th>Name</th>
+				<th>Wins</th>
+				<th>Losses</th>
+				<th>OTL</th>
+			</tr>
+			
+			<tr ng:if="loading">
+				<td>Loading...</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+
+			<tr ng:if="teams.length == 0 && !loading">
+				<td>No teams to display</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+
+			<tr ng:repeat="team in teams | orderBy:sort:rev">
+				<td>
+					<a href="/dashboard/#/teams/{{team.objectId}}">{{team.name}}</a></td>
+				<td>
+					{{team.wins}}
+				</td>
+				<td>
+					{{team.losses}}
+				</td>
+				<td>
+					{{team.otl}}
+				</td>
+			</tr>
+
+		</table>
+
+	</div>
+
+</div>

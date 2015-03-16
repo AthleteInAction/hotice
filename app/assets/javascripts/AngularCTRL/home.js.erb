@@ -1,0 +1,58 @@
+var HomeCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
+	function($scope,$routeParams,$location,ApiModel,$timeout){
+
+		JP('HOME');
+
+		$scope.articles = [];
+		$scope.events = [];
+		
+		$scope.getArticles = function(){
+
+			this.options = {
+				type: 'nhl',
+				second: 'headlines'
+			};
+
+			ApiModel.query(this.options,function(data){
+
+				$scope.articles = data.rss.channel.item;
+
+			});
+
+		};
+		$scope.getArticles();
+
+		$scope.getEvents = function(){
+
+			this.options = {
+				type: 'events'
+			};
+
+			ApiModel.query(this.options,function(data){
+				
+				$scope.events = data.body.results;
+
+			});
+
+		};
+		$scope.getEvents();
+
+		$scope.getAnnouncements = function(){
+
+			this.options = {
+				type: 'zendesk',
+				second: 'articles',
+				section: <%= ANNOUNCEMENTS_ID %>
+			};
+
+			ApiModel.query(this.options,function(data){
+				
+				$scope.$parent.announcements = data.body.articles;
+
+			});
+
+		};
+		$scope.getAnnouncements();
+
+	}
+];

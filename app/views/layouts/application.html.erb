@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotice</title>
+  <%= stylesheet_link_tag    'application/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script>var current_user = <%= session[:user].to_json.html_safe %>;</script>
+  <!-- Start of Zendesk Widget -->
+  <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("//assets.zendesk.com/embeddable_framework/main.js","<%= ZENDESK_DOMAIN %>.zendesk.com");/*]]>*/</script>
+  <!-- End of Zendesk Widget -->
+</head>
+<body ng:App="HotIce" ng:controller="MainCtrl">
+
+	<table class="dashboard_table">
+
+		<tr class="in">
+			<td class="in" valign="top" align="center">
+
+				<a href="/dashboard/#/" class="logo"></a>
+
+			</td>
+			<td class="in" valign="middle" align="right">
+
+				<a href="/signout" class="orange_link">Sign Out</a>
+				<div class="CLEAR"></div>
+
+			</td>
+		</tr>
+
+		<tr class="in">
+			<td class="in" valign="top">
+
+				<div class="create_team"><a href="#/teams/new">+ Create a Team</a></div>
+
+				<ul class="navigation">
+
+					<li class="icon-home"><a href="#/home">Home</a></li>
+					<li class="icon-events"><a href="#/events/QbpXiJZ7c4/registration">Events</a></li>
+					<li class="icon-teams"><a href="#/teams">Teams</a></li>
+					<li class="icon-members"><a href="#/members">Members</a></li>
+					<li class="icon-myaccount"><a href="#/myaccount" ng:class="{alert:!current_user.gamertagVerified,check:current_user.gamertagVerified}">{{current_user.gamertag}}</a></li>
+
+				</ul>
+				<div class="input_error SQUARE" ng:if="!current_user.gamertagVerified">Your gamertag needs to be verified</div>
+
+			</td>
+			<td class="in" valign="top">
+
+				<scoreboard games="7" interval="10"></scoreboard>
+
+				<div class="loader_container" ng:class="{'NONE':!loading}">
+					
+					<div class="loader"></div>
+
+				</div>
+
+				<div class="view_container"><div ng:view></div></div>
+
+			</td>
+		</tr>
+
+	</table>
+
+</body>
+</html>

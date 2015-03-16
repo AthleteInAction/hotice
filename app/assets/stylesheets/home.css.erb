@@ -1,0 +1,170 @@
+table.home {
+	margin-left: auto;
+	margin-right: auto;
+	width: inherit;
+	border-spacing: 20px;
+}
+table.home tr td {
+	padding: 0px;
+	margin: 0;
+	vertical-align: top;
+}
+table.home tr td:first-child {
+	width: 672px;
+}
+table.home tr td:last-child {
+	width: 255px;
+	min-width: 255px;
+}
+
+table.home tr td div.main_article {
+	/*display: table-cell;*/
+	position: relative;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0 0 20px 0;
+	border: none;
+	width: 672px;
+	height: 412px;
+	background: url(<%= asset_path 'hniotourney.png' %>) center center no-repeat;
+	border: solid 1px #50DDE8;
+	border-radius: 6px;
+}
+table.home tr td div.main_article div.tray {
+	width: 672px;
+	background: rgba(15, 15, 15, 0.9);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	border-top: solid 1px #737373;
+	border-top: solid 1px #737373;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+table.home tr td div.main_article div.tray a.head {
+	display: block;
+	font-size: 35px;
+	color: #FFF;
+	padding: 20px 20px 10px 20px;
+	text-decoration: none;
+}
+table.home tr td div.main_article div.tray a.link {
+	display: block;
+  	font-size: 11px;
+  	color: #FFF;
+  	padding: 0px 20px 10px 20px;
+  	text-decoration: none;
+  	text-transform: uppercase;
+  	letter-spacing: 0.5px;
+  	font-weight: bold;
+}
+table.home tr td div.main_article div.tray a:hover {
+	color: #FFAB4D;
+}
+table.home tr td div.main_article div.tray div.sub {
+	font-size: 14px;
+	color: #FFF;
+	padding: 0 0 20px 20px;
+}
+
+table.home tr td div.app_cont {
+	margin: 20px 0 0 0;
+}
+table.home tr td:last-child div.app_cont:first-child {
+	margin-top: 0;
+}
+table.home tr td div.app_cont div.head {
+	/*border-radius: 7px 7px 0 0;*/
+  	/* border: solid 1px #F9F9F9; */
+  	/*background: #50DDE8;
+  	padding: 12px 16px 8px 16px;
+  	font-size: 20px;
+  	text-shadow: 1px 1px 1px #000000;
+  	color: #FFFFFF;
+  	font-style: italic;
+  	font-weight: 400;*/
+  	border-radius: 7px 7px 0 0;
+  	background-color: #50DDE8;
+  	padding: 12px 16px 8px 40px;
+  	font-size: 20px;
+  	text-shadow: 0 0 0;
+  	color: #373737;
+  	font-style: normal;
+  	font-weight: 300;
+}
+table.home tr td div.app_cont div.head.head-icon-news {
+	background-image: url(<%= asset_path 'head-icon-news.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 20px;
+  	background-position: 10px center;
+}
+table.home tr td div.app_cont div.head.head-icon-teams {
+	background-image: url(<%= asset_path 'head-icon-teams.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 20px;
+  	background-position: 10px center;
+}
+table.home tr td div.app_cont div.head.head-icon-members {
+	background-image: url(<%= asset_path 'head-icon-members.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 20px;
+  	background-position: 10px center;
+}
+table.home tr td div.app_cont div.head.head-icon-events {
+	background-image: url(<%= asset_path 'head-icon-events.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 20px;
+  	background-position: 10px center;
+}
+
+table.news {
+
+}
+table.news tr td {
+	vertical-align: middle;
+}
+table.news tr:nth-child(even) td {
+	
+}
+table.news tr:last-child td {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+}
+table.news tr td a {
+	color: #c2c2c2;
+  	display: block;
+  	padding: 15px 9px 9px 9px;
+  	text-decoration: none;
+  	background: #4d4c4c;
+  	line-height: 1.4em;
+}
+table.news tr td a div.title {
+	font-size: 20px;
+	color: #FFF;
+}
+table.news tr td a div.date span.pre,
+table.news tr td a div.date span.aft {
+	font-size: 13px;
+	color: #949494;
+}
+table.news tr td a:hover div.title {
+	color: #cfcfcf;
+  	text-shadow: 0 0 3px #545454;
+}
+table.news tr td a:hover {
+	color: #FFF;
+}
+table.news tr:nth-child(even) td a {
+	background: #424242;
+}
+table.news tr:last-child td a {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+}
+div.date {
+	font-size: 12px;
+	color: #BDBDBD;
+}
+.T20 {
+	margin: 20px 0 0 0 !important;
+}

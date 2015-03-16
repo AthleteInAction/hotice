@@ -1,0 +1,84 @@
+table.table {
+
+}
+table.table tr td {
+	background: #F9F9F9;
+	padding: 10px;
+	font-size: 14px;
+	vertical-align: middle;
+	width: 1px;
+	color: #818181;
+	font-weight: 100;
+}
+table.table tr td {
+	background: #FFF;
+	padding: 10px;
+	font-size: 14px;
+	vertical-align: middle;
+	width: 1px;
+	color: #818181;
+	font-weight: 100;
+	width: 1px;
+	text-align: center;
+}
+table.table tr td:first-child {
+	width: inherit;
+	text-align: left;
+}
+table.table tr:nth-child(even) td {
+	background: #F9F9F9;
+}
+table.table tr:last-child td:last-child {
+	border-bottom-right-radius: 10px;
+}
+table.table tr:last-child td:first-child {
+	border-bottom-left-radius: 10px;
+}
+table.table tr:hover td {
+	background-color: #E8FFFF;
+}
+
+table.table tr th {
+	background: #1b1c1c;
+	color: #e0e0e0;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 100;
+	padding: 7px;
+}
+table.table tr th:first-child {
+	text-align: left;
+}
+
+table.table tr td a {
+	color: #818181;
+	text-decoration: none;
+}
+table.table tr td a:hover {
+	/*color: #474747;*/
+	text-decoration: underline;
+	/*font-weight: 600;*/
+}
+table.table.small tr:last-child td:last-child {
+	border-bottom-right-radius: 6px;
+}
+table.table.small tr:last-child td:first-child {
+	border-bottom-left-radius: 6px;
+}
+
+div.VERIFIED {
+	height: 24px;
+	width: 24px;
+	background-image: url(<%= asset_path 'check.png' %>);
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	background-position: center center;
+}
+div.UNVERIFIED {
+	height: 24px;
+	width: 24px;
+	background-image: url(<%= asset_path 'alert.png' %>);
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	background-position: center center;
+}

@@ -1,0 +1,96 @@
+<table class="home">
+	<tr>
+		<td>
+
+			<div class="main_article">
+
+				<div class="tray">
+
+					<a href="/dashboard/#/events/QbpXiJZ7c4/registration" class="head">ENTER YOUR TEAM!</a>
+					<div class="sub">Enter your team into our first OTP Tournament.</div>
+					<a href="/dashboard/#/events/QbpXiJZ7c4/registration" class="link">Register >></a>
+
+				</div>
+
+			</div>
+
+			<div class="template_container NO_MARGIN">
+
+				<div class="head small">
+					<div class="head-item head-icon-news">Message Board</div>
+				</div>
+				<div class="body NO_PAD">
+
+					<table class="table small">
+						<tr ng:if="announcements.length == 0">
+							<td>
+								<a href="" ng:click="" class="F11">Loading...</a>
+							</td>
+						</tr>
+						<tr ng:repeat="article in announcements | limitTo:20">
+							<td>
+
+								<a href="">{{article.title}}</a>
+								<div class="date">
+									<span class="pre">Written:&nbsp;</span>
+									<span class="aft">{{displayDate(article.updated_at).sDate}}</span>
+								</div>
+
+							</td>
+						</tr>
+					</table>
+
+				</div>
+
+			</div>
+
+		</td>
+		<td>
+
+			<div class="template_container NO_MARGIN">
+
+				<div class="head small">
+					<div class="head-item head-icon-events">Upcoming Events</div>
+				</div>
+				<div class="body NO_PAD">
+
+					<table class="table small">
+						<tr ng:if="events.length == 0">
+							<td class="F11">Loading...</td>
+						</tr>
+						<tr ng:repeat="event in events | limitTo:10">
+							<td>
+								<a href="/dashboard/#/events/{{event.objectId}}/registration" class="F11">{{displayDate(event.start_date.iso).sDay}}:&nbsp;{{event.title}}</a>
+							</td>
+						</tr>
+					</table>
+
+				</div>
+
+			</div>
+
+			<div class="template_container T20">
+
+				<div class="head small">
+					<div class="head-item head-icon-news">NHL Headlines</div>
+				</div>
+				<div class="body NO_PAD">
+
+					<table class="table">
+						<tr ng:if="articles.length == 0">
+							<td class="F11">Loading...</td>
+						</tr>
+						<tr ng:repeat="article in articles | limitTo:10">
+							<td>
+								<a href="{{article.link}}" target="_blank" class="F11">{{article.title}}</a>
+							</td>
+						</tr>
+					</table>
+
+				</div>
+
+			</div>
+
+		</td>
+	</tr>
+</table>

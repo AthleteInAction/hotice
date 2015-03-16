@@ -1,0 +1,119 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require_directory ../.
+ */
+
+html,body {
+	/*background-color: #252525;*/
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	font-family: helvetica,arial;
+	color: #CCC;
+	font-weight: 300;
+}
+
+html {
+	/*background: url(<%= asset_path('bg.png') %>) top center no-repeat #000;*/
+	/*background: #222;*/
+	background-image: radial-gradient(circle at center 300px,#4a4a57,#131319 600px);
+}
+
+.header {
+	padding: 10px 0;
+	background: linear-gradient(#313139,#313139);
+	box-shadow: rgba(0,0,0,0.2) 0 1px 1px;
+	text-align: center;
+	margin-bottom: 35px;
+	font-weight: 400;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.header a {
+	display: block;
+	float: right;
+	text-transform: uppercase;
+	font-size: 17px;
+	color: #3C3C3C;
+	font-weight: bold;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #7CB2CA;
+	margin-left: 20px;
+	letter-spacing: -1px;
+}
+.header a:hover {
+	color: #DDD;
+}
+
+div.app_cont {
+	margin: 40px;
+	/*border-radius: 20px;
+	border: solid 1px #514D4D;
+	height: 800px;
+	background: #323232;*/
+}
+div.app_cont div.head {
+	/*border-radius: 7px 7px 0 0;
+	background: #50DDE8;
+	padding: 16px 20px 10px 20px;
+	font-size: 30px;
+	text-shadow: 1px 1px 1px #000000;
+	color: #FFFFFF;
+	font-style: italic;
+	font-weight: 400;*/
+	border-radius: 7px 7px 0 0;
+  	background-color: #50DDE8;
+  	padding: 19px 16px 12px 50px;
+  	font-size: 30px;
+  	text-shadow: 0 0 0;
+  	color: #373737;
+  	font-style: normal;
+  	font-weight: 300;
+}
+div.app_cont div.head.head-icon-news {
+	background-image: url(<%= asset_path 'head-icon-news.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 25px;
+  	background-position: 13px center;
+}
+div.app_cont div.head.head-icon-events {
+	background-image: url(<%= asset_path 'head-icon-events.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 25px;
+  	background-position: 13px center;
+}
+div.app_cont div.head.head-icon-members {
+	background-image: url(<%= asset_path 'head-icon-members.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 25px;
+  	background-position: 13px center;
+}
+div.app_cont div.head.head-icon-teams {
+	background-image: url(<%= asset_path 'head-icon-teams.png' %>);
+  	background-repeat: no-repeat;
+  	background-size: 25px;
+  	background-position: 13px center;
+}
+div.app_cont div.head div.mini {
+	color: #FC0;
+}
+div.app_cont div.body {
+	background: #494949;
+	/*border: solid 1px #E2E2E2;*/
+	border-top: none;
+	border-radius: 0 0 7px 7px;
+	padding: 20px;
+}

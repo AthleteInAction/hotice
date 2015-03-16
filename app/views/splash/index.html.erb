@@ -1,0 +1,119 @@
+<div class="splash_main">
+
+	<div class="container">
+
+		<div class="LEFT TWOTHIRD">
+
+			<div class="left_container">
+
+				<h1>Register your team!</h1>
+				<h2>Sign up and register your team to enter our first of many, "Hockey Night in OTP", weekly tournaments. Enter your EASHL Club or scrounge together some of your OTP favorites to get away from sloppy OTP games, and the headache/invisibility of EASHL Club matchmaking.</br></br><span class="BLUE">We are pushing for Saturday March 7, 2015 for our inaugural tournament.</span></h2>
+
+			</div>
+
+		</div>
+		<div class="RIGHT THIRD">
+
+			<div class="splash_form">
+
+				<%= form_tag "/", method: :post,autocomplete: 'false' do %>
+
+					<% if params[:zendesk] == 'true' %>
+						<%= hidden_field_tag :return_to,nil,value: params[:return_to] %>
+						<%= hidden_field_tag :zendesk,nil,value: 'true' %>
+					<% end %>
+					
+					<%= text_field_tag :gamertag,nil,class: "splash",tabindex: 1,placeholder: "Xbox Live Gamertag" %>
+					<div class="splash_check">
+						<%= check_box_tag :gamertag_checked,true,true,disabled: true %>
+						<label>I acknowlegde the above gamertag belongs to me</label>
+					</div>
+					<%= text_field_tag :email,nil,class: "splash",tabindex: 2,placeholder: "Email" %>
+					<div class="splash_check">
+						<%= check_box_tag :email_list,true,true %>
+						<label>We don't send you spam!</label>
+					</div>
+					<%= password_field_tag :password,nil,class: "splash",tabindex: 3,placeholder: "Create Password" %>
+					<div class="splash_check">
+						<label>Password must be at least 4 characters</label>
+					</div>
+					<%= submit_tag "Sign Up",class: "splash button" %>
+
+				<% end %>
+
+				<% if @errors[:create] %>
+
+					<div class="splash_form_error">
+						<ul>
+							<li><%= @errors[:create]['error'].gsub('username','email') %></li>
+						</ul>
+					</div>
+
+				<% end %>
+
+			</div>
+
+		</div>
+		<div class="CLEAR"></div>
+
+	</div>
+
+</div>
+<div class="splash_info">
+
+	<div class="container">
+
+		<table class="info_table">
+
+			<tr>
+				<td>
+
+					<div align="center"><h1>Why are we doing this?</h1></div>
+					<div align="center"><h2><span class="BLUE">Short answer: </span>We love the game of hockey.</h2></div>
+
+					<p class="info_p">They say "the mother of invention is necessity", well we believe the same. After years playing the NHL franchise, you certainly become familiar with every agonizing "thing" you would love to see fixed. Here are some items relating to EASHL and OTP play that have become increasingly frustrating:</p>
+
+					<ul class="info_list">
+
+						<li>You log on with your EASHL Club teammates to dig into some late night, competitive, Club action, only to find one game in exactly 40 minutes of time spent searching. Now your Club decides to take its operation over to OTP just to get some games in.</li>
+
+						<li>^ Now people see your entire team lined up, positions selected, in the pregame lobby. The smart ones see it, won't play you, the dumb ones don't know any better and ready-up. EASHL Club vs 6 randoms...smells like a 9-2 victory if the game makes it past the 2nd period.</li>
+
+						<li>How many OTP games start with 2 goals in the first 3 minutes only to lead to 4 players immediately quitting?</br><span class="BLUE">No need to display the answer. If you found your way to this site, you already know.</span></li>
+
+						<li>You look into joining an NHL 15 League (such as IOHL). Sounds great, until you can't commit to a full 82 game season, a pre-season, and a full playoff run.</li>
+
+						<li>Looking at the OTP player leaderboards, the #7 ranked center has 98 gp for the month, 2.1 ppg, a 56-42 record, they are -3, and they are ranked ahead of poeple who have 110 gp, 3.7 ppg, a 89-21 record, and they are +123. <span class="BLUE">Who knows how they come up with this stuff!</span> </li>
+
+					</ul>
+
+				</td>
+				<td>
+
+					<div align="center"><h1>Our Mission</h1></div>
+					<div align="center"><h2>Competitive, fun, team hockey!</h2></div>
+
+					<p class="info_p">We want to create a community where everything is visible. Here is what we are working on:</p>
+
+					<ul class="info_list">
+
+						<li><span class="BLUE">First and foremost:</span> We want to be powered by YOU. You suggest...we implement, you critisize...we listen, you complain...we fix.</li>
+						
+						<li><span class="BLUE">Competitive Tournamnets:</span> Weekly tournaments which require virtually ZERO commitment. Play your entire tournament in one session. 3, 5 or even 7 game series tournaments, anywhere from 8 to 16 teams, depending on demand. Play with your EASHL Club teammates, or gather up your best squad from your friends list and work your way to the top.</li>
+
+						<li><span class="BLUE">EASHL Club Challenge platform:</span> See what Clubs are online, challenge "that Club", who you despise, then serve them a cold dish of revenge.</li>
+
+						<li><span class="BLUE">Player Awards:</span> Receive honors for outstanding performances in tounament play. Conn Smythe, Art Ross, Vezina...</li>
+
+						<li><span class="BLUE">Player and Team Rankings:</span> A much more visible, and SENSIBLE, ranking system. Work your way up to be the most respected, feared or hated player...and if your really good maybe all three!</li>
+
+					</ul>
+
+				</td>
+			</tr>
+
+		</table>
+
+	</div>
+
+</div>

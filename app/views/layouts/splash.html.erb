@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotice</title>
+  <%= stylesheet_link_tag    'splash/splash', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <!-- Start of hotice1 Zendesk Widget script -->
+  <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("//assets.zendesk.com/embeddable_framework/main.js","hotice1.zendesk.com");/*]]>*/</script>
+  <!-- End of hotice1 Zendesk Widget script -->
+</head>
+<body>
+
+	<div class="splash_header">
+
+		<div class="container">
+	
+			<table class="splash_header_table">
+				<tr>
+					<td align="left" valign="middle">
+	
+						<a href="/" class="logo_splash"></a>
+	
+					</td>
+					<td align="right" valign="middle">
+
+						<div class="splash_login">
+
+							<div class="splash_login_form">
+
+								<%= form_tag '/access/normal',method: :post do %>
+									
+									<%= hidden_field_tag :login,nil,value: 'true' %>
+
+									<% if params[:zendesk] == 'true' %>
+										<%= hidden_field_tag :return_to,nil,value: params[:return_to] %>
+										<%= hidden_field_tag :zendesk,nil,value: 'true' %>
+									<% end %>
+
+									<%= text_field_tag :email,nil,placeholder: "Email" %>
+									<%= password_field_tag :password,nil,class: "",placeholder: "Password" %>
+									<%= submit_tag "Log In",class: "button" %>
+								
+								<% end %>
+
+							</div>
+							<div class="password_reset"><a href="/access/password/reset">Forgot your password?</a></div>
+
+						</div>
+	
+					</td>
+				</tr>
+			</table>
+	
+		</div>
+	
+	</div>
+
+	<%= yield %>
+
+	<div class="splash_footer"></div>
+
+</body>
+</html>

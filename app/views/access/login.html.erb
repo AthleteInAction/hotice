@@ -1,0 +1,28 @@
+<div class="access">
+
+	<% if params[:error] %>
+
+		<div class="input_error"><%= params[:error] %></div>
+	
+	<% end %>
+
+	<%= form_tag "/access/normal", method: :post,autocomplete: 'off' do %>
+
+		<% if params[:zendesk] == 'true' %>
+			<%= hidden_field_tag :return_to,nil,value: params[:return_to] %>
+			<%= hidden_field_tag :zendesk,nil,value: 'true' %>
+		<% end %>
+
+		<%= text_field_tag :email,nil,tabindex: 1,placeholder: "Email",class: 'FULL' %>
+		<%= password_field_tag :password,nil,tabindex: 2,placeholder: "Password",class: 'FULL' %>
+		<%= submit_tag 'Log In',class: 'button FULL' %>
+
+	<% end %>
+
+	<div class="splash_login">
+
+		<div class="password_reset normal"><a href="/access/password/reset">Forgot your password?</a></div>
+
+	</div>
+
+</div>

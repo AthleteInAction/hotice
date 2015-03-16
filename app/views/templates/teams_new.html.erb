@@ -1,0 +1,71 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<a href="/dashboard/#/teams">Teams</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">New</span>
+	</div>
+
+	<div class="head">
+		<div class="head-item head-icon-teams">Create A Team</div>
+	</div>
+	<div class="body">
+
+		<div class="standard">
+
+			<div class="sep">
+				<input ng:model="team.name" onstop="checkTeamName()" ng:keyup="nameSearch()" delay="750" placeholder="Team Name" type="text" class="FULL" onenter="createTeam()" />
+				<div class="input_error" ng:if="errors.name.message">{{errors.name.message}}</div>
+				<div class="input_alert" ng:if="errors.name.searching">Checking if this team name already exists...</div>
+			</div>
+
+			<div class="sep">
+
+				<select ng:model="team.timezone">
+					<option value="">Select a Time Zone</option>
+					<option value="pacific">Pacific</option>
+					<option value="mountain">Mountain</option>
+					<option value="central">Central</option>
+					<option value="eastern">Eastern</option>
+					<option value="atlantic">Atlantic</option>
+					<option value="newfoundland">Newfoundland</option>
+					<option value="europe">Europe</option>
+					<option value="other">Other</option>
+				</select>
+
+			</div>
+
+			<!-- <div class="sep">
+
+				<table class="invite">
+
+					<tr>
+						<th>Members:</th>
+						<th>
+							<input type="text" class="FULL filter" placeholder="Invite people to your team..." wambl-autocomplete="$parent.users" wambl-exclude="team.invited" wambl-on-select="addTeammate(item)" wambl-on-click="addTeammate(item)" wambl-display-attr="gamertag" wambl-select-first="true" ng:model="teammateAdder" />
+						</th>
+					</tr>
+
+					<tr ng:repeat="user in team.invited">
+						<td class="inner">{{user.gamertag}}</td>
+						<td class="inner"><a href="" class="remove" ng:click="removeTeammate($index)" ng:if="user.objectId != current_user['objectId']">Remove</a></td>
+					</tr>
+
+				</table>
+
+			</div> -->
+
+			<div class="sep" align="center">
+
+				<input type="submit" class="button FULL" value="Submit" ng:if="!submitting" ng:click="createTeam()" />
+				<input type="submit" class="button FULL" value="Loading..." ng:if="submitting" ng:disabled="true" />
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

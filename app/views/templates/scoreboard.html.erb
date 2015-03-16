@@ -1,0 +1,32 @@
+<div class="scores_container" ng:if="scores.length > 0">
+	<table class="scores">
+		<tr>
+	
+			<td class="arrow">
+				<button ng:click="scoreScroll(-1)"></button>
+			</td>
+			<td ng:repeat="game in displayScores">
+	
+				<div class="team">
+					<div class="LEFT">{{game.atn}}</div>
+					<div class="RIGHT">{{game.ats}}</div>
+					<div class="CLEAR"></div>
+				</div>
+	
+				<div class="team">
+					<div class="LEFT">{{game.htn}}</div>
+					<div class="RIGHT">{{game.hts}}</div>
+					<div class="CLEAR"></div>
+				</div>
+	
+				<div class="status" ng:if="game.bsc == 'progress'">{{game.ts}}</div>
+				<div class="status" ng:if="game.bsc != 'progress'">{{game.bs}}</div>
+	
+			</td>
+			<td class="arrow">
+				<button ng:click="scoreScroll(1)"></button>
+			</td>
+	
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,92 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<a href="/dashboard/#/teams">Teams</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">{{team.team.name}}</span>
+	</div>
+
+	<div class="team_header">
+
+		<div class="name">{{team.team.name}}</div>
+		<div class="record">{{team.team.wins}}&nbsp;-&nbsp;{{team.team.losses}}&nbsp;-&nbsp;{{team.team.otl}}</div>
+
+	</div>
+
+	<div class="template_container NO_PAD">
+
+		<div class="head">
+			<div class="head-item head-icon-teams">Roster</div>
+			<div class="head-item" ng:if="i_am_admin">
+				<input type="text" class="filter W250" placeholder="Invite people to your team..." wambl-autocomplete="$parent.users" wambl-exclude="members" wambl-on-select="inviteMember(item)" wambl-on-click="inviteMember(item)" wambl-display-attr="gamertag" wambl-select-first="false" wambl-blank-on-select="true" ng:model="teammateAdder" />
+			</div>
+		</div>
+		<div class="body NO_PAD">
+
+			<table class="table">
+
+				<tr ng:show="i_am_admin">
+					<!-- NAME -->
+					<th>
+						<input type="radio" ng:model="userFilter" value="accepted" />
+						<label>Accepted</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" ng:model="userFilter" value="invited" />
+						<label>Invited</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" ng:model="userFilter" value="requested" />
+						<label>Requested</label>
+					</th>
+					<!-- GM/ACCEPT -->
+					<th ng:if="userFilter != 'invited'">&nbsp;</th>
+					<!-- REMOVE -->
+					<th>&nbsp;</th>
+				</tr>
+
+				<tr>
+					<!-- NAME -->
+					<th>Gamertag</th>
+					<!-- GM -->
+					<th ng:if="i_am_admin && userFilter == 'accepted'">GM</th>
+					<!-- ACCEPT -->
+					<th ng:if="i_am_admin && userFilter == 'requested'">&nbsp;</th>
+					<!-- REMOVE -->
+					<th ng:if="i_am_admin">&nbsp;</th>
+				</tr>
+
+				<tr ng:if="team.length == 0">
+					<!-- NAME -->
+					<td>Loading...</td>
+					<!-- GM/ACCEPT -->
+					<td ng:if="i_am_admin && userFilter != 'invited'">&nbsp;</td>
+					<!-- REMOVE -->
+					<td ng:if="i_am_admin">&nbsp;</td>
+				</tr>
+	
+				<tr ng:repeat="user in members | orderBy:'gamertag' | filter:{'status':userFilter}" ng:click="">
+					<!-- NAME -->
+					<td>
+						<a href="">{{user.gamertag}}</a>
+						<div class="PENDING" ng:if="user.status != 'accepted'">{{user.status.toUpperCase()}}</div>
+					</td>
+					<!-- GM -->
+					<td ng:if="i_am_admin && userFilter == 'accepted'">
+						<input type="checkbox" ng:checked="user.admin" ng:model="user.admin" ng:change="editAdmin(user)" ng:disabled="user.objectId == current_user.objectId || user.status != 'accepted'" />
+					</td>
+					<!-- ACCEPT -->
+					<td ng:if="i_am_admin && userFilter == 'requested'">
+						<a href="" ng:click="addMember($index)" class="accept" ng:if="user.objectId != current_user.objectId">Accept</a>
+					</td>
+					<!-- REMOVE -->
+					<td ng:if="i_am_admin">
+						<a href="" ng:click="removeMember(user)" class="remove" ng:if="user.objectId != current_user.objectId">Remove</a>
+					</td>
+				</tr>
+
+			</table>
+
+		</div>
+
+	</div>
+
+</div>

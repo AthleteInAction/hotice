@@ -1,0 +1,43 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">My Account</span>
+	</div>
+
+	<div class="head">
+		<div class="head-item head-icon-myaccount">My Account</div>
+	</div>
+	<div class="body">
+
+		<div class="user-form">
+
+			<table class="alert" ng:if="current_user && !current_user.gamertagVerified">
+				<tr>
+					<td><%= image_tag 'alert.png',height: 50,class: 'LEFT' %></td>
+					<td>Your gamertag needs to be verified!</td>
+				</tr>
+				<tr>
+					<td colspan="2">To verify your gamertag, login to your Xbox Live account on your Xbox, or <a href="https://account.xbox.com/en-US/Messages?xr=mebarnav" target="_blank">here</a>, then send a message to the gamertag <span class="ORANGE">HotIceHockey</span> with the following unique verification code: <span class="ORANGE">{{current_user.verifyCode}}</span></td>
+				</tr>
+			</table>
+
+			Press 'Enter' to save a field.
+
+			<input type="text" class="FULL" placeholder="Gamertag" ng:model="new_gamertag" onenter="saveUser('gamertag')" ng:show="!l.gamertag.saving" ng:blur="new_gamertag = current_user.gamertag" />
+			<input type="text" class="FULL" value="Saving..." disabled="disabled" ng:show="l.gamertag.saving" />
+
+			<input type="text" class="FULL" placeholder="Email" ng:model="new_email" onenter="saveUser('email')" ng:show="!l.email.saving" ng:change="checkEmail()" ng:blur="new_email = current_user.email; checkEmail()" />
+			<input type="text" class="FULL" value="Saving..." disabled="disabled" ng:show="l.email.saving" />
+			<div class="input_error" ng:class="{'INVIS':!l.email.error}">{{l.email.error}}</div>
+
+			<input type="password" class="FULL" placeholder="New Password" ng:model="new_password" onenter="saveUser('password')" ng:show="!l.password.saving" ng:change="checkPassword()" ng:blur="new_password = null; checkPassword()" />
+			<input type="text" class="FULL" value="Saving..." disabled="disabled" ng:show="l.password.saving" />
+			<div class="input_error" ng:class="{'INVIS':!l.password.error}">{{l.password.error}}</div>
+
+		</div>
+
+	</div>
+
+</div>

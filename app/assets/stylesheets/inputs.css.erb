@@ -1,0 +1,85 @@
+input {
+	outline: none;
+}
+
+input[type="text"],input[type="password"] {
+	font-family: helvetica,arial;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	font-size: 14px;
+	padding: 11px 10px 9px 10px;
+	margin-top: -1px;
+	border-radius: 3px;
+	border: solid 1px #D8D8D8;
+	font-weight: normal;
+	color: #222;
+}
+
+input[type="text"].splash,input[type="password"].splash {
+	width: 100%;
+	background: #F7F7F7;
+	font-family: helvetica,arial;
+	font-size: 16px;
+	color: #454545;
+	padding: 12px 12px 9px 12px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: solid 1px #FFF;
+}
+input[type="text"].splash:focus,input[type="password"].splash:focus {
+	background: #FFF;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),0 0 12px rgba(255,255,255,0.75);
+	outline: none;
+}
+
+table.dashboard_table input[type="text"],table.dashboard_table input[type="password"] {
+	font-family: helvetica,arial;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	font-size: 18px;
+	padding: 12px 10px 9px 10px;
+	margin-top: -1px;
+	border-radius: 0px;
+	border: solid 3px #C0C0C0;
+	font-weight: 300;
+	color: #525252;
+}
+
+div.standard input[type="text"]:focus,
+div.standard input[type="password"]:focus {
+	/*box-shadow: 0 0 10px #50DDE8;*/
+}
+
+div.standard input[type="submit"].button {
+	color: #625C5C;
+	letter-spacing: 1px;
+	font-size: 20px;
+	padding: 9px 10px 10px 10px;
+	/*border: 1px solid #50DDE8;*/
+	/*box-shadow: 0 0 10px #50DDE8;*/
+}
+div.standard input[type="submit"].button:hover {
+	box-shadow: none;	
+	/*color: #8C8B8B;*/
+	background-image: -webkit-linear-gradient(#c3c3c3,#c3c3c3);
+	background-image: linear-gradient(#c3c3c3,#c3c3c3);
+}
+
+
+div.input_error {
+	background: #FD4747;
+	color: #FFF;
+	font-size: 14px;
+	padding: 8px 8px 6px 8px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+div.input_alert {
+	background: #FFF29C;
+	color: #6B6B6B;
+	text-shadow: 1px 1px 0px #FFF9D8;
+	font-size: 14px;
+	padding: 8px 8px 6px 8px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}

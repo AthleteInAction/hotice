@@ -1,0 +1,43 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">Members</span>
+	</div>
+
+	<div class="head">
+		<div class="head-item head-icon-members">Members</div>
+		<div class="head-item">
+
+			<input type="text" placeholder="Filter..." class="filter" ng:change="filterUsers()" ng:model="filter" />
+
+		</div>
+	</div>
+	<div class="body NO_PAD">
+
+		<table class="table">
+
+			<tr>
+				<th>Player</th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr ng:if="loading">
+				<td>Loading...</td>
+				<td>&nbsp;</td>
+			</tr>
+
+			<tr>
+				<td><a href="">{{current_user.gamertag}}</a></td>
+				<td><div class="" ng:class="{'VERIFIED':current_user.gamertagVerified,'UNVERIFIED':!current_user.gamertagVerified}"></div></td>
+			</tr>
+			<tr ng:repeat="member in members | orderBy:sort" ng:click="">
+				<td class="MIN"><a href="">{{member.gamertag}}</a></td>
+				<td><div class="" ng:class="{'VERIFIED':member.gamertagVerified,'UNVERIFIED':!member.gamertagVerified}"></div></td>
+			</tr>
+
+		</table>
+
+	</div>
+
+</div>

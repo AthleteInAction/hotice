@@ -1,0 +1,61 @@
+ul.navigation {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-top: #1B1B1B solid 1px;
+  	border-bottom: solid 1px #424242;
+}
+ul.navigation li {
+	background-size: 24px 24px;
+  	background-position: 20px center;
+  	background-repeat: no-repeat;
+  	background-color: #323232;
+  	border-top: #424242 solid 1px;
+  	border-bottom: solid 1px #1B1B1B;
+}
+ul.navigation li a {
+	display: block;
+  	padding: 18px 14px 14px 14px;
+  	padding-left: 60px;
+  	color: #FFAB4D;
+  	text-decoration: none;
+}
+ul.navigation li a.alert {
+	background-image: url(<%= asset_path 'alert.png' %>);
+	background-size: 24px 24px;
+  	background-position: right 16px center;
+  	background-repeat: no-repeat;
+}
+ul.navigation li a.check {
+	background-image: url(<%= asset_path 'check.png' %>);
+	background-size: 24px 24px;
+  	background-position: right 16px center;
+  	background-repeat: no-repeat;
+}
+ul.navigation li.icon-home {
+	background-image: url(<%= asset_path 'icon-home.png' %>);
+}
+ul.navigation li.icon-teams {
+	background-image: url(<%= asset_path 'icon-teams.png' %>);
+}
+ul.navigation li.icon-events {
+	background-image: url(<%= asset_path 'icon-events.png' %>);
+}
+ul.navigation li.icon-members {
+	background-image: url(<%= asset_path 'icon-members.png' %>);
+}
+ul.navigation li.icon-myaccount {
+	background-image: url(<%= asset_path 'icon-myaccount.png' %>);
+}
+
+ul.navigation li:hover {
+	background-color: #42413E;
+  	border-top: solid 1px #525252;
+  	border-bottom: solid 1px #1D1D1D;
+}
+div.navigation-end {
+	border-top: #424242 solid 1px;
+}
+div.navigation-start {
+	border-bottom: solid 1px #1B1B1B;
+}

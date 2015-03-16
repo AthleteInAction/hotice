@@ -1,0 +1,21 @@
+<div class="app_cont">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<a href="/dashboard/#/articles">Articles</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">{{article.title}}</span>
+	</div>
+
+	<div class="head news">
+		<div class="LEFT">{{article.title}}</div>
+		<div class="CLEAR"></div>
+	</div>
+	<div class="body">
+
+		<div ng-bind-html="article.body" class="article show"></div>
+
+	</div>
+
+</div>

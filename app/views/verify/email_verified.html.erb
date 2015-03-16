@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <!-- This page is displayed whenever someone has successfully reset their password.
+       Pro and Enterprise accounts may edit this page and tell Parse to use that custom
+       version in their Parse app. See the App Settigns page for more information.
+       This page will be called with the query param 'username'
+   -->
+  <head>
+  <title>Email Verification</title>
+  <style type='text/css'>
+  html,body {
+    background: url(<%= asset_path 'bg.png' %>) center center no-repeat #000;
+  }
+    div.verify_cont {
+  text-align: center;
+  margin-top: 60px;
+  font-family: helvetica,arial;
+}
+div.verify_cont h1 {
+  font-family: helvetica,arial;
+  color: #CACACA;
+    font-weight: 300;
+    line-height: 0;
+    font-size: 42px;
+    text-shadow: none;
+}
+div.verify_cont h2 {
+  font-family: helvetica,arial;
+  color: #777;
+  font-size: 20px;
+  font-weight: 300;
+  text-shadow: none;
+}
+  </style>
+  <body>
+    <div class="verify_cont"><h1>Your email has been verified!<br><h2>Login at the top right.</h2></h1></div>
+  </body>
+</html>

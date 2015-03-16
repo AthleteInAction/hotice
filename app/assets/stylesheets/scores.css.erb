@@ -1,0 +1,60 @@
+div.scores_container {
+	background: #2c2c2c;
+}
+table.scores {
+	margin-left: auto;
+	margin-right: auto;
+	table-layout: fixed;
+	border-spacing: 0px;
+	width: inherit;
+}
+
+table.scores tr td {
+	width: 90px;
+	background: #2c2c2c;
+  	font-size: 11px;
+  	padding: 7px;
+  	border-left: solid 1px #3F3F3F;
+  	border-right: solid 1px #1D1D1D;
+}
+table.scores tr td:first-child {
+	border-left: solid 1px #3F3F3F;
+	padding: 0;
+}
+table.scores tr td:last-child {
+	/*border-right: none;*/
+	padding: 0;
+}
+table.scores tr td.arrow {
+	width: 20px;
+}
+table.scores tr td.arrow button {
+	outline: none;
+	width: 100%;
+	height: 100%;
+	border: none;
+	background: url(<%= asset_path 'rightArrow.png' %>) center center no-repeat #2c2c2c;
+	cursor: pointer;
+}
+table.scores tr td.arrow:first-child button {
+	background: url(<%= asset_path 'leftArrow.png' %>) center center no-repeat #2c2c2c;
+}
+table.scores tr td.arrow:first-child button:hover {
+	background: url(<%= asset_path 'leftArrow.png' %>) center center no-repeat #282828;
+}
+table.scores tr td.arrow button:hover {
+	background: url(<%= asset_path 'rightArrow.png' %>) center center no-repeat #282828;
+}
+table.scores tr a.arrow {
+	display: table-cell;
+	background: #090;
+	width: 20px;
+}
+
+table.scores tr td div.team {
+	margin-bottom: 3px;
+}
+table.scores tr td div.status {
+	color: #ffab4d;
+	font-size: 10px;
+}

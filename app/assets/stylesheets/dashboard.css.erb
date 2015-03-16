@@ -1,0 +1,134 @@
+table.dashboard_table {
+	width: 100%;
+	height: 100%;
+}
+
+table.dashboard_table tr.in:first-child td.in:first-child {
+	background: #50DDE8;
+	width: 250px;
+	min-width: 250px;
+	height: 50px;
+}
+table.dashboard_table tr.in:first-child td.in:last-child {
+	background: #FFAB4D;
+	padding-right: 20px;
+}
+table.dashboard_table tr.in:last-child td.in:first-child {
+	background: #323232;
+	padding-top: 70px;
+	border-top: solid 1px #514D4D;
+}
+table.dashboard_table tr.in:last-child td.in:last-child {
+	background: #383838;
+}
+
+
+a.logo {
+	display: block;
+	position: absolute;
+	z-index: 1000;
+	/*left: 51.5px;*/
+	left: 76px;
+	top: 5px;
+	width: 97px;
+	height: 80px;
+	background: url(<%= asset_path 'hotice.png' %>) center center no-repeat;
+}
+
+a.orange_link {
+	display: block;
+	float: right;
+	padding: 0 10px;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 20px;
+	color: #2c2c2c;
+	text-shadow: 1px 1px 0px #FFCA8E;
+	text-decoration: none;
+	letter-spacing: 0.5px;
+}
+a.orange_link:hover {
+	color: #2A565C;
+	/*text-shadow: 1px 1px 0px #222;*/
+}
+
+table.dashboard_table a.orange_link:first-child {
+	border-right: none;
+}
+
+ul.nav {
+	width: 100%;
+	margin: 30px 0 0 0;
+	padding: 0;
+	list-style: none;
+	border-top: solid 1px #181818;
+}
+
+ul.nav li {
+	width: 100%;
+	border-bottom: solid 1px #181818;
+	border-top: solid 1px #514D4D;
+}
+
+ul.nav li div.ncont {
+	padding: 18px;
+}
+ul.nav li div.ncont div.message {
+	color: #d0d0d0;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+ul.nav li div.ncont div.message span.ruby_highlight {
+	color: #FFAB4D;
+	font-weight: bold;
+}
+ul.nav li div.ncont div.options {
+	margin-left: auto;
+	margin-right: auto;
+}
+ul.nav li div.ncont div.options a.option {
+	
+}
+/*ul.nav li:first-child {
+	border-top: none;
+}
+ul.nav li:last-child {
+	border-bottom: none;
+}*/
+ul.nav li a {
+	/*display: block;
+	width: 100%;
+	padding: 13px 0 9px 30px;
+	color: #E8E8E8;
+	font-size: 15px;
+	font-weight: 600;
+	text-transform: uppercase;
+	text-shadow: 2px 2px 1px #222;
+	text-decoration: none;
+	letter-spacing: 2px;*/
+}
+ul.nav li a:hover {
+	/*color: #FFAB4D;*/
+}
+
+div.nav_killer {
+	height: 1px;
+	border-top: solid 1px #514D4D;
+}
+
+div.create_team {
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+div.create_team a {
+	color: #50DDE8;
+	text-decoration: none;
+	text-shadow: 1px 1px 2px #000;
+}
+div.create_team a:hover {
+	color: #269EA8;
+}
+
+div.view_container {
+	overflow-y: scroll;
+}
