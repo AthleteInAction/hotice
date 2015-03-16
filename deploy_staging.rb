@@ -29,5 +29,11 @@ puts '====='*10
 system 'git checkout local'
 puts '====='*10
 puts '====='*10
-puts "\n"
+
+puts "\n\n"
+puts '!!!!!'*10
+puts '!!!!!'*10
 puts 'FINISHED!'
+puts '!!!!!'*10
+puts '!!!!!'*10
+puts "\n\n"
