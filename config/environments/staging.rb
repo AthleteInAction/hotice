@@ -36,4 +36,18 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  TITLE = 'Hot Ice! [Staging]'
+
+  # Parse.com
+  APP_ID = 'pTgNnmnQSpIeZrFHrzWhdEHBsQpUJPiiFemsbUme'
+  REST_KEY = 'X4YzW6g7pAq60pJCTAsQ3lfyOEQuEl1yznPLgixr'
+
+  # Zendesk.com
+  ZENDESK_DOMAIN = 'hotice11425586661'
+  SHARED_SECRET = 'dXZFeNxFGAMFmCE5kLnynvo2njdDuMpWVFHSNSIhDZFhWVYf'
+  ZENDESK_USERNAME = 'wambltemp@gmail.com'
+  ZENDESK_TOKEN = 'qqCPvCXkb28JBm59lKGMUjE5baVtcy4JDfJhthLt'
+  ANNOUNCEMENTS_ID = 200651088
+
 end

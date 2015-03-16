@@ -80,7 +80,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false
 
-  TITLE = 'Hot Ice! [Staging]'
+  TITLE = 'Hot Ice!'
 
   # Parse.com
   APP_ID = 'pTgNnmnQSpIeZrFHrzWhdEHBsQpUJPiiFemsbUme'
