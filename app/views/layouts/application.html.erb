@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Hotice</title>
-  <%= stylesheet_link_tag    'application/application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application/application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
   <script>var current_user = <%= session[:user].to_json.html_safe %>;</script>
   <!-- Start of Zendesk Widget -->
