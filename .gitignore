@@ -18,6 +18,3 @@
 /log/*.txt
 /log/*.xml
 /tmp
-
-# Ignore environment.rb
-/config/environment.rb
