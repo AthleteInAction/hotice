@@ -35,7 +35,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  TITLE = 'Hot Ice! [Local-Test]'
+  TITLE = 'Hot Ice! [Local]'
 
   # Parse.com
   APP_ID = 'pTgNnmnQSpIeZrFHrzWhdEHBsQpUJPiiFemsbUme'
