@@ -5,13 +5,13 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby 2.0.0p481
 
 * System dependencies
 
 * Configuration
 
-* Database creation
+* Database Parse.com
 
 * Database initialization
 
