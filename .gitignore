@@ -13,6 +13,10 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.json
+/log/*.jsonp
+/log/*.txt
+/log/*.xml
 /tmp
 
 # Ignore environment.rb
