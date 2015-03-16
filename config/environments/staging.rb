@@ -8,6 +8,7 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
   config.active_support.deprecation = :stderr
   config.assets.raise_runtime_errors = true
+  config.assets.js_compressor = :uglifier
 
   TITLE = 'Hot Ice! [Staging]'
 
