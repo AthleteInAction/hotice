@@ -16,10 +16,10 @@
 //= require AngularJS/angular-resource
 //= require AngularJS/angular-ui
 //= require AngularJS/angular-route
-//= require_directory ./AngularCTRL
-//= require_tree .
+//= require_tree ./AngularCTRL
+//= require_tree ./Zendesk
 var HotIce;
-HotIce = angular.module('HotIce',['ngRoute','ngResource','ui','ngSanitize']);
+HotIce = angular.module('HotIce',['ngRoute','ngResource','ui']);
 HotIce.value('$anchorScroll',angular.noop);
 HotIce.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
 	
@@ -40,8 +40,11 @@ HotIce.config(['$routeProvider','$locationProvider',function($routeProvider,$loc
 	}).when('/myteams',{
 		templateUrl : '/angularjs/templates/teams.html',
 		controller: TeamsCtrl
+	}).when('/events/:id',{
+		templateUrl : '/angularjs/templates/events_show.html',
+		controller: EventShowCtrl
 	}).when('/events/:id/registration',{
-		templateUrl : '/angularjs/templates/event_registration.html',
+		templateUrl : '/angularjs/templates/events_registration.html',
 		controller: EventRegistrationCtrl
 	}).when('/members',{
 		templateUrl : '/angularjs/templates/members.html',

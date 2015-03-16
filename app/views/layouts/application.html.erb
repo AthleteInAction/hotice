@@ -2,13 +2,10 @@
 <html>
 <head>
   <title><%= TITLE %></title>
+  <script>var current_user = <%= session[:user].to_json.html_safe %>;</script>
   <%= stylesheet_link_tag    'application/application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
-  <script>var current_user = <%= session[:user].to_json.html_safe %>;</script>
-  <!-- Start of Zendesk Widget -->
-  <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("//assets.zendesk.com/embeddable_framework/main.js","<%= ZENDESK_DOMAIN %>.zendesk.com");/*]]>*/</script>
-  <!-- End of Zendesk Widget -->
 </head>
 <body ng:App="HotIce" ng:controller="MainCtrl">
 
@@ -36,7 +33,7 @@
 				<ul class="navigation">
 
 					<li class="icon-home"><a href="#/home">Home</a></li>
-					<li class="icon-events"><a href="#/events/QbpXiJZ7c4/registration">Events</a></li>
+					<li class="icon-events"><a href="#/events/QbpXiJZ7c4">Events</a></li>
 					<li class="icon-teams"><a href="#/teams">Teams</a></li>
 					<li class="icon-members"><a href="#/members">Members</a></li>
 					<li class="icon-myaccount"><a href="#/myaccount" ng:class="{alert:!current_user.gamertagVerified,check:current_user.gamertagVerified}">{{current_user.gamertag}}</a></li>
