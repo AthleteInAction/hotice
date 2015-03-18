@@ -23,6 +23,8 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 		$scope.displayTeams = [];
 		$scope.displayRegisteredTeams = [];
 
+		$scope.roster = {};
+		$scope.dRoster = {};
 
 		$scope.getData = function(){
 
@@ -67,20 +69,14 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 							val.team.registered = false;
 						}
 
+						val.team.i_am_admin = val.admin;
+
 						$scope.myTeams.push(val.team);
 					}
 
 				});
 
 				$scope.displayTeams = $scope.myTeams;
-
-				$scope.displayRegisteredTeams = [];
-
-				$.each($scope.registeredList,function(key,val){
-
-					$scope.displayRegisteredTeams.push(val);
-
-				});
 
 			});
 
@@ -103,11 +99,9 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 		};
 
-		$scope.registerTeam = function(i){
+		$scope.registerTeam = function(team){
 
 			$scope.$parent.loading = true;
-
-			var team = $scope.displayTeams[i];
 
 			this.options = {
 				type: 'relations'
@@ -138,9 +132,8 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			Relation.$create(this.options,function(data){
 
-				$scope.displayTeams[i].registered = true;
-				$scope.displayTeams[i].relationId = data.body.objectId;
-				$scope.teamFilter = true;
+				team.registered = true;
+				team.relationId = data.body.objectId;
 				$scope.$parent.loading = false;
 
 			},function(){
@@ -151,11 +144,9 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 		};
 
-		$scope.unregisterTeam = function(i){
+		$scope.unregisterTeam = function(team){
 
 			$scope.$parent.loading = true;
-
-			var team = $scope.displayTeams[i];
 
 			this.options = {
 				type: 'relations',
@@ -164,8 +155,8 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			ApiModel.destroy(this.options,function(data){
 
-				$scope.displayTeams[i].registered = false;
-				$scope.displayTeams[i].relationId = null;
+				team.registered = false;
+				team.relationId = null;
 				$scope.$parent.loading = false;
 
 			},function(data){
@@ -173,6 +164,134 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				$scope.$parent.loading = false;
 
 			});
+
+		};
+
+		$scope.getRoster = function(id){
+
+			if ($scope.dRoster[id]){
+				$scope.roster[id] = angular.copy($scope.dRoster[id]);
+				return false;
+			}
+
+			$scope.$parent.loading = true;
+
+			this.options = {
+				type: 'relations',
+				constraints: '{"$or":[{"type":"team","team":{"__type":"Pointer","className":"Teams","objectId":"'+id+'"},"status":"accepted"},{"type":"event_roster","team":{"__type":"Pointer","className":"Teams","objectId":"'+id+'"},"event":{"__type":"Pointer","className":"Events","objectId":"'+$scope.params.id+'"}}]}',
+				include: 'user'
+			};
+
+			ApiModel.query(this.options,function(data){
+
+				var r = [];
+				var e = {};
+
+				$.each(data.body.results,function(key,val){
+
+					if (val.type == 'event_roster'){
+
+						val.user.relationId = val.objectId;
+						e[val.user.objectId] = val.user;
+
+					}
+
+				});
+
+				$.each(data.body.results,function(key,val){
+
+					if (val.type == 'team'){
+
+						if (e[val.user.objectId]){
+							val.user.event_active = true;
+							val.user.relationId = e[val.user.objectId].relationId;
+						} else {
+							val.user.event_active = false;
+							val.user.relationId = null
+						}
+						val.user.teamId = id;
+						r.push(val.user);
+
+					}
+
+				});
+
+				$scope.roster[id] = r;
+				$scope.dRoster = angular.copy($scope.roster);
+
+				$scope.$parent.loading = false;
+
+			},function(data){
+
+				$scope.$parent.loading = false;
+
+			});
+
+		};
+
+		$scope.setStatus = function(user){
+
+			$scope.$parent.loading = true;
+
+			this.options = {
+				type: 'relations'
+			};
+
+			if (user.event_active){
+
+				var r = {
+					event: {
+						__type: 'Pointer',
+						className: 'Events',
+						objectId: $scope.params.id
+					},
+					team: {
+						__type: 'Pointer',
+						className: 'Teams',
+						objectId: user.teamId
+					},
+					user: {
+						__type: 'Pointer',
+						className: '_User',
+						objectId: user.objectId
+					},
+					type: 'event_roster'
+				};
+
+				var Relation = new ApiModel({relation: r});
+
+				Relation.$create(this.options,function(data){
+
+					user.relationId = data.body.objectId;
+					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+					$scope.$parent.loading = false;
+
+				},function(data){
+
+					$scope.$parent.loading = false;
+					user.event_active = false;
+					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+
+				});
+
+			} else {
+
+				this.options.id = user.relationId;
+
+				ApiModel.destroy(this.options,function(data){
+
+					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+					$scope.$parent.loading = false;
+
+				},function(data){
+
+					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+					user.event_active = true;
+					$scope.$parent.loading = false;
+
+				});
+
+			}
 
 		};
 

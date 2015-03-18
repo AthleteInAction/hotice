@@ -50,30 +50,33 @@
 			<table class="table">
 
 				<tr>
-					<th colspan="2">
-						<input type="radio" ng:model="teamFilter" ng:value="true" />
-						<label>Registered</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="radio" ng:model="teamFilter" ng:value="false" />
-						<label>Un-Registered</label>
-					</th>
+					<th colspan="2">Register your team by selecting the 'Register' button on a team. These are teams which YOU are on their roster. You may only register a team which you are a part of.</th>
 					<th ng:if="teamFilter">&nbsp;</th>
 				</tr>
 
-				<!-- <tr>
-					<th colspan="2">Team Name</th>
-					<th ng:if="teamFilter">&nbsp;</th>
-				</tr> -->
-
-				<tr ng:repeat="team in displayTeams | orderBy:'name' | filter:{'registered':teamFilter}">
+				<tr ng:repeat="team in displayTeams | orderBy:['-registered','name']">
 					<td>
+						
 						<a href="/dashboard/#/teams/{{team.objectId}}" ng:click="">{{team.name}}</a>
+
+						<ul class="table-expand">
+
+							<li ng:show="roster[team.objectId]">Selected players will be eligible to participate in this event.</li>
+							<li ng:repeat="user in roster[team.objectId]">
+								<input type="checkbox" ng:model="user.event_active" ng:change="setStatus(user)" />
+								<label>{{user.gamertag}}</label>
+							</li>
+
+						</ul>
+
 					</td>
 					<td ng:if="teamFilter">
-						<button type="button" ng:click="" ng:show="team.registered">Roster</button>
+						<a href="" class="btn" ng:click="getRoster(team.objectId)" ng:if="team.registered && team.i_am_admin && !roster[team.objectId]">Edit Roster</a>
+						<a href="" class="btn" ng:click="roster[team.objectId] = null" ng:if="team.registered && team.i_am_admin && roster[team.objectId]">Close Roster</a>
 					</td>
 					<td>
-						<button type="button" ng:click="registerTeam($index)" ng:if="!teamFilter">Register</button>
-						<button type="button" ng:click="unregisterTeam($index)" ng:if="teamFilter">Unregister</button>
+						<a href="" class="btn green" ng:click="registerTeam(team)" ng:if="!team.registered">Register</a>
+						<a href="" class="btn red" ng:click="unregisterTeam(team)" ng:if="team.registered">Un-Register</a>
 					</td>
 				</tr>
 
@@ -91,218 +94,207 @@
 
 		</div>
 
-	</div>
+		<div class="bracket" ng:show="tab == 'bracket'">
 
-	<div class="bracket" ng:show="tab == 'bracket'">
+			<div class="bracket_container">
 
-		<div class="bracket_container">
+				<table class="bracket">
+					<tr>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-			<table class="bracket">
+									<div class="teams-item">
+										<a href="/dashboard/#/teams" class="team"><span>1&nbsp;</span></a>
+										<a href="" class="team"><span>8&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-				<!-- <tr>
-					<th>1st Rnd</th>
-					<th>Quaterfinals</th>
-					<th>Semifinals</th>
-					<th>Semifinals</th>
-					<th>Quaterfinals</th>
-					<th>1st Rnd</th>
-				</tr> -->
+								</div>
+							</div>
+						</td>
+						<td rowspan="2">
+							<div class="game">
+								<div class="teams">
 
-		<tr>
-			<td>
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>&nbsp;</span></a>
+										<a href="" class="team"><span>&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="/dashboard/#/teams" class="team"><span>1&nbsp;</span></a>
-							<a href="" class="team"><span>8&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+						<td rowspan="4">
+							<div class="game">
+								<div class="teams">
 
-					</div>
-				</div>
-			</td>
-			<td rowspan="2">
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>&nbsp;</span></a>
+										<a href="" class="team"><span>&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>&nbsp;</span></a>
-							<a href="" class="team"><span>&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+						<td rowspan="4">
+							<div class="game">
+								<div class="teams">
 
-					</div>
-				</div>
-			</td>
-			<td rowspan="4">
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>&nbsp;</span></a>
+										<a href="" class="team"><span>&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>&nbsp;</span></a>
-							<a href="" class="team"><span>&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+						<td rowspan="2">
+							<div class="game">
+								<div class="teams">
 
-					</div>
-				</div>
-			</td>
-			<td rowspan="4">
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>&nbsp;</span></a>
+										<a href="" class="team"><span>&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>&nbsp;</span></a>
-							<a href="" class="team"><span>&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-					</div>
-				</div>
-			</td>
-			<td rowspan="2">
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>1&nbsp;</span></a>
+										<a href="" class="team"><span>8&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>&nbsp;</span></a>
-							<a href="" class="team"><span>&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+					</tr>
 
-					</div>
-				</div>
-			</td>
-			<td>
-				<div class="game">
-					<div class="teams">
+					<tr>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-						<div class="teams-item">
-							<a href="" class="team"><span>1&nbsp;</span></a>
-							<a href="" class="team"><span>8&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+									<div class="teams-item">
+										<a href="" class="team"><span>3&nbsp;</span></a>
+										<a href="" class="team"><span>6&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-					</div>
-				</div>
-			</td>
-		</tr>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-		<tr>
-			<td>
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>3&nbsp;</span></a>
+										<a href="" class="team"><span>6&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>3&nbsp;</span></a>
-							<a href="" class="team"><span>6&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+					</tr>
 
-					</div>
-				</div>
-			</td>
-			<td>
-				<div class="game">
-					<div class="teams">
+					<tr>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-						<div class="teams-item">
-							<a href="" class="team"><span>3&nbsp;</span></a>
-							<a href="" class="team"><span>6&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+									<div class="teams-item">
+										<a href="" class="team"><span>4&nbsp;</span></a>
+										<a href="" class="team"><span>5&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-					</div>
-				</div>
-			</td>
-		</tr>
+								</div>
+							</div>
+						</td>
+						<td rowspan="2">
+							<div class="game">
+								<div class="teams">
 
-		<tr>
-			<td>
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>&nbsp;</span></a>
+										<a href="" class="team"><span>&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>4&nbsp;</span></a>
-							<a href="" class="team"><span>5&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+						<td rowspan="2">
+							<div class="game">
+								<div class="teams">
 
-					</div>
-				</div>
-			</td>
-			<td rowspan="2">
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>&nbsp;</span></a>
+										<a href="" class="team"><span>&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>&nbsp;</span></a>
-							<a href="" class="team"><span>&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-					</div>
-				</div>
-			</td>
-			<td rowspan="2">
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>4&nbsp;</span></a>
+										<a href="" class="team"><span>5&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>&nbsp;</span></a>
-							<a href="" class="team"><span>&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+					</tr>
 
-					</div>
-				</div>
-			</td>
-			<td>
-				<div class="game">
-					<div class="teams">
+					<tr>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-						<div class="teams-item">
-							<a href="" class="team"><span>4&nbsp;</span></a>
-							<a href="" class="team"><span>5&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+									<div class="teams-item">
+										<a href="" class="team"><span>2&nbsp;</span></a>
+										<a href="" class="team"><span>7&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-					</div>
-				</div>
-			</td>
-		</tr>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="game">
+								<div class="teams">
 
-		<tr>
-			<td>
-				<div class="game">
-					<div class="teams">
+									<div class="teams-item">
+										<a href="" class="team"><span>2&nbsp;</span></a>
+										<a href="" class="team"><span>7&nbsp;</span></a>
+									</div>
+									<a href="" class="teams-item"></a>
 
-						<div class="teams-item">
-							<a href="" class="team"><span>2&nbsp;</span></a>
-							<a href="" class="team"><span>7&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
 
-					</div>
-				</div>
-			</td>
-			<td>
-				<div class="game">
-					<div class="teams">
-
-						<div class="teams-item">
-							<a href="" class="team"><span>2&nbsp;</span></a>
-							<a href="" class="team"><span>7&nbsp;</span></a>
-						</div>
-						<a href="" class="teams-item"></a>
-
-					</div>
-				</div>
-			</td>
-		</tr>
-
-		</table>
+			</div>
 
 		</div>
 
