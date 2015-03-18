@@ -16,10 +16,11 @@
 //= require AngularJS/angular-resource
 //= require AngularJS/angular-ui
 //= require AngularJS/angular-route
+//= require AngularJS/sanitize
 //= require_tree ./AngularCTRL
 //= require_tree ./Zendesk
 var HotIce;
-HotIce = angular.module('HotIce',['ngRoute','ngResource','ui']);
+HotIce = angular.module('HotIce',['ngRoute','ngResource','ui','ngSanitize']);
 HotIce.value('$anchorScroll',angular.noop);
 HotIce.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
 	

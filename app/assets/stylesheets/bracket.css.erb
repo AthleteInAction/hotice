@@ -1,0 +1,110 @@
+div.bracket {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	min-width: 600px;
+}
+div.bracket:after {
+	/*padding-top: 56.25%;*/ /*16:9 ratio*/
+	padding-top: 30%;
+    display: block;
+    content: '';
+}
+div.bracket div.bracket_container {
+    position: absolute;
+  	top: 0;
+  	bottom: 0;
+  	right: 0;
+  	left: 0;
+  	/*background-color: #FFF;
+  	background-image: url(<%= asset_path 'Hockey_Night_In_OTP.png' %>);
+  	background-repeat: no-repeat;
+  	background-position: center center;*/
+  	/* background: rgb(235,235,235); */
+  	/*border-radius: 10px;*/
+  	/*padding: 10px;*/
+}
+div.bracket div.bracket_container table.bracket {
+	height: 100%;
+	/*border-spacing: 2px;*/
+	table-layout: fixed;
+}
+div.bracket div.bracket_container table.bracket tr td {
+	vertical-align: middle;
+	padding: 3px;
+	/*border: solid 1px #CCC;*/
+}
+div.bracket div.bracket_container table.bracket tr:first-child th {
+	height: inherit;
+  	font-size: 12px;
+  	font-weight: 300;
+  	letter-spacing: 0.5px;
+  	background: #FFF;
+  	padding: 3px 3px 1px 3px;
+}
+div.bracket div.bracket_container table.bracket tr:first-child th:nth-child(even) {
+	background: #090;
+}
+div.bracket div.bracket_container table.bracket tr td div.game {
+	background: #fff;
+  	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.3);
+  	padding: 8px;
+  	border-radius: 2px;
+}
+div.bracket div.bracket_container table.bracket tr td div.game:hover {
+
+}
+div.bracket div.bracket_container table.bracket tr td div.game a.team {
+	display: block;
+	color: #575757;
+	font-size: 0.9vw;
+	text-decoration: none;
+	border-left: solid 5px #FFAB4D;
+  	padding-left: 5px;
+  	padding-top: 2px;
+  	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	padding-right: 0;
+	border-bottom: solid 1px #ccc;
+}
+div.bracket div.bracket_container table.bracket tr td div.game a.team:hover {
+	background-color: #F0F0F0;
+}
+div.bracket div.bracket_container table.bracket tr td div.game a.team:first-child {
+	margin-bottom: 8px;
+}
+div.bracket div.bracket_container table.bracket tr td div.game a.team span {
+	color: #CCC;
+}
+div.bracket div.bracket_container table.bracket tr td div.game a.team:hover span {
+	text-decoration: none;
+	color: #ccc;
+}
+
+
+/************/
+div.bracket div.bracket_container table.bracket tr td div.game div.teams {
+	display: table;
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+div.bracket div.bracket_container table.bracket tr td div.game div.teams div.teams-item {
+	display: table-cell;
+	vertical-align: middle;
+}
+div.bracket div.bracket_container table.bracket tr td div.game div.teams div.teams-item {
+	
+}
+div.bracket div.bracket_container table.bracket tr td div.game div.teams a.teams-item {
+	display: table-cell;
+	vertical-align: middle;
+	width: 17px;
+	background: url(<%= asset_path 'magnifier_43x17.png' %>) 4px center no-repeat;
+	padding-left: 4px;
+}
+div.bracket div.bracket_container table.bracket tr td div.game div.teams a.teams-item:hover {
+	background-position: right center;
+}
