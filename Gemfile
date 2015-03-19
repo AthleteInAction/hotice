@@ -66,3 +66,4 @@ end
 
 gem 'jwt'
 gem 'crack'
+gem 'fileutils'

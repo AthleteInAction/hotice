@@ -11,8 +11,8 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 		if ($scope.params.tab == 'myteams'){
 			$scope.tab = 'myteams';
 		}
-		if ($scope.params.tab == 'faq'){
-			$scope.tab = 'faq';
+		if ($scope.params.tab == 'chat'){
+			$scope.tab = 'chat';
 		}
 
 		$scope.teamFilter = true;
@@ -22,6 +22,8 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 		$scope.myTeams = [];
 		$scope.displayTeams = [];
 		$scope.displayRegisteredTeams = [];
+		$scope.chat_entry = null;
+		$scope.chat_holder = 'Enter message...'
 
 		$scope.roster = {};
 		$scope.dRoster = {};
@@ -292,6 +294,42 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				});
 
 			}
+
+		};
+
+		$scope.sendMessage = function(entry){
+
+			$scope.chat_entry = null;
+			$scope.chat_holder = 'Saving...'
+
+			var body = angular.copy(entry);
+
+			this.options = {
+				type: 'messages'
+			};
+
+			var m = {
+				message: {
+					eventId: $scope.params.id,
+					userId: $scope.$parent.current_user.objectId,
+					body: body
+				}
+			};
+
+			var Message = new ApiModel(m);
+
+			Message.$create(this.options,function(data){
+
+				JP(data);
+				$scope.chat_entry = null;
+				$scope.chat_holder = 'Enter message...'
+
+			},function(){
+
+				$scope.chat_entry = body;
+				$scope.chat_holder = 'Enter message...'
+
+			});
 
 		};
 

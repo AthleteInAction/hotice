@@ -451,15 +451,18 @@ HotIce.directive('datepicker',function(){
 		}
 	}
 });
-HotIce.directive('shiftsubmit',function(){
+HotIce.directive('shiftnewline',function(){
 	return {
 
 		link: function(scope,element){
 
-			$(element).keyup(function(e){
+			element.bind('keyup',function(event){
 
-				if (e.keyCode == 13 && e.shiftKey){
-					$(element).submit();
+				if (event.keyCode == 13 && event.shiftKey){
+					var content = this.value;
+					var caret = getCaret(this);
+					this.value = content.substring(0,caret)+""+content.substring(caret,content.length);
+					event.stopPropagation();
 				}
 
 			});
@@ -468,13 +471,33 @@ HotIce.directive('shiftsubmit',function(){
 
 	}
 });
+function getCaret(el) {
+  if (el.selectionStart) {
+     return el.selectionStart;
+  } else if (document.selection) {
+     el.focus();
+
+   var r = document.selection.createRange();
+   if (r == null) {
+    return 0;
+   }
+
+    var re = el.createTextRange(),
+    rc = re.duplicate();
+    re.moveToBookmark(r.getBookmark());
+    rc.setEndPoint('EndToStart', re);
+
+    return rc.text.length;
+  }  
+  return 0;
+}
 HotIce.directive('onenter',function(){
 	return {
 
 		restrict: 'A',
     	link: function(scope,element,attrs){
 	
-    	    element.bind('keyup',function(event){
+    	    element.bind('keydown',function(event){
 	
     	    	if(event.which === 13 && !event.shiftKey){
 	
