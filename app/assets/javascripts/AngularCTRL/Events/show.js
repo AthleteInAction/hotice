@@ -217,7 +217,7 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				});
 
 				$scope.roster[id] = r;
-				$scope.dRoster = angular.copy($scope.roster);
+				$scope.dRoster[id] = r;
 
 				$scope.$parent.loading = false;
 
@@ -263,14 +263,14 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				Relation.$create(this.options,function(data){
 
 					user.relationId = data.body.objectId;
-					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+					$scope.dRoster[user.teamId] = angular.copy($scope.roster[user.teamId]);
 					$scope.$parent.loading = false;
 
 				},function(data){
 
 					$scope.$parent.loading = false;
 					user.event_active = false;
-					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+					$scope.dRoster[user.teamId] = angular.copy($scope.roster[user.teamId]);
 
 				});
 
@@ -280,12 +280,12 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 				ApiModel.destroy(this.options,function(data){
 
-					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+					$scope.dRoster[user.teamId] = angular.copy($scope.roster[user.teamId]);
 					$scope.$parent.loading = false;
 
 				},function(data){
 
-					$scope.dRoster[user.teamId] = $scope.roster[user.teamId];
+					$scope.dRoster[user.teamId] = angular.copy($scope.roster[user.teamId]);
 					user.event_active = true;
 					$scope.$parent.loading = false;
 

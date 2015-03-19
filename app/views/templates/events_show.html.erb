@@ -34,8 +34,9 @@
 			<a href="" class="info-item" ng:class="{'selected':tab=='overview'}" ng:click="tab = 'overview'">Overview</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='bracket'}" ng:click="tab = 'bracket'">Bracket</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='myteams'}" ng:click="tab = 'myteams'">My&nbsp;Teams</a>
-			<a href="" class="info-item" ng:class="{'selected':tab=='faq'}" ng:click="tab = 'faq'">FAQ</a>
-			<div class="info-item"></div>
+			<div class="info-item">
+				<span ng:show="tab != 'myteams'"><a href="" class="btn green" ng:click="tab = 'myteams'">Register</a></span>
+			</div>
 
 		</div>
 
@@ -54,7 +55,11 @@
 					<th ng:if="teamFilter">&nbsp;</th>
 				</tr>
 
-				<tr ng:repeat="team in displayTeams | orderBy:['-registered','name']">
+				<tr ng:if="!displayTeams || displayTeams.length == 0">
+					<td>You are not on any teams roster. Create a team <a href="#/teams/new" class="ORANGE">here</a>.</td>
+				</tr>
+
+				<tr ng:repeat="team in displayTeams | orderBy:['name']">
 					<td>
 						
 						<a href="/dashboard/#/teams/{{team.objectId}}" ng:click="">{{team.name}}</a>
@@ -105,7 +110,7 @@
 								<div class="teams">
 
 									<div class="teams-item">
-										<a href="/dashboard/#/teams" class="team"><span>1&nbsp;</span></a>
+										<a href="" class="team"><span>1&nbsp;</span></a>
 										<a href="" class="team"><span>8&nbsp;</span></a>
 									</div>
 									<a href="" class="teams-item"></a>

@@ -44,9 +44,6 @@ HotIce.config(['$routeProvider','$locationProvider',function($routeProvider,$loc
 	}).when('/events/:id',{
 		templateUrl : '/angularjs/templates/events_show.html',
 		controller: EventShowCtrl
-	}).when('/events/:id/registration',{
-		templateUrl : '/angularjs/templates/events_registration.html',
-		controller: EventRegistrationCtrl
 	}).when('/members',{
 		templateUrl : '/angularjs/templates/members.html',
 		controller: MembersCtrl
