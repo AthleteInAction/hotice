@@ -1,5 +1,5 @@
-var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
-	function($scope,$routeParams,$location,ApiModel,$timeout){
+var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval',
+	function($scope,$routeParams,$location,ApiModel,$timeout,$interval){
 
 		$scope.params = $routeParams;
 
@@ -27,6 +27,8 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 		$scope.roster = {};
 		$scope.dRoster = {};
+
+		$scope.messages = [];
 
 		$scope.getData = function(){
 
@@ -320,7 +322,7 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			Message.$create(this.options,function(data){
 
-				JP(data);
+				$scope.messages.unshift(data.message);
 				$scope.chat_entry = null;
 				$scope.chat_holder = 'Enter message...'
 
@@ -332,6 +334,30 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 			});
 
 		};
+
+		$scope.getMessages = function(){
+
+			this.options = {
+				type: 'messages',
+				sub: 'events',
+				id: $scope.params.id
+			};
+
+			ApiModel.query(this.options,function(data){
+
+				$scope.messages = data.messages;
+
+			},function(data){
+
+				JP({e: data});
+
+			});
+
+		};
+		$scope.getMessages();
+		$interval(function(){
+			// $scope.getMessages();
+		},1000);
 
 	}
 ];

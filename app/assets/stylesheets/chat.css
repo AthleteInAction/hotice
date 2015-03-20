@@ -1,45 +1,53 @@
 div.chat {
 	margin-top: 10px;
+  max-height: 600px;
+  overflow-y: scroll;
+  background: #F2F2F2;
+  border-radius: 4px;
 }
-div.chat ul.messages {
-	list-style: none;
-  	margin: 0;
-  	padding: 0;
-  	width: 40vw;
+
+div.chat table.messages {
+  
 }
-div.chat ul.messages li {
-		
+div.chat table.messages tr td {
+  padding: 10px;
 }
-div.chat ul.messages li.me {
-	
+div.chat table.messages tr td:first-child {
+  white-space: nowrap;
+  width: 1px;
 }
-div.chat ul.messages li div.message {
-	display: inline-block;
-  	padding: 12px 16px 10px 16px;
-  	background: #CCC;
-  	margin: 10px 0;
-  	border-radius: 2vw;
-  	color: #454545;
-  	font-weight: normal;
-  	max-width: 50vw;
-  	font-size: 14px;
-  	text-shadow: 1px 1px 0 #DFDFDF;
-  	box-shadow: 1px 1px 3px 2px rgba(34, 34, 34, 0.52);
+div.chat table.messages tr:nth-child(even) td {
+  background: #F7F7F7;
 }
-div.chat ul.messages li div.message div.date {
-	color: #808080;
-  	font-size: 11px;
-  	margin-top: 4px;
+div.chat table.messages tr td.info,
+div.chat table.messages tr td.body {
+  display: table-cell;
+  vertical-align: top;
+  text-align: left;
 }
-div.chat ul.messages li div.message div.author {
-	color: #090;
-  	font-size: 11px;
+div.chat table.messages tr td.info div.author {
+  color: #525252;
+  line-height: normal;
+  text-shadow: 1px 1px 1px #FFF;
+  font-weight: 500;
 }
-div.chat ul.messages li.me div.message div.date {
-	color: #515151;
+div.chat table.messages tr.me td.info div.author {
+  color: #2DCA6F;
 }
-div.chat ul.messages li.me div.message {
-	float: right;
-	background: #50DDE8;
-	text-shadow: 1px 1px 0 #7BF5FF;
+div.chat table.messages tr td.info div.time {
+  color: #D7D7D7;
+  font-size: 11px;
+  line-height: normal;
+  text-shadow: 1px 1px 1px #FFF;
+  margin-top: 4px;
+}
+div.chat table.messages tr td.body {
+  color: rgb(128, 128, 128);
+  padding-left: 20px;
+  line-height: normal;
+}
+
+textarea.chat {
+  border-radius: 6px;
+  border: solid 1px #CCC;
 }

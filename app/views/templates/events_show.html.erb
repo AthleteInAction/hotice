@@ -34,57 +34,46 @@
 			<a href="" class="info-item" ng:class="{'selected':tab=='overview'}" ng:click="tab = 'overview'">Overview</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='bracket'}" ng:click="tab = 'bracket'">Bracket</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='myteams'}" ng:click="tab = 'myteams'">My&nbsp;Teams</a>
-			<a href="" class="info-item" ng:class="{'selected':tab=='chat'}" ng:click="tab = 'chat';chat_entry = 'Z'">Event&nbsp;Chat</a>
+			<a href="" class="info-item" ng:class="{'selected':tab=='chat'}" ng:click="tab = 'chat'">Event&nbsp;Chat</a>
 			<div class="info-item">
 				<span ng:show="tab != 'myteams'"><a href="" class="btn green" ng:click="tab = 'myteams'">Register</a></span>
 			</div>
 
 		</div>
 
-		<div class="chat" ng:if="tab == 'chat'">
+		<div class="info-body" ng:if="tab == 'chat'">
 
-			<textarea class="FULL" placeholder="{{chat_holder}}" ng:model="$parent.chat_entry" onenter="sendMessage($parent.chat_entry)" shiftnewline ></textarea>
+			<div class="info-pad">
 
-			<ul class="messages">
-				<li>
-					<div class="message">
-						<div>This is a message written by someone else!</div>
-						<div class="date">3/15/2015 8:34pm by AthleteInAction</div>
-					</div>
-					<div class="CLEAR"></div>
-				</li>
-				<li>
-					<div class="message">This is a message written by someone else!<br><br>Hello this is a new line can this sentence be any longer i dont think so!</div>
-					<div class="CLEAR"></div>
-				</li>
-				<li class="me">
-					<div class="message">
-						<div>This is a message written by me!<br><br>Hello this is a new line can this sentence be any longer i dont think so!</div>
-						<div class="date">3/15/2015 8:34pm</div>
-					</div>
-					<div class="CLEAR"></div>
-				</li>
-				<li>
-					<div class="message">This is a message written by someone else!</div>
-					<div class="CLEAR"></div>
-				</li>
-				<li>
-					<div class="message">This is a message written by someone else!</div>
-					<div class="CLEAR"></div>
-				</li>
-				<li class="me">
-					<div class="message">This is a message written by me!</div>
-					<div class="CLEAR"></div>
-				</li>
-				<li>
-					<div class="message">This is a message written by someone else!</div>
-					<div class="CLEAR"></div>
-				</li>
-				<li>
-					<div class="message">This is a message written by someone else!</div>
-					<div class="CLEAR"></div>
-				</li>
-			</ul>
+				<textarea class="chat FULL" placeholder="{{chat_holder}}" ng:model="$parent.chat_entry" onenter="sendMessage($parent.chat_entry)" shiftnewline ></textarea>
+
+				<div class="chat">
+
+					<!-- <ul class="messages">
+						<li ng:repeat="message in messages" class="" ng:class="{'me':(message.userId==current_user.objectId)}">
+							<div class="message">
+								<div class="info">
+									<div class="author">{{user_key[message.userId].gamertag}}:</div>
+									<div class="time">{{displayDate(message.createdAt).sDate}}</div>
+								</div>
+								<div class="body" ng-bind-html="message.body_html"></div>
+							</div>
+						</li>
+					</ul> -->
+
+					<table class="messages">
+						<tr ng:repeat="message in messages" class="" ng:class="{'me':(message.userId==current_user.objectId)}">
+							<td class="info">
+								<div class="author">{{user_key[message.userId].gamertag}}:</div>
+								<div class="time">{{displayDate(message.createdAt).sDate}}</div>
+							</td>
+							<td class="body" ng-bind-html="message.body_html"></td>
+						</tr>
+					</table>
+
+				</div>
+
+			</div>
 
 		</div>
 

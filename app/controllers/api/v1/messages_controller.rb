@@ -4,49 +4,50 @@ module Api
 
   		def index
 
-  			1.times do
+        messages = []
 
-  				path = "#{Rails.root}/messages"
+  			path = "#{Rails.root}/messages"
 
-  				path << "/events/#{params[:eventId]}" if params[:eventId]
+        path << "/events/#{params[:eventId]}" if params[:eventId]
 
-  				render json: {e: 'Directory does not exist',path: path} if !File.directory?(path)
-  				break if !File.directory?(path)
+        if !File.directory?(path)
 
-  				messages = []
+          render json: {messages: messages},status: 200
+          return false
 
-  				i = 0
-  				Dir.glob "#{path}/*.msg" do |line|
+        end
 
-  					i += 1
+        i = 0
+        Dir.glob "#{path}/*.msg" do |line|
 
-  					name = line.split('/').last.split('_').last.gsub('.msg','')
-  					time = (1000000000000-line.split('/').last.split('_').first.to_i)/100
+          i += 1
 
-  					message = File.read line
+          name = line.split('/').last.split('_').last.gsub('.msg','')
+          time = (1000000000000-line.split('/').last.split('_').first.to_i)/100
 
-  					final = {
-  						userId: name,
-  						body: message,
-  						body_html: message.gsub(/\n/,'<br>'),
-  						createdAt: Time.at(time.to_i)
-  					}
+          message = File.read line
 
-  					messages << final
+          final = {
+            userId: name,
+            body: message,
+            body_html: message.gsub(/\n/,'<br>'),
+            createdAt: Time.at(time.to_i)
+          }
 
-  				# break if i >= 3
+          messages << final
 
-  				end
+          break if i >= 50
 
-  				render json: {messages: messages},staus: 201
+        end
 
-  			end
+        render json: {messages: messages},status: 200
 
   		end
 
   		def create
 
-  			a = (Time.now.to_f*100).round.to_i
+        n = Time.now
+  			a = (n.to_f*100).round.to_i
   			t = 1000000000000-a
 
   			path = "#{Rails.root}/messages"
@@ -65,9 +66,17 @@ module Api
 
   			end
 
+        message = {
+          createdAt: n,
+          userId: params[:message][:userId],
+          eventId: params[:message][:eventId],
+          body: body,
+          body_html: body.gsub(/\n/,'<br>')
+        }
+
   			# sleep 2
 
-  			render json: params,status: 201
+  			render json: {message: message},status: 201
 
   		end
 

@@ -4,6 +4,8 @@ module Api
 
   		def index
 
+        # path = "#{Rails.root}/utilities/user_key.json"
+
   			call = db.APICall path: '/users',where: params[:constraints]
 
   			render json: call,status: call[:code].to_i

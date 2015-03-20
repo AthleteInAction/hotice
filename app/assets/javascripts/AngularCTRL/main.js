@@ -5,6 +5,7 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 		$scope.current_user = current_user;
 		$scope.announcements = [];
 		$scope.loading = false;
+		$scope.user_key = {};
 		// $scope.Prefix = Prefix;
 
 		// $scope.$on('$routeChangeSuccess',function (event,current,previous,rejection){
@@ -55,8 +56,14 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 			ApiModel.query(this.options,function(data){
 
-				$scope.users = data.body.results;
+				$scope.users = angular.copy(data.body.results);
 				$scope.users.removeWhere('objectId',current_user.objectId);
+
+				$.each(data.body.results,function(key,val){
+
+					$scope.user_key[val.objectId] = val;
+
+				});
 
 				complete(data.body.results);
 
