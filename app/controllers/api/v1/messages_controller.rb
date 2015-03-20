@@ -9,6 +9,7 @@ module Api
   			path = "#{Rails.root}/messages"
 
         path << "/events/#{params[:eventId]}" if params[:eventId]
+        path << "/main" if params[:location] == 'all'
 
         if !File.directory?(path)
 
@@ -53,6 +54,7 @@ module Api
   			path = "#{Rails.root}/messages"
 
   			path << "/events/#{params[:message][:eventId]}" if params[:message][:eventId]
+        path << "/#{params[:message][:location]}" if params[:message][:location]
 
   			FileUtils::mkdir_p path
 
@@ -69,7 +71,6 @@ module Api
         message = {
           createdAt: n,
           userId: params[:message][:userId],
-          eventId: params[:message][:eventId],
           body: body,
           body_html: body.gsub(/\n/,'<br>')
         }

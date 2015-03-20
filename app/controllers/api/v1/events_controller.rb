@@ -4,7 +4,7 @@ module Api
 
   		def index
 
-  			call = db.APICall path: '/classes/Events',where: params[:constraints]
+  			call = db.APICall path: '/classes/Events',where: params[:constraints],headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
   			render json: call
 
@@ -12,7 +12,7 @@ module Api
 
   		def show
 
-  			call = db.APICall path: '/classes/Events',where: {objectId: params[:id]}.to_json
+  			call = db.APICall path: '/classes/Events',where: {objectId: params[:id]}.to_json,headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
   			render json: call
 
@@ -20,7 +20,7 @@ module Api
 
   		def update
 
-  			call = db.APICall method: 'PUT',path: "/classes/Events/#{params[:id]}",payload: {registered: params[:event][:registered]}
+  			call = db.APICall method: 'PUT',path: "/classes/Events/#{params[:id]}",payload: {registered: params[:event][:registered]},headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
   			render json: call
 

@@ -4,7 +4,7 @@ module Api
 
   		def index
 
-  			call = db.APICall path: '/classes/Notifications',where: {userId: {__type: 'Pointer',className: '_User',objectId: session[:user]['objectId']}}.to_json,order: 'createdAt'
+  			call = db.APICall path: '/classes/Notifications',where: {userId: {__type: 'Pointer',className: '_User',objectId: session[:user]['objectId']}}.to_json,order: 'createdAt',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
   			render json: call
 

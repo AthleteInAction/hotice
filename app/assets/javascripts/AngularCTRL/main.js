@@ -6,6 +6,8 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 		$scope.announcements = [];
 		$scope.loading = false;
 		$scope.user_key = {};
+		$scope.main_chats = [];
+		$scope.last_chat_id = null;
 		// $scope.Prefix = Prefix;
 
 		// $scope.$on('$routeChangeSuccess',function (event,current,previous,rejection){
@@ -13,6 +15,11 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 			
 		// });
+		$scope.testz = [];
+		for (i = 0; i < 100; i++) { 
+		    $scope.testz.push(i);
+		}
+		JP($scope.testz);
 
 		zE(function(){
 			var zduser = {
@@ -171,6 +178,81 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			obj.fString = days[dotw].long+' '+months[M].long+', '+D+', '+Y+' '+time;//+' '+date.getTimezoneOffset();
 
 			return obj;
+
+		};
+
+		$scope.getMainMessages = function(){
+
+			this.options = {
+				type: 'messages',
+				sub: 'main',
+				extend: 'all'
+			};
+
+			ApiModel.query(this.options,function(data){
+
+				$scope.main_chats = data.messages;
+
+				if (data.messages.length > 0 && data.messages[0].createdAt != $scope.last_chat_id){
+					$timeout(function(){
+						var objDiv = document.getElementById('chats');
+						objDiv.scrollTop = objDiv.scrollHeight;
+					},10);
+				};
+
+				if (data.messages.length > 0){
+					$scope.last_chat_id = data.messages[0].createdAt;
+				}
+
+			},function(data){
+
+				JP({e: data});
+
+			});
+
+		};
+		$scope.getMainMessages();
+		$interval(function(){
+			$scope.getMainMessages();
+		},1000);
+
+		$scope.sendMainChat = function(entry){
+
+			$scope.main_chat = null;
+			$scope.main_holder = 'Saving...'
+
+			var body = angular.copy(entry);
+
+			this.options = {
+				type: 'messages'
+			};
+
+			var m = {
+				message: {
+					location: 'main',
+					userId: $scope.current_user.objectId,
+					body: body
+				}
+			};
+
+			var Message = new ApiModel(m);
+
+			Message.$create(this.options,function(data){
+
+				$scope.main_chats.push(data.message);
+				$scope.main_chat = null;
+				$scope.main_holder = 'Enter message...'
+				$timeout(function(){
+					var objDiv = document.getElementById('chats');
+					objDiv.scrollTop = objDiv.scrollHeight;
+				},10);
+
+			},function(){
+
+				$scope.main_chat = body;
+				$scope.main_holder = 'Enter message...'
+
+			});
 
 		};
 

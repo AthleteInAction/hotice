@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
       resources :messages
       get 'messages/events/:eventId',to: 'messages#index'
+      get 'messages/main/:location',to: 'messages#index'
 
       # TEST STUFF
       resources :test

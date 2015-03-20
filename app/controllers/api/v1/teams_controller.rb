@@ -29,7 +29,7 @@ module Api
           type: 'team'
         }
 
-        call = db.APICall path: '/classes/Relations',where: c.to_json,include: 'team'
+        call = db.APICall path: '/classes/Relations',where: c.to_json,include: 'team',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
         render json: call
 
@@ -55,7 +55,7 @@ module Api
             status: 'accepted'
           }
 
-          call_2 = db.APICall path: '/classes/Relations',method: 'POST',payload: r
+          call_2 = db.APICall path: '/classes/Relations',method: 'POST',payload: r,headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
           status = call_2[:code]
 
@@ -71,7 +71,7 @@ module Api
 
       def show
 
-        call = db.APICall path: '/classes/Relations',where: {type: 'team',team: {'__type' => 'Pointer','className' => 'Teams','objectId' => params[:id]}}.to_json,include: 'team,user'
+        call = db.APICall path: '/classes/Relations',where: {type: 'team',team: {'__type' => 'Pointer','className' => 'Teams','objectId' => params[:id]}}.to_json,include: 'team,user',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
         render json: call
 

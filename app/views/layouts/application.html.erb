@@ -10,55 +10,79 @@
 </head>
 <body ng:App="HotIce" ng:controller="MainCtrl">
 
-	<table class="dashboard_table">
+	<div class="bar_left">
+		<a href="/dashboard/#/" class="logo"></a>
+	</div>
+	<div class="bar_right">
+		
+	</div>
 
-		<tr class="in">
-			<td class="in" valign="top" align="center">
+	<div class="side_bar">
 
-				<a href="/dashboard/#/" class="logo"></a>
+		<table class="nav">
 
-			</td>
-			<td class="in" valign="middle" align="right">
-
-				<a href="/signout" class="orange_link">Sign Out</a>
-				<div class="CLEAR"></div>
-
-			</td>
-		</tr>
-
-		<tr class="in">
-			<td class="in" valign="top">
-
-				<div class="create_team"><a href="#/teams/new">+ Create a Team</a></div>
-
-				<ul class="navigation">
-
-					<li class="icon-home"><a href="#/home">Home</a></li>
-					<li class="icon-events"><a href="#/events/QbpXiJZ7c4">Events</a></li>
-					<li class="icon-teams"><a href="#/teams">Teams</a></li>
-					<li class="icon-members"><a href="#/members">Members</a></li>
-					<li class="icon-myaccount"><a href="#/myaccount" ng:class="{alert:!current_user.gamertagVerified,check:current_user.gamertagVerified}">{{current_user.gamertag}}</a></li>
-
-				</ul>
-				<div class="input_error SQUARE" ng:if="!current_user.gamertagVerified">Your gamertag needs to be verified</div>
-
-			</td>
-			<td class="in" valign="top">
-
-				<scoreboard games="7" interval="10"></scoreboard>
-
-				<div class="loader_container" ng:class="{'NONE':!loading}">
+			<tr>
+				<td class="menu">
 					
-					<div class="loader"></div>
+					<div class="create_team"><a href="#/teams/new">+ Create a Team</a></div>
 
-				</div>
+					<ul class="navigation">
 
-				<div class="view_container"><div ng:view></div></div>
+						<li class="icon-home"><a href="#/home">Home</a></li>
+						<li class="icon-events"><a href="#/events/QbpXiJZ7c4">Events</a></li>
+						<li class="icon-teams"><a href="#/teams">Teams</a></li>
+						<li class="icon-members"><a href="#/members">Members</a></li>
+						<li class="icon-myaccount"><a href="#/myaccount" ng:class="{alert:!current_user.gamertagVerified,check:current_user.gamertagVerified}">{{current_user.gamertag}}</a></li>
 
-			</td>
-		</tr>
+					</ul>
+					<div class="input_error SQUARE" ng:if="!current_user.gamertagVerified">Your gamertag needs to be verified</div>
 
-	</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="chats">
+					
+					<div class="chats" id="chats">
+
+						<ul>
+							<li ng:repeat="message in main_chats | orderBy:'createdAt'">
+								<span class="chat-author" ng:class="{'me':(message.userId==current_user.objectId)}">{{user_key[message.userId].gamertag}}:&nbsp;</span>
+								<span class="chat-body" ng-bind-html="message.body_html"></span>
+								<div class="chat-time">{{displayDate(message.createdAt).sDate}}</div>
+							</li>
+						</ul>
+
+					</div>
+
+				</td>
+			</tr>
+			<tr>
+				<td class="chat-input">
+					
+					<div class="chat_input">
+						<textarea placeholder="Enter message..." ng:model="main_chat" onenter="sendMainChat(main_chat)" shiftnewline></textarea>
+					</div>
+
+				</td>
+			</tr>
+
+		</table>
+
+	</div>
+
+	<div class="full_container">
+
+		<scoreboard games="7" interval="10"></scoreboard>
+
+		<div class="loader_container" ng:class="{'NONE':!loading}">
+			
+			<div class="loader"></div>
+
+		</div>
+
+		<div class="view_container"><div ng:view></div></div>
+
+	</div>
 
 </body>
 </html>

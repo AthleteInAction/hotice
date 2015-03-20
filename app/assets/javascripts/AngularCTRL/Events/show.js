@@ -356,7 +356,7 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','
 		};
 		$scope.getMessages();
 		$interval(function(){
-			// $scope.getMessages();
+			$scope.getMessages();
 		},1000);
 
 	}

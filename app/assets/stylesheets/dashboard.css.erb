@@ -2,24 +2,41 @@ table.dashboard_table {
 	width: 100%;
 	height: 100%;
 }
-
-table.dashboard_table tr.in:first-child td.in:first-child {
+table.dashboard_table tr td {
+	/*border: solid 1px #CCC;*/
+}
+table.dashboard_table tr.in td.in.top-left {
 	background: #50DDE8;
 	width: 250px;
 	min-width: 250px;
 	height: 50px;
 }
-table.dashboard_table tr.in:first-child td.in:last-child {
+table.dashboard_table tr.in td.in.top-right {
 	background: #FFAB4D;
 	padding-right: 20px;
 }
-table.dashboard_table tr.in:last-child td.in:first-child {
+table.dashboard_table tr.in td.in.second-left {
 	background: #323232;
 	padding-top: 70px;
 	border-top: solid 1px #514D4D;
+	height: 1px;
 }
-table.dashboard_table tr.in:last-child td.in:last-child {
+table.dashboard_table tr.in td.in.second-right {
 	background: #383838;
+}
+table.dashboard_table tr.in td.in.third-left {
+	background: #323232;
+	vertical-align: top;
+}
+table.dashboard_table tr.in td.in.fourth-left {
+	background: #323232;
+	vertical-align: top;
+	height: 1px;
+}
+
+div.scroll_container {
+	height: 100%;
+	overflow-y: scroll;
 }
 
 
