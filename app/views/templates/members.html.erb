@@ -26,12 +26,7 @@
 				<td>Loading...</td>
 				<td>&nbsp;</td>
 			</tr>
-
-			<tr>
-				<td><a href="">{{current_user.gamertag}}</a></td>
-				<td><div class="" ng:class="{'VERIFIED':current_user.gamertagVerified,'UNVERIFIED':!current_user.gamertagVerified}"></div></td>
-			</tr>
-			<tr ng:repeat="member in members | orderBy:sort" ng:click="">
+			<tr ng:repeat="member in members | orderBy:'gamertag'" ng:click="">
 				<td class="MIN"><a href="">{{member.gamertag}}</a></td>
 				<td><div class="" ng:class="{'VERIFIED':member.gamertagVerified,'UNVERIFIED':!member.gamertagVerified}"></div></td>
 			</tr>

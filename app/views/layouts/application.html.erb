@@ -10,6 +10,12 @@
 </head>
 <body ng:App="HotIce" ng:controller="MainCtrl">
 
+	<div class="loader_container" ng:class="{'NONE':!loading}">
+		
+		<div class="loader"></div>
+
+	</div>
+
 	<div class="bar_left">
 		<a href="/dashboard/#/" class="logo"></a>
 	</div>
@@ -71,6 +77,10 @@
 	</div>
 
 	<div class="full_container">
+
+		<div class="module">
+			<div class="content"></div>
+		</div>
 
 		<scoreboard games="7" interval="10"></scoreboard>
 

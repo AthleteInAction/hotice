@@ -58,6 +58,9 @@ HotIce.config(['$routeProvider','$locationProvider',function($routeProvider,$loc
 	}).when('/myaccount',{
 		templateUrl : '/angularjs/templates/myaccount.html',
 		controller: MyAccountCtrl
+	}).when('/messages',{
+		templateUrl : '/angularjs/templates/messages.html',
+		controller: MessagesCtrl
 	}).otherwise({
 		redirectTo: '/home'
 	});
@@ -176,6 +179,7 @@ HotIce.directive('wamblAutocomplete',['$compile',function($compile){
     	},
     	// require: 'ngModel',
         link: function(scope,element,attrs){
+        	JP(scope);
 
         	var template = '<div class="autocomplete"><ul><li ng:if="wamblItems.length == 0"><a href="" ng:click="">{{message}}</a></li><li ng:repeat="item in wamblItems track by $index"><a href="" ng:class="{selected: $index==wamblIndex}" ng:click="clickHandle($index)">{{translate(item)}}</a></li></ul></div>';
         	var el = angular.element(template);
@@ -233,15 +237,15 @@ HotIce.directive('wamblAutocomplete',['$compile',function($compile){
         	scope.hideList = function(){
 
         		element.next().hide();
-        		element.css('border-bottom-right-radius',lr+'px');
-        		element.css('border-bottom-left-radius',rr+'px');
+        		// element.css('border-bottom-right-radius',lr+'px');
+        		// element.css('border-bottom-left-radius',rr+'px');
 
         	};
         	scope.showList = function(){
 
         		element.next().show();
-        		element.css('border-bottom-right-radius','0px');
-        		element.css('border-bottom-left-radius','0px');
+        		// element.css('border-bottom-right-radius','0px');
+        		// element.css('border-bottom-left-radius','0px');
 
         	};
 
@@ -334,6 +338,7 @@ HotIce.directive('wamblAutocomplete',['$compile',function($compile){
 
 			scope.filter = function(){
 
+				JP(scope.ngModel);
 				var tval = scope.ngModel;//element.val();
 
 				if (tval.length != prevLength){

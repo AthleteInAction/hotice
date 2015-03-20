@@ -1,0 +1,65 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">Messages</span>
+	</div>
+
+	<div class="info-container">
+
+		<div class="info-head">
+			
+			<a href="" class="info-item" ng:class="{'selected':tab=='inbox'}" ng:click="tab = 'inbox'">Inbox</a>
+			<a href="" class="info-item" ng:class="{'selected':tab=='sent'}" ng:click="tab = 'sent'">Sent</a>
+			<a href="" class="info-item" ng:class="{'selected':tab=='compose'}" ng:click="tab = 'compose'">Compose</a>
+			<div class="info-item"></div>
+
+		</div>
+
+		<div class="info-body" ng:if="tab=='inbox'">
+
+			<table class="inbox">
+				<tr>
+					<td class="list">
+						<ul class="messages-list">
+							<li class="messages-item" ng:repeat="message in messages">
+								<a href="" ng:click="">
+									{{message.body}}
+								</a>
+							</li>
+						</ul>
+					</td>
+					<td class="body">
+						R
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<div class="info-body" ng:if="tab=='compose'">
+
+			<div class="info-pad">
+				
+				<div class="message-recipients">
+					<div class="message-label" ng:if="message.recipients.length > 0">Click user to remove</div>
+					<div class="message-recipient" ng:repeat="user in message.recipients">
+						<a href="" ng:click="removeRecipient(user)">{{user.gamertag}}</a><span ng:if="$index < (message.recipients.length-1)">,</span>
+					</div>
+					<div class="CLEAR"></div>
+				</div>
+
+				<input type="text" class="message-add" placeholder="Add recipients..." wambl-autocomplete="$parent.users" wambl-display-attr="gamertag" wambl-exclude="message.recipients" wambl-on-select="addRecipient(item)" wambl-on-click="addRecipient(item)" wambl-select-first="true" wambl-blank-on-select="true" ng:model="message_add" />
+
+				<textarea class="message-input" placeholder="Message" ng:model="message.body"></textarea>
+
+				<a href="" class="btn blue" ng:if="message.body && message.recipients.length > 0" ng:click="createMessage()">Send</a>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

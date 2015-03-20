@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :online
       resources :events
       resources :relations
+      resources :inbox
 
       resources :messages
       get 'messages/events/:eventId',to: 'messages#index'
