@@ -3,6 +3,12 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','
 
 		$scope.params = $routeParams;
 
+		$scope.$on('$destroy',function() {
+		    // Make sure that the interval is destroyed too
+		    JP('STOP');
+		    $interval.cancel(chat);
+		});
+
 		$scope.tab = 'overview';
 
 		if ($scope.params.tab == 'bracket'){
@@ -355,7 +361,7 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','
 
 		};
 		$scope.getMessages();
-		$interval(function(){
+		var chat = $interval(function(){
 			$scope.getMessages();
 		},1000);
 
