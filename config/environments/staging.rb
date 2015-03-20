@@ -23,4 +23,8 @@ Rails.application.configure do
   ZENDESK_TOKEN = 'qqCPvCXkb28JBm59lKGMUjE5baVtcy4JDfJhthLt'
   ANNOUNCEMENTS_ID = 200651088
 
+  # Colors
+  ORANGE = 'FFAB4D'
+  TEAL = '50DDE8'
+
 end

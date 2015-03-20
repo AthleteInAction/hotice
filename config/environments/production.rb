@@ -28,5 +28,9 @@ Rails.application.configure do
   ZENDESK_USERNAME = 'wambltemp@gmail.com'
   ZENDESK_TOKEN = 'banzPZn1msUvezSg1kLRalnhaZ0HaiFUWB1O0G8o'
   ANNOUNCEMENTS_ID = 200630628
+
+  # Colors
+  ORANGE = 'FFAB4D'
+  TEAL = '50DDE8'
   
 end
