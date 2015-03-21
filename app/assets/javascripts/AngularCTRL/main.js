@@ -8,6 +8,8 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 		$scope.user_key = {};
 		$scope.main_chats = [];
 		$scope.last_chat_id = null;
+
+		$scope.x = {};
 		// $scope.Prefix = Prefix;
 
 		// $scope.$on('$routeChangeSuccess',function (event,current,previous,rejection){
@@ -15,11 +17,6 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 			
 		// });
-		$scope.testz = [];
-		for (i = 0; i < 100; i++) { 
-		    $scope.testz.push(i);
-		}
-		JP($scope.testz);
 
 		zE(function(){
 			var zduser = {

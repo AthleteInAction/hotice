@@ -13,25 +13,33 @@ var MessagesCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 			$scope.tab = 'inbox';
 		}
 
-		$scope.message = {
-			recipients: []
+		$scope.message = {};
+		$scope.messages = {
+			inbox: [],
+			sent: []
 		};
-		$scope.messages = [];
+		$scope.sentI = 0;
+		$scope.inboxI = 0;
 
 		$scope.message_add = '';
 
 		$scope.addRecipient = function(user){
 
-			$scope.message.recipients.push(user);
+			$scope.message.recipient = user;
+			$('#message-input').focus();
+
 
 		};
-		$scope.removeRecipient = function(user){
+		$scope.removeRecipient = function(){
 
-			$scope.message.recipients.removeWhere('objectId',user.objectId);
+			delete $scope.message.recipient;
+			$('#message-add').focus();
 
 		};
 
 		$scope.createMessage = function(){
+
+			$scope.$parent.x.message = true;
 
 			this.options = {
 				type: 'inbox'
@@ -40,16 +48,20 @@ var MessagesCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 			var m = {
 				message: {
 					user: makePointer($scope.$parent.current_user,'_User'),
-					recipients: makeRelation($scope.message.recipients,'_User'),
+					recipient: makePointer($scope.message.recipient,'_User'),
 					body: $scope.message.body
-				}
+				},
+				user: $scope.$parent.current_user
 			}
 
 			var Message = new ApiModel(m);
 
 			Message.$create(this.options,function(data){
-
-				$scope.message = {recipients: []};
+				JP(data);
+				delete $scope.message.recipient;
+				$scope.messages.sent.unshift(data.message);
+				$scope.$parent.x.message = false;
+				$scope.tab = 'sent';
 
 			});
 
@@ -63,7 +75,17 @@ var MessagesCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			ApiModel.query(this.options,function(data){
 
-				$scope.messages = data.body.results;
+				$.each(data.body.results,function(key,val){
+
+					if (val.user.objectId == $scope.$parent.current_user.objectId){
+						$scope.messages.sent.push(val);
+					} else {
+						$scope.messages.inbox.push(val);
+					}
+
+				});
+
+				JP($scope.messages);
 
 			});
 

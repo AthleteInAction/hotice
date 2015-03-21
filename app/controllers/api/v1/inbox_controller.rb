@@ -5,14 +5,26 @@ module Api
       def index
 
         r = {
-          recipients: {
-            '__type' => 'Pointer',
-            'className' => '_User',
-            'objectId' => session[:user]['objectId']
-          }
+          type: 'message',
+          '$or' => [
+            {
+              recipient: {
+                '__type' => 'Pointer',
+                'className' => '_User',
+                'objectId' => session[:user]['objectId']
+              }
+            },
+            {
+              user: {
+                '__type' => 'Pointer',
+                'className' => '_User',
+                'objectId' => session[:user]['objectId']
+              }
+            }
+          ]
         }
 
-        call = db.APICall path: '/classes/Relations',where: r.to_json,include: 'user',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
+        call = db.APICall path: '/classes/Relations',where: r.to_json,order: '-createdAt',include: 'user,recipient',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
         render json: call
 
@@ -21,10 +33,35 @@ module Api
       def create
 
         params[:message][:body_html] = params[:message][:body].to_s.gsub(/\n/,'<br>')
+        short = params[:message][:body].to_s.gsub(/\n/,' ')
+        if short.length > 30
+
+          short = short[0..30].strip
+          short << '...'
+
+        end
+        params[:message][:body_short] = short
+        params[:message][:type] = 'message'
 
         call = db.APICall path: '/classes/Relations',method: 'POST',payload: params[:message],headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
-        render json: call
+        if call[:code].to_i == 201
+
+          params[:message][:objectId] = call[:body]['objectId']
+          params[:message][:recipient] = params[:user]
+          params[:message][:createdAt] = call[:body]['createdAt']
+
+          final = {
+            message: params[:message]
+          }
+
+        else
+
+          final = {e: 'An error occured'}
+
+        end
+
+        render json: final,status: call[:code].to_i
 
       end
 

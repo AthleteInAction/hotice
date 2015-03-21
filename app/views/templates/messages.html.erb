@@ -23,15 +23,48 @@
 				<tr>
 					<td class="list">
 						<ul class="messages-list">
-							<li class="messages-item" ng:repeat="message in messages">
-								<a href="" ng:click="">
-									{{message.body}}
+							<li class="messages-item" ng:repeat="message in messages.inbox" ng:class="{'selected':inboxI==$index}">
+								<a href="" ng:click="$parent.inboxI = $index">
+									<div class="message-author">{{message.recipient.gamertag}}</div>
+									<div class="message-preview">{{message.body_short}}</div>
+									<div class="message-time">{{displayDate(message.createdAt).sDate}}</div>
 								</a>
 							</li>
 						</ul>
 					</td>
 					<td class="body">
-						R
+						
+						<div class="message-recipient">{{messages.inbox[inboxI].recipient.gamertag}}</div>
+						<div class="message-time">{{displayDate(messages.inbox[inboxI].createdAt).sDate}}</div>
+						<div class="message-body" ng-bind-html="messages.inbox[inboxI].body_html"></div>
+
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<div class="info-body" ng:if="tab=='sent'">
+
+			<table class="inbox">
+				<tr>
+					<td class="list">
+						<ul class="messages-list">
+							<li class="messages-item" ng:repeat="message in messages.sent" ng:class="{'selected':sentI==$index}">
+								<a href="" ng:click="$parent.sentI = $index">
+									<div class="message-author">{{message.recipient.gamertag}}</div>
+									<div class="message-preview">{{message.body_short}}</div>
+									<div class="message-time">{{displayDate(message.createdAt).sDate}}</div>
+								</a>
+							</li>
+						</ul>
+					</td>
+					<td class="body">
+						
+						<div class="message-recipient">{{messages.sent[sentI].recipient.gamertag}}</div>
+						<div class="message-time">{{displayDate(messages.sent[sentI].createdAt).sDate}}</div>
+						<div class="message-body" ng-bind-html="messages.sent[sentI].body_html"></div>
+
 					</td>
 				</tr>
 			</table>
@@ -43,18 +76,19 @@
 			<div class="info-pad">
 				
 				<div class="message-recipients">
-					<div class="message-label" ng:if="message.recipients.length > 0">Click user to remove</div>
-					<div class="message-recipient" ng:repeat="user in message.recipients">
-						<a href="" ng:click="removeRecipient(user)">{{user.gamertag}}</a><span ng:if="$index < (message.recipients.length-1)">,</span>
+					<div class="message-label" ng:if="message.recipient">Click user to remove</div>
+					<div class="message-recipient" ng:show="message.recipient">
+						<a href="" ng:click="removeRecipient()">{{message.recipient.gamertag}}</a>
 					</div>
 					<div class="CLEAR"></div>
 				</div>
 
-				<input type="text" class="message-add" placeholder="Add recipients..." wambl-autocomplete="$parent.users" wambl-display-attr="gamertag" wambl-exclude="message.recipients" wambl-on-select="addRecipient(item)" wambl-on-click="addRecipient(item)" wambl-select-first="true" wambl-blank-on-select="true" ng:model="message_add" />
+				<input type="text" class="message-add" id="message-add" placeholder="Add recipient..." wambl-autocomplete="$parent.users" wambl-display-attr="gamertag" wambl-on-select="addRecipient(item)" wambl-on-click="addRecipient(item)" wambl-select-first="true" wambl-blank-on-select="true" ng:model="message_add" ng:show="!message.recipient" />
 
-				<textarea class="message-input" placeholder="Message" ng:model="message.body"></textarea>
+				<textarea class="message-input" id="message-input" placeholder="Message" ng:model="message.body"></textarea>
 
-				<a href="" class="btn blue" ng:if="message.body && message.recipients.length > 0" ng:click="createMessage()">Send</a>
+				<a href="" class="btn blue" ng:if="message.body && message.recipient && !x.message" ng:click="createMessage()">Send</a>
+				<a href="" class="btn blue" ng:if="message.body && message.recipient && x.message" ng:click="">Sending...</a>
 
 			</div>
 
