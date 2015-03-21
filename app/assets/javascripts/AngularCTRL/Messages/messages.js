@@ -49,7 +49,8 @@ var MessagesCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				message: {
 					user: makePointer($scope.$parent.current_user,'_User'),
 					recipient: makePointer($scope.message.recipient,'_User'),
-					body: $scope.message.body
+					body: $scope.message.body,
+					type: 'thread'
 				},
 				user: $scope.$parent.current_user
 			}

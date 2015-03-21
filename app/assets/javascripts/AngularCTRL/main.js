@@ -1,5 +1,5 @@
-var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval',
-	function($scope,$routeParams,$location,ApiModel,$timeout,$interval){
+var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval','Messages',
+	function($scope,$routeParams,$location,ApiModel,$timeout,$interval,Messages){
 
 		JP('MAIN');
 		$scope.current_user = current_user;
@@ -17,6 +17,9 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 			
 		// });
+
+		$scope.z = Messages.new({test: 'HELLO!'});
+		$scope.z.testz();
 
 		zE(function(){
 			var zduser = {

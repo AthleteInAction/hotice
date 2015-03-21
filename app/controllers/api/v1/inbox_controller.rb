@@ -41,7 +41,6 @@ module Api
 
         end
         params[:message][:body_short] = short
-        params[:message][:type] = 'message'
 
         call = db.APICall path: '/classes/Relations',method: 'POST',payload: params[:message],headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 

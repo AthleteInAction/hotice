@@ -24,8 +24,8 @@
 					<td class="list">
 						<ul class="messages-list">
 							<li class="messages-item" ng:repeat="message in messages.inbox" ng:class="{'selected':inboxI==$index}">
-								<a href="" ng:click="$parent.inboxI = $index">
-									<div class="message-author">{{message.recipient.gamertag}}</div>
+								<a href="" ng:click="$parent.inboxI = $index;">
+									<div class="message-author"><span>From:&nbsp;</span>{{message.user.gamertag}}</div>
 									<div class="message-preview">{{message.body_short}}</div>
 									<div class="message-time">{{displayDate(message.createdAt).sDate}}</div>
 								</a>
@@ -34,9 +34,14 @@
 					</td>
 					<td class="body">
 						
-						<div class="message-recipient">{{messages.inbox[inboxI].recipient.gamertag}}</div>
+						<div class="message-recipient"><span>From:&nbsp;</span>{{messages.inbox[inboxI].user.gamertag}}</div>
 						<div class="message-time">{{displayDate(messages.inbox[inboxI].createdAt).sDate}}</div>
 						<div class="message-body" ng-bind-html="messages.inbox[inboxI].body_html"></div>
+
+						<textarea class="message-input" id="message-input" placeholder="Reply" ng:model="message.body"></textarea>
+
+						<a href="" class="btn blue" ng:if="message.body && message.recipient && !x.message" ng:click="createMessage()">Send</a>
+						<a href="" class="btn blue" ng:if="message.body && message.recipient && x.message" ng:click="">Sending...</a>
 
 					</td>
 				</tr>
@@ -52,7 +57,7 @@
 						<ul class="messages-list">
 							<li class="messages-item" ng:repeat="message in messages.sent" ng:class="{'selected':sentI==$index}">
 								<a href="" ng:click="$parent.sentI = $index">
-									<div class="message-author">{{message.recipient.gamertag}}</div>
+									<div class="message-author"><span>To:&nbsp;</span>{{message.recipient.gamertag}}</div>
 									<div class="message-preview">{{message.body_short}}</div>
 									<div class="message-time">{{displayDate(message.createdAt).sDate}}</div>
 								</a>
@@ -61,7 +66,7 @@
 					</td>
 					<td class="body">
 						
-						<div class="message-recipient">{{messages.sent[sentI].recipient.gamertag}}</div>
+						<div class="message-recipient"><span>To:&nbsp;</span>{{messages.sent[sentI].recipient.gamertag}}</div>
 						<div class="message-time">{{displayDate(messages.sent[sentI].createdAt).sDate}}</div>
 						<div class="message-body" ng-bind-html="messages.sent[sentI].body_html"></div>
 
