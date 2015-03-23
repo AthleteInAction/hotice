@@ -19,8 +19,27 @@
 	<div class="bar_left">
 		<a href="/dashboard/#/" class="logo"></a>
 	</div>
-	<div class="bar_right">
+
+	<div class="bar_right" align="right">
 		
+		<div class="top-nav">
+
+			<div class="top-item">
+				<a href="#/messages" class="messages">
+					<span class="count" ng:if="channel.messages.length > 0">
+						<span>{{channel.messages.length}}</span>
+					</span>
+				</a>
+			</div>
+			<div class="top-item">
+				<a href="" class="info" ng:click="">
+					<span class="count"><span>10</span></span>
+				</a>
+			</div>
+			<div class="top-item"><a href="/signout" class="signout">Signout</a></div>
+
+		</div>
+
 	</div>
 
 	<div class="side_bar">

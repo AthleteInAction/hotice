@@ -17,14 +17,14 @@
 
 		</div>
 
-		<div class="info-body" ng:show="tab=='inbox'" ng:init="messages.getInbox()">
+		<div class="info-body" ng:show="tab=='inbox'">
 
 			<table class="inbox">
 				<tr>
 					<td class="list">
 						<ul class="messages-list">
-							<li class="messages-item" ng:repeat="message in messages.inbox" ng:class="{'selected':inboxI==$index}">
-								<a href="" ng:click="$parent.inboxI=$index">
+							<li class="messages-item" ng:repeat="message in messages.inbox" ng:class="{'selected':message.objectId==s.objectId,'unread':$parent.channel.messages.contains('objectId',message.objectId)}">
+								<a href="" ng:click="$parent.s = message; setRead(message); setReply(message)">
 									<div class="message-author"><span>From:&nbsp;</span>{{message.user.gamertag}}</div>
 									<div class="message-preview">{{message.body_short}}</div>
 									<div class="message-time">{{displayDate(message.createdAt).sDate}}</div>
@@ -33,21 +33,23 @@
 						</ul>
 					</td>
 					<td class="body">
+						
+						<div ng:if="s" ng:init="">
 
-						<div ng:if="messages.inbox[inboxI]">
+							<div class="message-recipient"><span>From:&nbsp;</span>{{s.user.gamertag}}</div>
+							<div class="message-time">{{displayDate(s.createdAt).sDate}}</div>
+							<div class="message-body" ng-bind-html="s.body_html"></div>
 
-							<div class="message-recipient"><span>From:&nbsp;</span>{{messages.inbox[inboxI].user.gamertag}}</div>
-							<div class="message-time">{{displayDate(messages.inbox[inboxI].createdAt).sDate}}</div>
-							<div class="message-body" ng-bind-html="messages.inbox[inboxI].body_html"></div>
-
-							<span ng:init="reply.user = $parent.current_user"></span>
-							<span ng:init="reply.recipient = messages.inbox[sentI].user"></span>
+							<!-- <span ng:init="reply.user = $parent.current_user"></span>
+							<span ng:init="reply.recipient = s.user"></span> -->
 							<textarea class="message-input" id="message-input" placeholder="Reply" ng:model="reply.body"></textarea>
 
 							<a href="" class="btn blue" ng:if="reply.body && !reply.loading" ng:click="sendMessage(reply)">Reply</a>
 							<a href="" class="btn blue" ng:if="reply.loading" ng:click="">Sending...</a>
 
 						</div>
+
+						<div class="pre">{{reply}}</div>
 
 					</td>
 				</tr>
@@ -86,7 +88,7 @@
 
 		</div>
 
-		<div class="info-body" ng:if="tab=='compose'">
+		<div class="info-body" ng:show="tab=='compose'">
 
 			<div class="info-pad">
 				
@@ -98,7 +100,7 @@
 					<div class="CLEAR"></div>
 				</div>
 
-				<input type="text" class="message-add" id="message-add" placeholder="Add recipient..." wambl-autocomplete="$parent.users" wambl-display-attr="gamertag" wambl-on-select="composer.recipient = item" wambl-on-click="composer.recipient = item" wambl-select-first="true" wambl-blank-on-select="true" ng:model="message_add" ng:show="!composer.recipient" />
+				<input type="text" class="message-add" id="message-add" placeholder="Add recipient..." wambl-autocomplete="$parent.users" wambl-display-attr="gamertag" wambl-on-select="composer.recipient = item; selectBody()" wambl-on-click="composer.recipient = item; selectBody()" wambl-select-first="true" wambl-blank-on-select="true" ng:model="message_add" ng:show="!composer.recipient" />
 
 				<textarea class="message-input" id="message-input" placeholder="Message" ng:model="composer.body"></textarea>
 

@@ -21,3 +21,6 @@
 
 # Ignore messages
 /messages
+
+# Ignore channel
+/channel

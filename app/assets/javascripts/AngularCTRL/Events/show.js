@@ -344,7 +344,7 @@ var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','
 		$scope.getMessages = function(){
 
 			this.options = {
-				type: 'messages',
+				type: 'chat',
 				sub: 'events',
 				id: $scope.params.id
 			};

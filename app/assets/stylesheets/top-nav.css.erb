@@ -1,0 +1,64 @@
+div.top-nav {
+	display: table;
+	border-spacing: 0;
+	border-collapse: separate;
+	height: 50px;
+}
+div.top-nav div.top-item {
+	display: table-cell;
+	padding: 10px;
+	vertical-align: middle;
+}
+
+div.top-nav div.top-item span.count {
+	position: absolute;
+	z-index: 10000;
+	display: table;
+	border-spacing: 0;
+	border-collapse: separate;
+	height: 15px;
+	width: 15px;
+	margin-left: 14px;
+	margin-top: -3px;
+	background: url(<%= asset_path 'icon-count.png' %>) center center no-repeat;
+}
+div.top-nav div.top-item span.count span {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	color: #FFF;
+	font-size: 9px;
+}
+
+div.top-nav div.top-item a.messages {
+	display: block;
+	height: 24px;
+	width: 24px;
+	background-image: url(<%= asset_path 'top-icon-messages.png' %>);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 24px;
+}
+div.top-nav div.top-item a.info {
+	display: block;
+	height: 24px;
+	width: 24px;
+	background-image: url(<%= asset_path 'top-icon-info.png' %>);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 24px;
+}
+div.top-nav div.top-item a.messages:hover,
+div.top-nav div.top-item a.info:hover {
+	opacity: 0.8;
+}
+div.top-nav div.top-item a.signout {
+	padding-left: 20px;
+	color: #414141;
+	text-decoration: none;
+	text-shadow: 1px 1px 0 #FFC483;
+	font-weight: 400;
+}
+div.top-nav div.top-item a.signout:hover {
+	color: #222;
+}

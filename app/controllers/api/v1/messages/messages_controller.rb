@@ -85,6 +85,25 @@ module Api
               message: params[:message]
             }
 
+            path = "#{Rails.root}/channel/#{params[:recipient]['objectId']}/messages"
+
+            FileUtils::mkdir_p path
+
+            channel = {
+              objectId: call[:body]['objectId'],
+              from: params[:user]['gamertag'],
+              body_short: short,
+              createdAt: call[:body]['createdAt']
+            }
+            
+            path << "/#{channel[:objectId]}.chnl"
+
+            File.open path,'w+' do |f|
+
+              f.write channel.to_json
+
+            end
+
           else
 
             final = {e: 'An error occured'}

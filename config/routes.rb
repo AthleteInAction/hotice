@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :online
       resources :events
       resources :relations
+      resources :channel
       
       namespace :messages do
 
@@ -45,8 +46,7 @@ Rails.application.routes.draw do
 
       end
 
-      # get 'messages/events/:eventId',to: 'messages#index'
-      # get 'messages/main/:location',to: 'messages#index'
+      get 'chat/events/:eventId',to: 'chat#index'
 
       # TEST STUFF
       resources :test

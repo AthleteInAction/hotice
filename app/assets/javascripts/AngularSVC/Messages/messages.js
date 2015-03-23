@@ -9,7 +9,7 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 		// ------------------------------------------------
 		// ------------------------------------------------
 		getInbox: function(complete){
-
+			JP('GET INBOX');
 			var t = this;
 
 			t.loading = true;
@@ -148,7 +148,7 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 
 					delete m.loading;
 
-					if (complete){complete();}
+					if (complete){complete(data);}
 
 				},function(data){
 

@@ -260,5 +260,44 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 		};
 
+		$scope.channel = {
+			messages: [],
+			info: []
+		};
+
+		$scope.getChannel = function(){
+
+			this.options = {
+				type: 'channel'
+			};
+
+			ApiModel.query(this.options,function(data){
+
+				var tmp = [];
+				angular.forEach(data.messages,function(val,key){
+
+					tmp.push(val);
+
+				});
+
+				$scope.channel.messages = tmp;
+
+				tmp = [];
+				angular.forEach(data.info,function(val,key){
+
+					tmp.push(val);
+
+				});
+
+				$scope.channel.info = tmp;
+
+			});
+
+		};
+		$scope.getChannel();
+		$interval(function(){
+			$scope.getChannel();
+		},1000);
+
 	}
 ];
