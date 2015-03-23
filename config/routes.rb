@@ -35,11 +35,18 @@ Rails.application.routes.draw do
       resources :online
       resources :events
       resources :relations
-      resources :inbox
+      
+      namespace :messages do
 
-      resources :messages
-      get 'messages/events/:eventId',to: 'messages#index'
-      get 'messages/main/:location',to: 'messages#index'
+        get 'inbox',to: 'messages#inbox'
+        post 'inbox',to: 'messages#create'
+        get 'sent',to: 'messages#sent'
+        get 'thread/:id',to: 'messages#thread'
+
+      end
+
+      # get 'messages/events/:eventId',to: 'messages#index'
+      # get 'messages/main/:location',to: 'messages#index'
 
       # TEST STUFF
       resources :test

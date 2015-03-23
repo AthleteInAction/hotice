@@ -1,6 +1,6 @@
 module Api
   module V1
-  	class MessagesController < ApplicationController
+  	class ChatController < ApplicationController
 
   		def index
 

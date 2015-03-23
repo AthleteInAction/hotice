@@ -158,7 +158,6 @@ HotIce.directive('wamblAutocomplete',['$compile',function($compile){
     	},
     	// require: 'ngModel',
         link: function(scope,element,attrs){
-        	JP(scope);
 
         	var template = '<div class="autocomplete"><ul><li ng:if="wamblItems.length == 0"><a href="" ng:click="">{{message}}</a></li><li ng:repeat="item in wamblItems track by $index"><a href="" ng:class="{selected: $index==wamblIndex}" ng:click="clickHandle($index)">{{translate(item)}}</a></li></ul></div>';
         	var el = angular.element(template);
@@ -317,17 +316,16 @@ HotIce.directive('wamblAutocomplete',['$compile',function($compile){
 
 			scope.filter = function(){
 
-				JP(scope.ngModel);
 				var tval = scope.ngModel;//element.val();
 
-				if (tval.length != prevLength){
+				if (tval && tval.length != prevLength){
             		scope.setOffset();
             		prevLength = tval.length;
             	}
 	
             	filtered = [];
 	
-            	if (tval.length > 0){
+            	if (tval && tval.length > 0){
 				
             		scope.showList();
 

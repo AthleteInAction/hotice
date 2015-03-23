@@ -1,5 +1,5 @@
-var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval','Messages',
-	function($scope,$routeParams,$location,ApiModel,$timeout,$interval,Messages){
+var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval','API',
+	function($scope,$routeParams,$location,ApiModel,$timeout,$interval,API){
 
 		JP('MAIN');
 		$scope.current_user = current_user;
@@ -18,8 +18,12 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			
 		// });
 
-		$scope.z = Messages.new({test: 'HELLO!'});
-		$scope.z.testz();
+		$scope.t = API.teams;
+		$scope.t.get(function(teams){
+
+			JP(teams);
+
+		});
 
 		zE(function(){
 			var zduser = {
@@ -46,14 +50,14 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 		};
 
-		if (!current_user.gamertagVerified){
-			$scope.refreshUser();
-			setInterval(function(){
-				if (!current_user.gamertagVerified){
-					$scope.refreshUser();
-				}
-			},20000);
-		}
+		// if (!current_user.gamertagVerified){
+		// 	$scope.refreshUser();
+		// 	setInterval(function(){
+		// 		if (!current_user.gamertagVerified){
+		// 			$scope.refreshUser();
+		// 		}
+		// 	},20000);
+		// }
 
 		$scope.getUsers = function(complete){
 
@@ -123,14 +127,14 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 		};
 		$scope.getOnlineUsers();
 
-		setInterval(function(){
+		// setInterval(function(){
 
-			$scope.getNotifications(function(notifications){
-				$scope.notifications = notifications;
-			});
-			$scope.getOnlineUsers();
+		// 	$scope.getNotifications(function(notifications){
+		// 		$scope.notifications = notifications;
+		// 	});
+		// 	$scope.getOnlineUsers();
 
-		},20000);
+		// },20000);
 
 		$scope.linkTo = function(loc){
 
@@ -211,10 +215,10 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			});
 
 		};
-		$scope.getMainMessages();
-		$interval(function(){
-			$scope.getMainMessages();
-		},1000);
+		// $scope.getMainMessages();
+		// $interval(function(){
+		// 	$scope.getMainMessages();
+		// },1000);
 
 		$scope.sendMainChat = function(entry){
 

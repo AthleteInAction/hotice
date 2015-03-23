@@ -17,7 +17,7 @@
 //= require AngularJS/angular-ui
 //= require AngularJS/angular-route
 //= require AngularJS/z
-//= require AngularJS/services
+//= require_tree ./AngularSVC
 //= require AngularJS/sanitize
 //= require_tree ./AngularCTRL
 //= require_tree ./Zendesk

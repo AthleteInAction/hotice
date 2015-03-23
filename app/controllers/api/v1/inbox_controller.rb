@@ -13,13 +13,6 @@ module Api
                 'className' => '_User',
                 'objectId' => session[:user]['objectId']
               }
-            },
-            {
-              user: {
-                '__type' => 'Pointer',
-                'className' => '_User',
-                'objectId' => session[:user]['objectId']
-              }
             }
           ]
         }
@@ -47,7 +40,8 @@ module Api
         if call[:code].to_i == 201
 
           params[:message][:objectId] = call[:body]['objectId']
-          params[:message][:recipient] = params[:user]
+          params[:message][:recipient] = params[:recipient]
+          params[:message][:user] = params[:user]
           params[:message][:createdAt] = call[:body]['createdAt']
 
           final = {
