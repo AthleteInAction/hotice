@@ -1,0 +1,54 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<a href="/dashboard/#/seasons/{{params.id}}">Seasons</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">{{event.title}}</span>
+	</div>
+
+	<div class="event-header">
+
+		<div class="event-title">{{event.title}}</div>
+		<table>
+			<tr class="event-date">
+				<td colspan="2">
+					<span>{{displayDate(event.start_date.iso).fString}}</span>
+				</td>
+			</tr>
+			<tr class="event-deadline">
+				<td>Registration&nbsp;Deadline:&nbsp;</td>
+				<td>
+					<span>{{displayDate(event.reg_date.iso).fString}}</span>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div class="info-container">
+
+		<div class="info-head">
+			
+			<a href="" class="info-item" ng:class="{'selected':tab=='overview'}" ng:click="tab = 'overview'">Overview</a>
+			<a href="" class="info-item" ng:class="{'selected':tab=='signup'}" ng:click="tab = 'signup'">Sign&nbsp;Up!</a>
+			<div class="info-item"></div>
+
+		</div>
+
+		<div class="info-body" ng:if="tab == 'overview'">
+
+			OVERVIEW
+
+		</div>
+
+		<div class="info-body" ng:if="tab == 'signup'">
+
+			SIGNUP
+
+		</div>
+
+	</div>
+
+</div>

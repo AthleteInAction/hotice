@@ -16,8 +16,10 @@ module Request
     uri = URI url
 
     http = Net::HTTP.new(uri.host,80)
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    http.use_ssl = true if uri.scheme == 'https'
+    # if uri.scheme == 'https'
+    #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    #   http.use_ssl = true
+    # end
 
     req = Net::HTTP::Get.new uri.path
     # req.content_type = 'application/xml'

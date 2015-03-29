@@ -4,48 +4,17 @@ module Api
 
   		def index
 
-        test = {
-          '$or' => [
+  			call = db.APICall path: '/users'
 
-            {
-              user: {
-                '__type' => 'Pointer',
-                'className' => '_User',
-                'objectId' => 'sajlUe2o1I'
-              },
-              type: 'team'
-            },
+        call[:body]['results'].each do |user|
 
-            {
-              event: {
-                '__type' => 'Pointer',
-                'className' => 'Events',
-                'objectId' => 'QbpXiJZ7c4'
-              },
-              type: 'event'
-            }
+          Tools.updateUserKey user['objectId'],user['gamertag']
 
-          ]
-        }
+        end
 
-  			test1 = {
-          event: {
-            '$in' => [
-              {
-                '__type' => 'Pointer',
-                'className' => 'Events',
-                'objectId' => 'QbpXiJZ7c4'
-              }
-            ]
-          },
-          type: {
-            '$in' => ['event','team']
-          }
-        }
+        final = Tools.userKey
 
-  			call = db.APICall path: '/classes/Relations',where: test.to_json,include: 'team,user'
-
-        render json: call
+        render json: final
 
       end
 

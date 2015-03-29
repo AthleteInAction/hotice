@@ -1,7 +1,5 @@
 var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval','API',
 	function($scope,$routeParams,$location,ApiModel,$timeout,$interval,API){
-
-		JP('MAIN');
 		$scope.current_user = current_user;
 		$scope.announcements = [];
 		$scope.loading = false;
@@ -10,19 +8,14 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 		$scope.last_chat_id = null;
 
 		$scope.x = {};
-		// $scope.Prefix = Prefix;
+		$scope.n = false;
+		$scope.title = '';
+		$scope.showSignup = false;
 
-		// $scope.$on('$routeChangeSuccess',function (event,current,previous,rejection){
+		$scope.$on('$routeChangeSuccess',function (event,current,previous,rejection){
 
 
 			
-		// });
-
-		$scope.t = API.teams;
-		$scope.t.get(function(teams){
-
-			JP(teams);
-
 		});
 
 		zE(function(){
@@ -33,6 +26,9 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			};
 			zE.identify(zduser);
 		});
+
+		$scope.messages = API.messages;
+		$scope.composer = $scope.messages.new({user: $scope.current_user});
 
 		$scope.refreshUser = function(){
 
@@ -49,15 +45,6 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			});
 
 		};
-
-		// if (!current_user.gamertagVerified){
-		// 	$scope.refreshUser();
-		// 	setInterval(function(){
-		// 		if (!current_user.gamertagVerified){
-		// 			$scope.refreshUser();
-		// 		}
-		// 	},20000);
-		// }
 
 		$scope.getUsers = function(complete){
 
@@ -86,31 +73,6 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			$scope.users = users;
 
 		});
-
-
-		$scope.getNotifications = function(complete){
-
-			this.options = {
-				type: 'notifications'
-			};
-
-			ApiModel.query(this.options,function(data){
-
-				complete(data.body.results);
-
-			});
-
-		};
-		$scope.getNotifications(function(notifications){
-			$scope.notifications = notifications;
-		});
-
-
-		$scope.handleNotification = function(notification,accepted){
-
-			
-
-		};
 
 		$scope.getOnlineUsers = function(){
 
@@ -142,48 +104,7 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 		};
 
-		$scope.displayDate = function(d){
-
-			var obj = {
-				sDate: '',
-				fString: ''
-			}
-
-			if (new Date(d).getDay()){
-				
-			} else {return obj;}
-
-			var date = new Date(d);
-
-			var h = date.getHours();
-			var m = date.getMinutes()+'';
-			var M = date.getMonth();
-			var D = date.getDate();
-			var Y = date.getFullYear();
-			var dotw = date.getDay();
-
-			if (m.length < 2){
-				m = '0'+m;
-			}
-			var ap = 'am';
-
-			if (h >= 12){
-				ap = 'pm';
-			}
-
-			if (h > 12){
-				h -= 12;
-			}
-
-			var time = h+':'+m+' '+ap;
-
-			obj.sDay = (M+1)+'/'+D+'/'+Y;
-			obj.sDate = obj.sDay+' '+time;
-			obj.fString = days[dotw].long+' '+months[M].long+', '+D+', '+Y+' '+time;//+' '+date.getTimezoneOffset();
-
-			return obj;
-
-		};
+		$scope.displayDate = displayDate;
 
 		$scope.getMainMessages = function(){
 
@@ -215,10 +136,6 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			});
 
 		};
-		// $scope.getMainMessages();
-		// $interval(function(){
-		// 	$scope.getMainMessages();
-		// },1000);
 
 		$scope.sendMainChat = function(entry){
 
@@ -262,7 +179,8 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 		$scope.channel = {
 			messages: [],
-			info: []
+			info: [],
+			count: 0
 		};
 
 		$scope.getChannel = function(){
@@ -283,13 +201,21 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 				$scope.channel.messages = tmp;
 
 				tmp = [];
+				var count = 0;
 				angular.forEach(data.info,function(val,key){
 
 					tmp.push(val);
+					if (!val.seen){count++;}
 
 				});
 
 				$scope.channel.info = tmp;
+				$scope.channel.count = count;
+				if (count > 0){
+					$scope.title = ' ('+$scope.channel.count+')';
+				} else {
+					$scope.title = '';
+				}
 
 			});
 
@@ -298,6 +224,120 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 		$interval(function(){
 			$scope.getChannel();
 		},1000);
+
+		$scope.setSeen = function(){
+
+			if (!$scope.n || $scope.channel.count == 0){return false;}
+
+			$scope.channel.count = 0;
+
+			this.options = {
+				type: 'channel',
+				sub: 'seen'
+			};
+
+			ApiModel.query(this.options,function(data){
+
+
+
+			},function(data){
+
+
+
+			});
+
+		};
+
+		$scope.dismissNotification = function(notification){
+
+			$scope.x[notification.id] = true;
+
+			this.options = {
+				type: 'channel',
+				id: notification.id,
+				info: true
+			};
+
+			ApiModel.destroy(this.options,function(data){
+
+				delete $scope.x[notification.id];
+
+				$scope.channel.info.removeWhere('id',notification.id);
+
+			},function(data){
+
+				delete $scope.x[notification.id];
+
+			});
+
+		};
+
+		$scope.acceptInvite = function(notification){
+
+			$scope.x[notification.id] = true;
+
+			this.options = {
+				type: 'relations',
+				id: notification.id,
+				notification: 'delete'
+			};
+
+			var Relation = new ApiModel({relation: {status: 'accepted'}});
+
+			Relation.$save(this.options,function(data){
+
+				delete $scope.x[notification.id];
+
+				window.location = '#/teams/'+notification.team.objectId;
+
+			},function(){
+
+				delete $scope.x[notification.id];
+
+			});
+
+		};
+
+		$scope.seasonSignup = function(){
+
+			$scope.x.seasonSignup = true;
+
+			this.options = {
+				type: 'relations'
+			};
+
+			var Relation = new ApiModel({
+				relation: {
+					user: {
+						__type: 'Pointer',
+						className: '_User',
+						objectId: current_user.objectId
+					},
+					type: 'season',
+					status: 'signup',
+					event: {
+						__type: 'Pointer',
+						className: 'Events',
+						objectId: 'x9XK1Bb02p'
+					}
+				}
+			});
+
+			Relation.$create(this.options,function(data){
+
+				delete $scope.x.seasonSignup;
+				$scope.showSignup = false;
+
+			},function(data){
+
+				JP({e: data});
+
+				delete $scope.x.seasonSignup;
+				$scope.showSignup = false;
+
+			});
+
+		};
 
 	}
 ];

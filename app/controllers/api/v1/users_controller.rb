@@ -2,6 +2,8 @@ module Api
   module V1
   	class UsersController < ApplicationController
 
+      respond_to :json
+
   		def index
 
         # path = "#{Rails.root}/utilities/user_key.json"
@@ -51,7 +53,15 @@ module Api
 
         call = db.APICall method: 'PUT',path: "/users/#{params[:id]}",payload: params[:user],headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
+        Tools.updateUserKey params[:id],params[:user][:gamertag] if params[:user][:gamertag] && call[:code].to_i == 200
+
         render json: call,status: call[:code].to_i
+
+      end
+
+      def key
+
+        respond_with Tools.userKey
 
       end
 

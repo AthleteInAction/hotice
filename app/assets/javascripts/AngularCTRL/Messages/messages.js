@@ -1,46 +1,41 @@
-var MessagesCtrl = ['$scope','$routeParams','API','ApiModel','$timeout',
-	function($scope,$routeParams,API,ApiModel,$timeout){
+var MessagesCtrl = ['$scope','$routeParams','API','ApiModel','$interval',
+	function($scope,$routeParams,API,ApiModel,$interval){
+
+		$scope.$on('$destroy',function() {
+		    // Make sure that the interval is destroyed too
+		    JP('STOP CHECKNEW');
+		    $interval.cancel(t);
+		});
 
 		$scope.params = $routeParams;
 
-		$scope.tabs = {
-			'inbox': true,
-			'sent': true,
-			'compose': true
-		};
-		$scope.tab = $scope.params.tab;
-		if (!$scope.tabs[$scope.params.tab]){
-			$scope.tab = 'inbox';
-		}
+		$scope.tabs = {'inbox': 'inbox','sent': 'sent','compose': 'compose'};
+		$scope.tab = $scope.tabs[$scope.params.tab] || 'inbox';
 
-		// $scope.inboxI = 0;
-		$scope.sentI = 0;
 		// Channel Count
 		$scope.c = angular.copy($scope.$parent.channel.messages.length);
-		// Selected Message
-		$scope.s = null;
 
-		$scope.messages = API.messages;
-		$scope.messages.getInbox(function(data){
+		$scope.$parent.messages.getInbox(function(){
 
 			$scope.c = angular.copy($scope.$parent.channel.messages.length);
-			if (data.length > 0){
-				$scope.s = data[0];
-				$scope.setRead($scope.s);
-			}
 			$scope.checkNew();
 
 		});
 
-		$scope.reply = API.messages.new();
-		$scope.composer = API.messages.new({user: $scope.$parent.current_user});
+		$scope.selectedMessage = {
+			inbox: null,
+			sent: null
+		};
 
-		$scope.setReply = function(message){
+		$scope.selectMessage = function(message,type){
 
-			$scope.reply = API.messages.new({
-				user: $scope.$parent.current_user,
-				recipient: message.user
-			});
+			$scope.setRead(message);
+
+			$scope.reply = $scope.$parent.messages.new();
+			$scope.reply.user = $scope.$parent.current_user;
+			$scope.reply.recipient = message.user;
+
+			$scope.selectedMessage[type] = message;
 
 		};
 
@@ -48,10 +43,9 @@ var MessagesCtrl = ['$scope','$routeParams','API','ApiModel','$timeout',
 
 			message.save(function(){
 
-				$scope.reply = API.messages.new({
-					user: $scope.$parent.current_user,
-					recipient: $scope.s.user
-				});
+				$scope.selectMessage(message,'sent');
+				$scope.$parent.composer = $scope.$parent.messages.new({user: $scope.$parent.current_user});
+
 				$scope.tab = 'sent';
 
 			});
@@ -91,18 +85,18 @@ var MessagesCtrl = ['$scope','$routeParams','API','ApiModel','$timeout',
 
 			if ($scope.$parent.channel.messages.length != $scope.c){
 
-				if ($scope.$parent.channel.messages.length > $scope.c){$scope.messages.getInbox();}
+				if ($scope.$parent.channel.messages.length > $scope.c){$scope.$parent.messages.getInbox();}
 				$scope.c = angular.copy($scope.$parent.channel.messages.length);
 
 			};
 
-			$timeout(function(){
-
-				$scope.checkNew();
-
-			},1000);
-
 		};
+
+		var t = $interval(function(){
+
+			$scope.checkNew();
+
+		},1000);
 
 	}
 ];

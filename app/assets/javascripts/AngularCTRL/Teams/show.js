@@ -7,6 +7,7 @@ var TeamsShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 		$scope.i_am_admin = false;
 		$scope.userFilter = 'accepted';
 		$scope.teammateAdder = null;
+		$scope.myRelationId = null;
 
 		$scope.getTeam = function(){
 
@@ -30,7 +31,23 @@ var TeamsShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 						$scope.i_am_admin = true;
 					}
 
+					if (val.user.objectId == current_user.objectId && val.status == 'accepted'){
+						$scope.i_am_teammate = true;
+						$scope.myRelationId = val.objectId;
+					};
+
+					if (val.user.objectId == current_user.objectId && val.status == 'invited'){
+						$scope.i_am_invited = true;
+						$scope.myRelationId = val.objectId;
+					};
+
+					if (val.user.objectId == current_user.objectId && val.status == 'requested'){
+						$scope.i_am_requested = true;
+						$scope.myRelationId = val.objectId;
+					};
+
 					temp.push(val.user);
+					JP(temp);
 
 				});
 
@@ -67,7 +84,7 @@ var TeamsShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				status: 'invited'
 			};
 
-			var Relation = new ApiModel({relation: Item});
+			var Relation = new ApiModel({relation: Item,team: $scope.team.team,user: user});
 
 			Relation.$create(this.options,function(data){
 
@@ -130,12 +147,75 @@ var TeamsShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			this.options = {
 				type: 'relations',
-				id: user.relationId
+				id: user.relationId,
+				inviteeId: user.objectId
 			};
 
 			ApiModel.destroy(this.options,function(data){
 
 				$scope.members.removeWhere('objectId',user.objectId);
+
+			});
+
+		};
+
+		$scope.leaveTeam = function(){
+
+			if (!confirm('Are you sure you want to leave this team?')){
+				return false;
+			};
+
+			$scope.$parent.x[$scope.myRelationId] = true;
+
+			this.options = {
+				type: 'relations',
+				id: $scope.myRelationId,
+				inviteeId: current_user.objectId
+			};
+
+			ApiModel.destroy(this.options,function(data){
+
+				$scope.i_am_teammate = false;
+				$scope.myRelationId = null;
+				delete $scope.$parent.x[$scope.myRelationId];
+				$scope.members.removeWhere('objectId',current_user['objectId']);
+				JP($scope.members);
+
+			});
+
+		};
+
+		$scope.acceptInviteTeam = function(){
+
+			$scope.$parent.x[$scope.myRelationId] = true;
+
+			this.options = {
+				type: 'relations',
+				id: $scope.myRelationId,
+				notification: 'delete'
+			};
+
+			var Relation = new ApiModel({relation: {status: 'accepted'}});
+
+			Relation.$save(this.options,function(data){
+
+				delete $scope.$parent.x[$scope.myRelationId];
+
+				$scope.i_am_teammate = true;
+				$scope.i_am_requested = false;
+				$scope.i_am_invited = false;
+
+				var u = angular.copy($scope.$parent.current_user);
+				u.relationId = $scope.myRelationId;
+				u.status = 'accepted';
+
+				$scope.members.removeWhere('objectId',current_user.objectId);
+				$scope.members.push(u);
+				JP($scope.members);
+
+			},function(){
+
+				delete $scope.$parent.x[$scope.myRelationId];
 
 			});
 

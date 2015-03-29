@@ -32,5 +32,8 @@ Rails.application.configure do
   # Colors
   ORANGE = 'FFAB4D'
   TEAL = '50DDE8'
+
+  # Paths
+  CHANNEL_PATH = "#{Rails.root}/channel"
   
 end

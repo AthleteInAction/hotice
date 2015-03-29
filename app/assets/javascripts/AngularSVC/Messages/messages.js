@@ -2,6 +2,8 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 
 	this.messages = {
 
+		loading: {},
+
 		sent: [],
 		inbox: [],
 
@@ -9,10 +11,10 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 		// ------------------------------------------------
 		// ------------------------------------------------
 		getInbox: function(complete){
-			JP('GET INBOX');
+			
 			var t = this;
 
-			t.loading = true;
+			t.loading.inbox = true;
 
 			var options = {
 				type: 'messages',
@@ -25,6 +27,8 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 
 				angular.forEach(data.body.results,function(val,key){
 
+					if (val.blacklist){delete val.blacklist;}
+
 					var m = t.new(val);
 
 					tmp.push(m);
@@ -33,13 +37,13 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 
 				t.inbox = tmp;
 
-				delete t.loading;
+				delete t.loading.inbox;
 
 				if (complete){complete(tmp);}
 
 			},function(data){
 
-				delete t.loading;
+				delete t.loading.inbox;
 
 				if (complete){complete({e: data});}
 
@@ -50,7 +54,7 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 
 			var t = this;
 
-			t.loading = true;
+			t.loading.sent = true;
 
 			var options = {
 				type: 'messages',
@@ -63,6 +67,8 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 
 				angular.forEach(data.body.results,function(val,key){
 
+					if (val.blacklist){delete val.blacklist;}
+
 					var m = t.new(val);
 
 					tmp.push(m);
@@ -71,13 +77,13 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 
 				t.sent = tmp;
 
-				delete t.loading;
+				delete t.loading.sent;
 
 				if (complete){complete(tmp);}
 
 			},function(data){
 
-				delete t.loading;
+				delete t.loading.sent;
 
 				if (complete){complete({e: data});}
 
@@ -155,6 +161,43 @@ HotIce.service('MessagesSVC',['ApiModel',function(ApiModel){
 					delete m.loading;
 
 					// if (complete){complete({e: data});}
+
+				});
+
+			};
+
+			m.delete = function(sent){
+
+				var who = 'From';
+
+				if (sent){
+					who = 'To';
+				}
+
+				var warning = 'Are you sure you wish to delete this message?\n\n'+who+': '+m.user.gamertag+'\n'+m.body_short+'\n'+displayDate(m.createdAt).sDate+'\n';
+
+				if (!confirm(warning)){
+					return false;
+				}
+
+				m.loading = true;
+
+				var options = {
+					type: 'messages',
+					sub: 'inbox',
+					id: m.objectId
+				};
+
+				ApiModel.destroy(options,function(data){
+
+					t.sent.removeWhere('objectId',m.objectId);
+					t.inbox.removeWhere('objectId',m.objectId);
+
+				},function(data){
+
+					JP(data);
+
+					delete m.loading;
 
 				});
 

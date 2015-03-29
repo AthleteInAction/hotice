@@ -27,7 +27,9 @@
 				<td>&nbsp;</td>
 			</tr>
 			<tr ng:repeat="member in members | orderBy:'gamertag'" ng:click="">
-				<td class="MIN"><a href="">{{member.gamertag}}</a></td>
+				<td class="MIN VMID">
+					<span user:tip="member" composer="$parent.composer">{{member.gamertag}}</span>
+				</td>
 				<td><div class="" ng:class="{'VERIFIED':member.gamertagVerified,'UNVERIFIED':!member.gamertagVerified}"></div></td>
 			</tr>
 

@@ -3,7 +3,7 @@ module Api
   	class EventsController < ApplicationController
 
   		def index
-
+        
   			call = db.APICall path: '/classes/Events',where: params[:constraints],headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
   			render json: call

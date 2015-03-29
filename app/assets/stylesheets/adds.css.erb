@@ -1,0 +1,34 @@
+div.adds {
+	display: table;
+	table-layout: fixed;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin-top: 20px;
+	width: 100%;
+}
+div.adds div.add-item {
+	display: table-cell;
+	padding: 0 20px;
+}
+div.adds div.add-item:nth-child(1) {
+	text-align: left;
+	padding-left: 40px;
+}
+div.adds div.add-item:nth-child(2) {
+	text-align: right;
+	padding-right: 50px;
+}
+
+div.adds div.add-item a.hniotp {
+	display: block;
+	background: url(<%= asset_path 'ad_hniotp.png' %>) center center no-repeat;
+	width: 490px;
+	height: 82px;
+}
+div.adds div.add-item a.season {
+	display: block;
+	background: url(<%= asset_path 'ad_season.png' %>) center center no-repeat;
+	width: 231px;
+	height: 82px;
+	float: right;
+}

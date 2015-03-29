@@ -12,6 +12,9 @@
 
 		<div class="name">{{team.team.name}}</div>
 		<div class="record">{{team.team.wins}}&nbsp;-&nbsp;{{team.team.losses}}&nbsp;-&nbsp;{{team.team.otl}}</div>
+		<a href="" class="btn red leave-team" ng:click="leaveTeam()" ng:if="i_am_teammate && !$parent.x[myRelationId]">Leave Team</a>
+		<a href="" class="btn green leave-team" ng:click="$parent.acceptInviteTeam()" ng:if="i_am_invited && !$parent.x[myRelationId]">Accept Invite</a>
+		<a href="" class="btn leave-team" ng:click="" ng:if="$parent.x[myRelationId]">Processing...</a>
 
 	</div>
 
@@ -65,12 +68,12 @@
 	
 				<tr ng:repeat="user in members | orderBy:'gamertag' | filter:{'status':userFilter}" ng:click="">
 					<!-- NAME -->
-					<td>
-						<a href="">{{user.gamertag}}</a>
+					<td class="VMID">
+						<span user:tip="user" composer="$parent.composer">{{user.gamertag}}</span>
 						<div class="PENDING" ng:if="user.status != 'accepted'">{{user.status.toUpperCase()}}</div>
 					</td>
 					<!-- GM -->
-					<td ng:if="i_am_admin && userFilter == 'accepted'">
+					<td ng:if="i_am_admin && userFilter == 'accepted'" class="VMID">
 						<input type="checkbox" ng:checked="user.admin" ng:model="user.admin" ng:change="editAdmin(user)" ng:disabled="user.objectId == current_user.objectId || user.status != 'accepted'" />
 					</td>
 					<!-- ACCEPT -->
@@ -78,8 +81,8 @@
 						<a href="" ng:click="addMember($index)" class="accept" ng:if="user.objectId != current_user.objectId">Accept</a>
 					</td>
 					<!-- REMOVE -->
-					<td ng:if="i_am_admin">
-						<a href="" ng:click="removeMember(user)" class="remove" ng:if="user.objectId != current_user.objectId">Remove</a>
+					<td ng:if="i_am_admin" class="VMID">
+						<a href="" ng:click="removeMember(user)" class="btn red" ng:if="user.objectId != current_user.objectId">Remove</a>
 					</td>
 				</tr>
 

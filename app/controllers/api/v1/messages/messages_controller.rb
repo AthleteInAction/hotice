@@ -11,10 +11,19 @@ module Api
               '__type' => 'Pointer',
               'className' => '_User',
               'objectId' => session[:user]['objectId']
+            },
+            blacklist: {
+              '$nin' => [
+                {
+                  '__type' => 'Pointer',
+                  'className' => '_User',
+                  'objectId' => session[:user]['objectId']
+                }
+              ]
             }
           }
 
-          call = db.APICall path: '/classes/Relations',where: c.to_json,order: '-updatedAt',include: 'user,recipient',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
+          call = db.APICall path: '/classes/Relations',where: c.to_json,order: '-createdAt',include: 'user,recipient',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
           render json: call,status: call[:code].to_i
 
@@ -28,33 +37,19 @@ module Api
               '__type' => 'Pointer',
               'className' => '_User',
               'objectId' => session[:user]['objectId']
+            },
+            blacklist: {
+              '$nin' => [
+                {
+                  '__type' => 'Pointer',
+                  'className' => '_User',
+                  'objectId' => session[:user]['objectId']
+                }
+              ]
             }
           }
 
-          call = db.APICall path: '/classes/Relations',where: c.to_json,order: '-updatedAt',include: 'user,recipient',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
-
-          render json: call,status: call[:code].to_i
-
-        end
-
-        def thread
-
-          c = {
-            '$or' => [
-              {
-                objectId: params[:id]
-              },
-              {
-                thread: {
-                  '__type' => 'Pointer',
-                  'className' => 'Relations',
-                  'objectId' => params[:id]
-                }
-              }
-            ]
-          }
-
-          call = db.APICall path: '/classes/Relations',where: c.to_json,order: '-updatedAt',include: 'user,recipient',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
+          call = db.APICall path: '/classes/Relations',where: c.to_json,order: '-createdAt',include: 'user,recipient',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
           render json: call,status: call[:code].to_i
 
@@ -111,6 +106,27 @@ module Api
           end
 
           render json: final,status: call[:code].to_i
+
+        end
+
+        def destroy
+
+          p = {
+            blacklist: {
+              '__op' => 'AddRelation',
+              objects: [
+                {
+                  '__type' => 'Pointer',
+                  'className' => '_User',
+                  'objectId' => session[:user]['objectId']
+                }
+              ]
+            }
+          }
+
+          call = db.APICall path: "/classes/Relations/#{params[:id]}",method: 'PUT',payload: p
+
+          render json: call,status: call[:code].to_i
 
         end
 

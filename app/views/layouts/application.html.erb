@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng:App="HotIce" ng:controller="MainCtrl">
 <head>
-  <title><%= TITLE %></title>
+  <title><%= TITLE %>{{title}}</title>
   <link rel="shortcut icon" href="<%= asset_path 'hotice.png' %>" />
   <script>var current_user = <%= session[:user].to_json.html_safe %>;</script>
   <%= stylesheet_link_tag    'application/application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body ng:App="HotIce" ng:controller="MainCtrl">
+<body>
 
 	<div class="loader_container" ng:class="{'NONE':!loading}">
 		
@@ -32,9 +32,34 @@
 				</a>
 			</div>
 			<div class="top-item">
-				<a href="" class="info" ng:click="">
-					<span class="count"><span>10</span></span>
+				
+				<a href="" ng:click="n = !n; setSeen()" class="info">
+					<span class="count" ng:if="channel.count > 0">
+						<span>{{channel.count}}</span>
+					</span>
 				</a>
+
+				<div class="info-wrap" ng:show="n">
+
+					<ul class="info-list">
+						<li ng:if="channel.info.length == 0">No Notifications</li>
+						<li ng:repeat="notification in channel.info">
+							<a href="#/teams/{{notification.team.objectId}}" class="team-link">{{notification.team.name}}</a> invited you to join their team.
+							<div class="notification-time">{{ displayDate(notification.createdAt).sDate }}</div>
+							<div class="option-wrap">
+								<div class="option-item">
+									<a href="" class="btn" ng:click="dismissNotification(notification)" ng:if="!x[notification.id]">Dismiss</a>
+									<a href="" class="btn" ng:click="" ng:if="x[notification.id]">Processing...</a>
+								</div>
+								<div class="option-item" ng:show="!x[notification.id]">
+									<a href="" class="btn green" ng:click="acceptInvite(notification)">Accept</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+
 			</div>
 			<div class="top-item"><a href="/signout" class="signout">Signout</a></div>
 
@@ -54,8 +79,9 @@
 					<ul class="navigation">
 
 						<li class="icon-home"><a href="#/home">Home</a></li>
-						<li class="icon-events"><a href="#/events/QbpXiJZ7c4">Events</a></li>
+						<li class="icon-events"><a href="#/tournaments/QbpXiJZ7c4">Events</a></li>
 						<li class="icon-teams"><a href="#/teams">Teams</a></li>
+						<li class="icon-easports"><a href="#/eashl">EASHL&nbsp;Clubs</a></li>
 						<li class="icon-members"><a href="#/members">Members</a></li>
 						<li class="icon-myaccount"><a href="#/myaccount" ng:class="{alert:!current_user.gamertagVerified,check:current_user.gamertagVerified}">{{current_user.gamertag}}</a></li>
 
@@ -71,7 +97,7 @@
 
 						<ul>
 							<li ng:repeat="message in main_chats | orderBy:'createdAt'">
-								<span class="chat-author" ng:class="{'me':(message.userId==current_user.objectId)}">{{user_key[message.userId].gamertag}}:&nbsp;</span>
+								<span user:tip="user_key[message.userId]" composer="composer" class="chat-author" ng:class="{'me':(message.userId==current_user.objectId)}">{{user_key[message.userId].gamertag}}:&nbsp;</span>
 								<span class="chat-body" ng-bind-html="message.body_html"></span>
 								<div class="chat-time">{{displayDate(message.createdAt).sDate}}</div>
 							</li>
@@ -84,9 +110,9 @@
 			<tr>
 				<td class="chat-input">
 					
-					<div class="chat_input">
-						<textarea placeholder="Enter message..." ng:model="main_chat" onenter="sendMainChat(main_chat)" shiftnewline></textarea>
-					</div>
+					<!-- <div class="chat_input">
+						<textarea placeholder="Enter chat message..." ng:model="main_chat" onenter="sendMainChat(main_chat)" shiftnewline></textarea>
+					</div> -->
 
 				</td>
 			</tr>
@@ -95,13 +121,34 @@
 
 	</div>
 
-	<div class="full_container">
+	<div class="module" ng:class="{'NONE':!showSignup}">
+		<div class="content">
 
-		<div class="module">
-			<div class="content"></div>
+			<div class="season-signup">
+
+				<a href="" class="season-signup" ng:click="seasonSignup()" ng:if="!x.seasonSignup">Sign Me Up!</a>
+				<a href="" class="season-signup" ng:click="" ng:if="x.seasonSignup">Loading...</a>
+				<div class="CLEAR"></div>
+				<a href="" class="close" ng:click="showSignup = false">Close&nbsp;(X)</a>
+
+			</div>
+
 		</div>
+	</div>
+
+	<div class="full_container" ng:class="{'FADE':showSignup}">
 
 		<scoreboard games="7" interval="10"></scoreboard>
+
+		<div class="adds">
+			<div class="add-item">
+				<a href="#/tournaments/QbpXiJZ7c4" class="hniotp"></a>
+			</div>
+			<div class="add-item">
+				<a href="#/seasons/x9XK1Bb02p?tab=signup" class="season"></a>
+				<div class="CLEAR"></div>
+			</div>
+		</div>
 
 		<div class="loader_container" ng:class="{'NONE':!loading}">
 			

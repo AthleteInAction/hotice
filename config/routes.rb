@@ -27,7 +27,8 @@ Rails.application.routes.draw do
   # ////////////////////////////////////////////////////////////////
   namespace :api do
   	namespace :v1 do
-        
+      
+      get 'users/key',to: 'users#key'
     	resources :users
     	resources :teams
       get 'myteams',to: 'teams#myteams'
@@ -35,12 +36,18 @@ Rails.application.routes.draw do
       resources :online
       resources :events
       resources :relations
+      get 'channel/seen',to: 'channel#seen'
       resources :channel
+
+      # EASHL
+      get 'eashl/top-100',to: 'eashl#top_100'
+      get 'eashl/season-rank',to: 'eashl#season_rank'
       
       namespace :messages do
 
         get 'inbox',to: 'messages#inbox'
         post 'inbox',to: 'messages#create'
+        delete 'inbox/:id',to: 'messages#destroy'
         get 'sent',to: 'messages#sent'
         get 'thread/:id',to: 'messages#thread'
 

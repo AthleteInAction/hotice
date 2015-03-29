@@ -1,11 +1,9 @@
-var EventShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval',
+var TournamentShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval',
 	function($scope,$routeParams,$location,ApiModel,$timeout,$interval){
 
 		$scope.params = $routeParams;
 
 		$scope.$on('$destroy',function() {
-		    // Make sure that the interval is destroyed too
-		    JP('STOP');
 		    $interval.cancel(chat);
 		});
 

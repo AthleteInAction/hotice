@@ -1,0 +1,63 @@
+.tooltip {
+  position: relative;
+  display: inline;
+  cursor: pointer;
+}
+.tooltip:hover {
+	text-decoration: underline;
+}
+.tooltip span.tip {
+  position: absolute;
+  /*min-width: 200px;*/
+  color: #FFFFFF;
+  /*background: #000000;*/
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  visibility: hidden;
+  padding-left: 14px;
+}
+.tooltip span.tip span {
+	display: block;
+	position: relative;
+	border-radius: 3px;
+	background: #CACACA;
+	height: 30px;
+	width: 40px;
+	white-space: nowrap;
+	/*box-shadow: 1px 1px 1px #222;*/
+}
+.tooltip span.tip span:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -8px;
+  width: 0; height: 0;
+  border-right: 8px solid #CACACA;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+.tooltip:hover span.tip {
+  visibility: visible;
+  left: 100%;
+  top: 50%;
+  margin-top: -15px;
+  margin-left: 0px;
+  z-index: 999;
+}
+
+.tooltip span.tip span a.message {
+	display: block;
+	height: 24px;
+	width: 24px;
+	background-image: url(<%= asset_path 'top-icon-messages.png' %>);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	padding-left: 16px;
+	padding-top: 6px;
+}
+.tooltip span.tip span a.message:hover {
+	opacity: 0.8;
+}

@@ -34,7 +34,7 @@
 			<a href="" class="info-item" ng:class="{'selected':tab=='overview'}" ng:click="tab = 'overview'">Overview</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='bracket'}" ng:click="tab = 'bracket'">Bracket</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='myteams'}" ng:click="tab = 'myteams'">My&nbsp;Teams</a>
-			<a href="" class="info-item" ng:class="{'selected':tab=='chat'}" ng:click="tab = 'chat'">Event&nbsp;Chat</a>
+			<!-- <a href="" class="info-item" ng:class="{'selected':tab=='chat'}" ng:click="tab = 'chat'">Event&nbsp;Chat</a> -->
 			<div class="info-item">
 				<span ng:show="tab != 'myteams'"><a href="" class="btn green" ng:click="tab = 'myteams'">Register</a></span>
 			</div>
@@ -64,7 +64,7 @@
 					<table class="messages">
 						<tr ng:repeat="message in messages" class="" ng:class="{'me':(message.userId==current_user.objectId)}">
 							<td class="info">
-								<div class="author">{{user_key[message.userId].gamertag}}:</div>
+								<div class="author"><span user:tip="user_key[message.userId]" composer="$parent.composer">{{user_key[message.userId].gamertag}}:</span></div>
 								<div class="time">{{displayDate(message.createdAt).sDate}}</div>
 							</td>
 							<td class="body" ng-bind-html="message.body_html"></td>
@@ -119,7 +119,7 @@
 
 					</td>
 					<td ng:if="teamFilter">
-						<a href="" class="btn" ng:click="getRoster(team.objectId)" ng:if="team.registered && team.i_am_admin && !roster[team.objectId]">Edit Roster</a>
+						<a href="" class="btn" ng:click="getRoster(team.objectId)" ng:if="team.registered && team.i_am_admin && !roster[team.objectId]">Edit Event Roster</a>
 						<a href="" class="btn" ng:click="roster[team.objectId] = null" ng:if="team.registered && team.i_am_admin && roster[team.objectId]">Close Roster</a>
 					</td>
 					<td>

@@ -6,8 +6,8 @@ table.inbox tr td {
 }
 table.inbox tr td.list {
 	border-right: solid 1px #ccc;
-	width: 250px;
-	min-width: 250px;
+	width: 300px;
+	min-width: 300px;
 }
 table.inbox tr td.body {
 	min-width: 350px;
@@ -88,9 +88,41 @@ ul.messages-list li.messages-item:last-child {
 ul.messages-list li.messages-item:first-child {
 	border-top: none;
 }
+
+ul.messages-list li.messages-item div.message-item {
+	display: table;
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+}
+ul.messages-list li.messages-item div.message-item div.message-left,
+ul.messages-list li.messages-item div.message-item div.message-right {
+	display: table-cell;
+	vertical-align: middle;
+}
+ul.messages-list li.messages-item div.message-item div.message-left {
+	width: 1px;
+	padding: 14px;
+}
+ul.messages-list li.messages-item div.message-item div.message-left a.trash {
+	display: block;
+  	width: 21px;
+  	height: 24px;
+  	padding: 0;
+  	margin: 0;
+  	/* background-color: #CCC; */
+  	background-image: url(/assets/icon-trash.png);
+  	background-repeat: no-repeat;
+  	background-position: left center;
+  	background-size: 42px 24px;
+}
+ul.messages-list li.messages-item div.message-item div.message-left a.trash:hover {
+	background-position: right center;
+}
+
 ul.messages-list li.messages-item a {
 	display: block;
-	padding: 10px;
+	padding: 10px 0;
 	text-decoration: none;
 }
 ul.messages-list li.messages-item:hover,

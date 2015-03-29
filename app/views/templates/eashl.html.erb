@@ -1,0 +1,119 @@
+<div class="template_container">
+
+	<div class="breadcrumb">
+		<a href="/dashboard/#/">Home</a>
+		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
+		<span class="ORANGE">EASHL&nbsp;Rankings</span>
+	</div>
+
+	<div class="info-container">
+
+		<div class="info-head">
+			
+			<a href="" class="info-item" ng:class="{'selected':tab=='top-100'}" ng:click="tab = 'top-100'">Top&nbsp;100</a>
+			<a href="" class="info-item" ng:class="{'selected':tab=='season-rank'}" ng:click="tab = 'season-rank'">Season&nbsp;Rankings</a>
+			<div class="info-item"></div>
+
+		</div>
+
+		<div class="info-body" ng:if="tab == 'top-100'">
+
+			<table class="table clubs">
+
+				<tr ng:if="loading1"><td colspan="11">Loading...</td></tr>
+				
+				<tr ng:repeat="team in teams | orderBy:'-rank'">
+					<td>#{{($index+1)}}</td>
+					<td>
+						<img src="https://www.easports.com/iframe/nhl14proclubs/bundles/nhl/dist/images/crests/d{{team.teamId}}.png" height="80">
+					</td>
+					<td>{{team.clubname}}</td>
+					<td>&nbsp;</td>
+					<td>
+						<span>{{team.rank}}</span>
+						POINTS
+					</td>
+					<td>
+						<span>{{team.agf}}</span>
+						GPG
+					</td>
+					<td>
+						<span>{{team.aga}}</span>
+						GA&nbsp;PG
+					</td>
+					<td>
+						<span>{{team.so}}</span>
+						SO
+					</td>
+					<td>
+						<span>{{team.wins}}</span>
+						Wins
+					</td>
+					<td>
+						<span>{{team.losses}}</span>
+						Losses
+					</td>
+					<td>
+						<span>{{team.ties}}</span>
+						OTL
+					</td>
+				</tr>
+
+			</table>
+
+		</div>
+
+		<div class="info-body" ng:if="tab == 'season-rank'">
+
+			<table class="table clubs">
+
+				<tr ng:if="loading2"><td colspan="12">Loading...</td></tr>
+				
+				<tr ng:repeat="team in teams2 | orderBy:'-rankingPoints'">
+					<td>#{{($index+1)}}</td>
+					<td>
+						<img src="https://www.easports.com/iframe/nhl14proclubs/bundles/nhl/dist/images/division-crests/DivisionCrest1.png" height="70">
+					</td>
+					<td>{{team.clubname}}</td>
+					<td>&nbsp;</td>
+					<td>
+						<span>{{team.rankingPoints}}</span>
+						POINTS
+					</td>
+					<td>
+						<span>{{team.seasons}}</span>
+						SEA
+					</td>
+					<td>
+						<span>{{team.titlesWon}}</span>
+						T
+					</td>
+					<td>
+						<span>{{team.leaguesWon}}</span>
+						LT
+					</td>
+					<td>
+						<span>{{team.totalCupsWon}}</span>
+						CUPS
+					</td>
+					<td>
+						<span>{{team.wins}}</span>
+						Wins
+					</td>
+					<td>
+						<span>{{team.losses}}</span>
+						Losses
+					</td>
+					<td>
+						<span>{{team.otl}}</span>
+						OTL
+					</td>
+				</tr>
+
+			</table>
+
+		</div>
+
+	</div>
+
+</div>

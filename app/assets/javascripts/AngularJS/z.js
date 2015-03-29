@@ -20,14 +20,15 @@ HotIce.config(['$routeProvider','$locationProvider',function($routeProvider,$loc
 	}).when('/myteams',{
 		templateUrl : '/angularjs/templates/teams.html',
 		controller: TeamsCtrl
-	}).when('/events/:id',{
-		templateUrl : '/angularjs/templates/events_show.html',
-		controller: EventShowCtrl
+	}).when('/tournaments/:id',{
+		templateUrl : '/angularjs/templates/tournaments_show.html',
+		controller: TournamentShowCtrl
+	}).when('/seasons/:id',{
+		templateUrl : '/angularjs/templates/seasons_show.html',
+		controller: SeasonShowCtrl
 	}).when('/members',{
 		templateUrl : '/angularjs/templates/members.html',
 		controller: MembersCtrl
-	}).when('/eashl/search',{
-		templateUrl : '/angularjs/templates/eashl_search.html'
 	}).when('/articles',{
 		templateUrl : '/angularjs/templates/articles.html',
 		controller: ArticlesCtrl
@@ -40,6 +41,9 @@ HotIce.config(['$routeProvider','$locationProvider',function($routeProvider,$loc
 	}).when('/messages',{
 		templateUrl : '/angularjs/templates/messages.html',
 		controller: MessagesCtrl
+	}).when('/eashl',{
+		templateUrl : '/angularjs/templates/eashl.html',
+		controller: EASHLCtrl
 	}).otherwise({
 		redirectTo: '/home'
 	});
@@ -80,6 +84,31 @@ HotIce.config(['$httpProvider',function($httpProvider){
 // jQuery Datepicker
 // -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
 // -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
+HotIce.directive('userTip',['$compile','$interval',function($compile,$interval){
+
+	return {
+
+		restrict: 'A',
+		scope: {
+			userTip: '=',
+			composer: '='
+		},
+		link: function(scope,element,attrs){
+
+			element.addClass('tooltip');
+
+			var template = '<span class="tip"><span><a href="#/messages?tab=compose" ng:click="composer.recipient = userTip" class="message"></a></span></span>';
+        	var el = angular.element(template);
+        	compiled = $compile(el);
+        	element.append(el);
+        	compiled(scope);
+
+		}
+
+	}
+
+}]);
+
 HotIce.directive('scoreboard',['ApiModel','$interval',function(ApiModel,$interval){
 
 	return {
@@ -777,5 +806,48 @@ var makePointer = function(data,className){
 	};
 
 	return temp;
+
+};
+
+var displayDate = function(d){
+
+	var obj = {
+		sDate: '',
+		fString: ''
+	}
+
+	if (new Date(d).getDay()){
+
+	} else {return obj;}
+
+	var date = new Date(d);
+
+	var h = date.getHours();
+	var m = date.getMinutes()+'';
+	var M = date.getMonth();
+	var D = date.getDate();
+	var Y = date.getFullYear();
+	var dotw = date.getDay();
+
+	if (m.length < 2){
+		m = '0'+m;
+	}
+	var ap = 'am';
+
+	if (h >= 12){
+		ap = 'pm';
+	}
+
+	if (h > 12){
+		h -= 12;
+	}
+
+	var time = h+':'+m+' '+ap;
+
+	obj.sDay = (M+1)+'/'+D+'/'+Y;
+	obj.sDate = obj.sDay+' '+time;
+	obj.fString = days[dotw].long+' '+months[M].long+', '+D+', '+Y+' '+time;//+' '+date.getTimezoneOffset();
+
+	return obj;
 
 };

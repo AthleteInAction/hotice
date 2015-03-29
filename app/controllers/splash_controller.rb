@@ -48,6 +48,8 @@ class SplashController < ApplicationController
 					sessionToken: call[:body]['sessionToken']
 				}
 
+				Tools.updateUserKey session[:user][:objectId],session[:user][:gamertag]
+
 				if params[:zendesk] == 'true'
 
 					redirect_to "/api/v1/sso/zendesk?return_to=#{ params[:return_to]}"

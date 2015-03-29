@@ -1,14 +1,46 @@
 div.module {
-	display: none;
-	position: relative;
-	height: 0px;
-	background: #FC0;
+	/*display: none;*/
+	position: absolute;
+	top: 50px;
+	left: 250px;
+	right: 0px;
 	z-index: 1000000;
 }
 div.module div.content {
-	width: 500px;
+	width: 265px;
 	margin-left: auto;
 	margin-right: auto;
-	height: 250px;
-	background: #090;
+	margin-top: 180px;
+}
+
+div.module div.content div.season-signup {
+	width: 265px;
+}
+
+div.module div.content div.season-signup a.season-signup {
+	display: block;
+	text-align: center;
+	background: #ffab4a;
+	padding: 14px 10px 10px 10px;
+	border-radius: 10px;
+	color: #474747;
+	text-shadow: 1px 1px 0 #FFCE81;
+	font-size: 40px;
+	font-weight: bold;
+	text-decoration: none;
+	border: solid 5px #FFF;
+	box-shadow: 0 0 40px #FFAB4D;
+	margin-bottom: 14px;
+}
+div.module div.content div.season-signup a.season-signup:hover {
+	box-shadow: 0 0 60px #ffab4d;
+	color: #626262;
+}
+div.module div.content div.season-signup a.close {
+	color: #FFF;
+  	text-decoration: none;
+  	margin-left: 6px;
+}
+div.module div.content div.season-signup a.close:hover {
+  	text-decoration: underline;
 }

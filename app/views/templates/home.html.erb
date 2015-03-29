@@ -6,9 +6,9 @@
 
 				<div class="tray">
 
-					<a href="/dashboard/#/events/QbpXiJZ7c4" class="head">ENTER YOUR TEAM!</a>
+					<a href="#/tournaments/QbpXiJZ7c4" class="head">ENTER YOUR TEAM!</a>
 					<div class="sub">Enter your team into our first OTP Tournament.</div>
-					<a href="/dashboard/#/events/QbpXiJZ7c4" class="link">Register >></a>
+					<a href="#/tournaments/QbpXiJZ7c4" class="link">Register >></a>
 
 				</div>
 
@@ -60,7 +60,7 @@
 						</tr>
 						<tr ng:repeat="event in events | limitTo:10">
 							<td>
-								<a href="/dashboard/#/events/{{event.objectId}}/registration" class="F11">{{displayDate(event.start_date.iso).sDay}}:&nbsp;{{event.title}}</a>
+								<a href="#/{{event.type}}s/{{event.objectId}}" class="F11">{{displayDate(event.start_date.iso).sDay}}:&nbsp;{{event.title}}</a>
 							</td>
 						</tr>
 					</table>
