@@ -19,8 +19,8 @@ Rails.application.configure do
   TITLE = 'Hot Ice!'
 
   # Parse.com
-  APP_ID = 'pTgNnmnQSpIeZrFHrzWhdEHBsQpUJPiiFemsbUme'
-  REST_KEY = 'X4YzW6g7pAq60pJCTAsQ3lfyOEQuEl1yznPLgixr'
+  APP_ID = 'q148HRrnyGJZPZDdmshKbwNWBdCqPwMc67quj561'
+  REST_KEY = 'rgALrSAgXbdlZygRCJUJyd7NbVbpYlB0m3C8NbgO'
 
   # Zendesk.com
   ZENDESK_DOMAIN = 'hotice1'
