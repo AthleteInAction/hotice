@@ -16,11 +16,13 @@ var SeasonShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			this.options = {
 				type: 'relations',
-				constraints: '{"$or":[{"event":{"__type": "Pointer","className": "Events","objectId": "'+scope.params.id+'"},"status":"blank","type":"season"},{"event":{"__type": "Pointer","className": "Events","objectId": "'+$scope.params.id+'"},"status":"signup","type":"season","user":{"__type":"Pointer","className":"_User","objectId":"'+current_user.objectId+'"}}]}',
+				constraints: '{"$or":[{"event":{"__type": "Pointer","className": "Events","objectId": "'+scope.params.id+'"},"status":"blank","type":"season"},{"event":{"__type": "Pointer","className": "Events","objectId": "'+scope.params.id+'"},"status":"signup","type":"season","user":{"__type":"Pointer","className":"_User","objectId":"'+current_user.objectId+'"}}]}',
 				include: 'team,user,event'
 			};
 
 			ApiModel.query(this.options,function(data){
+
+				JP(data);
 
 				angular.forEach(data.body.results,function(val,key){
 
@@ -36,6 +38,11 @@ var SeasonShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				});
 
 				if (scope.event){scope.getArticle(scope.event.articleId);}
+
+			},function(data){
+
+				JP(this.options);
+				JP({e: data});
 
 			});
 
