@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     authenticate_or_request_with_http_digest 'Application' do |name|
-      AUTH[name]
+      
+      session[:auth] = AUTH[name] if !session[:auth]
+
+      session[:auth]
+
     end
   end
 
