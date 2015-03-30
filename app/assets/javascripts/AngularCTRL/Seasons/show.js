@@ -16,7 +16,7 @@ var SeasonShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			this.options = {
 				type: 'relations',
-				constraints: '{"$or":[{"event":{"__type": "Pointer","className": "Events","objectId": "'+scope.params.id+'"},"status":"blank","type":"season"},{"event":{"__type": "Pointer","className": "Events","objectId": "'+scope.params.id+'"},"status":"signup","type":"season","user":{"__type":"Pointer","className":"_User","objectId":"'+current_user.objectId+'"}}]}',
+				constraints: '{"$or":[{"event":{"__type": "Pointer","className": "Events","objectId": "'+scope.params.id+'"},"status":"blank","type":"event"},{"event":{"__type": "Pointer","className": "Events","objectId": "'+scope.params.id+'"},"status":"signup","type":"season","user":{"__type":"Pointer","className":"_User","objectId":"'+current_user.objectId+'"}}]}',
 				include: 'team,user,event'
 			};
 
