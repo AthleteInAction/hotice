@@ -28,4 +28,7 @@ Rails.application.configure do
   # Paths
   CHANNEL_PATH = "#{Rails.root}/channel"
 
+  # AUTH
+  AUTH = {'admin' => 'wcaforlife'}
+
 end
