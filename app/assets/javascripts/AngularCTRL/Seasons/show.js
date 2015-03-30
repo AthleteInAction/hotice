@@ -20,9 +20,10 @@ var SeasonShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				include: 'team,user,event'
 			};
 
+			JP(this.options);
+
 			ApiModel.query(this.options,function(data){
 
-				JP(this.options);
 				JP(data);
 
 				angular.forEach(data.body.results,function(val,key){
@@ -41,8 +42,7 @@ var SeasonShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				if (scope.event){scope.getArticle(scope.event.articleId);}
 
 			},function(data){
-
-				JP(this.options);
+				
 				JP({e: data});
 
 			});
