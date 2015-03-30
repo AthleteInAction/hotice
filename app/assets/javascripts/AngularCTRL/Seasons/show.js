@@ -20,11 +20,7 @@ var SeasonShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 				include: 'team,user,event'
 			};
 
-			JP(this.options);
-
 			ApiModel.query(this.options,function(data){
-
-				JP(data);
 
 				angular.forEach(data.body.results,function(val,key){
 

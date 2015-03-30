@@ -18,4 +18,24 @@
 
 	</div>
 
+	<div class="comments-section">
+
+		<div class="comments-label">Comments</div>
+
+		<ul class="comments-list">
+			<li class="comment" ng:repeat="comment in comments">
+				<div class="comment-top">
+					<div class="comment-author">{{zd_key[comment.author_id]}}:</div>
+					<div class="comment-time">{{displayDate(comment.created_at).sDate}}</div>
+				</div>
+				<div class="comment-body" ng-bind-html="comment.body"></div>
+			</li>
+		</ul>
+
+		<textarea placeholder="Add your comment" ng:model="comment.body"></textarea>
+		<a href="" class="btn green" ng:click="createComment()">Submit</a>
+		{{$parent.x}}
+
+	</div>
+
 </div>

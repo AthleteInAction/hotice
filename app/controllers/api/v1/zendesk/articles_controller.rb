@@ -29,6 +29,14 @@ module Api
 
   			end
 
+        def comments
+
+          call = zd.GetArticleComments params[:id]
+
+          render json: call,status: call[:code].to_i
+
+        end
+
   		end
 
   	end

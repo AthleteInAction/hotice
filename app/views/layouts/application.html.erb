@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng:App="HotIce" ng:controller="MainCtrl">
 <head>
-  <title><%= TITLE %>{{title}}</title>
+  <title><%= TITLE %></title>
   <link rel="shortcut icon" href="<%= asset_path 'hotice.png' %>" />
   <script>var current_user = <%= session[:user].to_json.html_safe %>;</script>
   <%= stylesheet_link_tag    'application/application', media: 'all' %>

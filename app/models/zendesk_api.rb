@@ -147,6 +147,15 @@ module ZendeskAPI
 
       end
       # ===================================================
+      # GET Many Users
+      # ===================================================
+      def GetManyUsers params = {}
+
+        params.merge! path: 'users/show_many.json'
+        APICall params
+
+      end
+      # ===================================================
       # GET User
       # ===================================================
       def GetUser id
@@ -394,6 +403,24 @@ module ZendeskAPI
 
         APICall path: "help_center/articles/#{id}.json"
 
+      end
+      # ===================================================
+
+      # GET Article Comments
+      # ===================================================
+      def GetArticleComments id
+
+        APICall path: "help_center/articles/#{id}/comments.json"
+
+      end
+      # ===================================================
+
+      # CREATE Article Comments
+      # ===================================================
+      def CreateArticleComment id,params = {}
+        
+        APICall path: "help_center/articles/#{id}/comments.json",method: 'POST',payload: params.to_json
+        
       end
       # ===================================================
 

@@ -60,7 +60,14 @@ Rails.application.routes.draw do
 
       namespace :zendesk do
 
-        resources :articles
+        get 'users/many',to: 'users#many'
+        resources :users
+
+        resources :articles do
+
+          resources :comments
+
+        end
 
       end
 

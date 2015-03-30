@@ -30,7 +30,7 @@
 						<tr ng:repeat="article in announcements | limitTo:20">
 							<td>
 
-								<a href="">{{article.title}}</a>
+								<a href="#/articles/{{article.id}}">{{article.title}}</a>
 								<div class="date">
 									<span class="pre">Written:&nbsp;</span>
 									<span class="aft">{{displayDate(article.updated_at).sDate}}</span>
