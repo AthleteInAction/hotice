@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  #before_filter :authenticate if Rails.env == 'staging' || Rails.env == 'production'
+  before_filter :authenticate if Rails.env == 'staging' || Rails.env == 'production'
 
   def authenticate
     authenticate_or_request_with_http_digest 'Application' do |name|
