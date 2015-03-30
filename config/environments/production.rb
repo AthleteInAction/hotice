@@ -38,5 +38,9 @@ Rails.application.configure do
 
   # AUTH
   AUTH = {'admin' => 'wcaforlife_live'}
+
+  # Events
+  AD_LEFT = '39FVMgc2dQ'
+  AD_RIGHT = 'UKGCSKaJUy'
   
 end
