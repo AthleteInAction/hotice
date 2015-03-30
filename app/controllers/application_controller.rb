@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  before_filter :authenticate if Rails.env == 'staging'
+
+  def authenticate
+    authenticate_or_request_with_http_digest 'Application' do |name|
+      AUTH[name]
+    end
+  end
+
   def db
     result = ParseAPI::Connect.new application_id: APP_ID,rest_key: REST_KEY
   end
