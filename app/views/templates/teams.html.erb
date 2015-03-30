@@ -3,23 +3,23 @@
 	<div class="breadcrumb">
 		<a href="/dashboard/#/">Home</a>
 		<span class="arrow">&nbsp;&rsaquo;&nbsp;</span>
-		<span class="ORANGE">Teams</span>
+		<span class="ORANGE">My&nbsp;Teams</span>
 	</div>
 
 	<div class="head">
-		<div class="head-item head-icon-teams">Teams</div>
-		<div class="head-item">
+		<div class="head-item head-icon-teams">My&nbsp;Teams</div>
+		<!-- <div class="head-item">
 			<select ng:model="allteams">
 				<option value="true">My Teams</option>
 				<option value="">All Teams</option>
 			</select>
-		</div>
+		</div> -->
 		<div class="head-item">
-			<select ng:model="sort" ng:change="teamSort()">
+			<select ng:model="sort">
 				<option value="name">Sort by:</option>
-				<option value="wins">Wins</option>
-				<option value="losses">Losses</option>
-				<option value="otl">OTL</option>
+				<option value="-wins">Wins</option>
+				<option value="-losses">Losses</option>
+				<option value="-otl">OTL</option>
 			</select>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 				<td></td>
 			</tr>
 
-			<tr ng:repeat="team in teams | filter:{'on_roster':[allteams]} | orderBy:sort:rev">
+			<tr ng:repeat="team in teams | orderBy:sort">
 				<td>
 					<a href="/dashboard/#/teams/{{team.objectId}}">{{team.name}}</a></td>
 				<td>

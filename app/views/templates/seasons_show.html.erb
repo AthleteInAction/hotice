@@ -1,4 +1,4 @@
-<div class="template_container">
+<div class="template_container" ng:show="event">
 
 	<div class="breadcrumb">
 		<a href="/dashboard/#/">Home</a>
@@ -14,7 +14,7 @@
 		<table>
 			<tr class="event-date">
 				<td colspan="2">
-					<span>{{displayDate(event.start_date.iso).fString}}</span>
+					<span>{{displayDate(event.start_date.iso).zString}}</span>
 				</td>
 			</tr>
 			<tr class="event-deadline">
@@ -32,20 +32,17 @@
 		<div class="info-head">
 			
 			<a href="" class="info-item" ng:class="{'selected':tab=='overview'}" ng:click="tab = 'overview'">Overview</a>
-			<a href="" class="info-item" ng:class="{'selected':tab=='signup'}" ng:click="tab = 'signup'">Sign&nbsp;Up!</a>
-			<div class="info-item"></div>
+			<div class="info-item">
+				<a href="" class="btn green" ng:click="signUp()" ng:if="!i_am_in && !x.signUp">Sign Me Up!</a>
+				<a href="" class="btn red" ng:click="unRegister()" ng:if="i_am_in && !x.signUp">Un-Register</a>
+				<a href="" class="btn" ng:click="" ng:if="x.signUp">Processing...</a>
+			</div>
 
 		</div>
 
-		<div class="info-body" ng:if="tab == 'overview'">
+		<div class="info-body">
 
-			OVERVIEW
-
-		</div>
-
-		<div class="info-body" ng:if="tab == 'signup'">
-
-			SIGNUP
+			<div ng-bind-html="event.article.body"></div>
 
 		</div>
 

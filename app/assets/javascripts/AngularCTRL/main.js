@@ -298,46 +298,5 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 		};
 
-		$scope.seasonSignup = function(){
-
-			$scope.x.seasonSignup = true;
-
-			this.options = {
-				type: 'relations'
-			};
-
-			var Relation = new ApiModel({
-				relation: {
-					user: {
-						__type: 'Pointer',
-						className: '_User',
-						objectId: current_user.objectId
-					},
-					type: 'season',
-					status: 'signup',
-					event: {
-						__type: 'Pointer',
-						className: 'Events',
-						objectId: 'x9XK1Bb02p'
-					}
-				}
-			});
-
-			Relation.$create(this.options,function(data){
-
-				delete $scope.x.seasonSignup;
-				$scope.showSignup = false;
-
-			},function(data){
-
-				JP({e: data});
-
-				delete $scope.x.seasonSignup;
-				$scope.showSignup = false;
-
-			});
-
-		};
-
 	}
 ];

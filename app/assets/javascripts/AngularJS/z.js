@@ -816,7 +816,7 @@ var displayDate = function(d){
 		fString: ''
 	}
 
-	if (new Date(d).getDay()){
+	if ( (new Date(d).getDay()+1) ){
 
 	} else {return obj;}
 
@@ -846,7 +846,8 @@ var displayDate = function(d){
 
 	obj.sDay = (M+1)+'/'+D+'/'+Y;
 	obj.sDate = obj.sDay+' '+time;
-	obj.fString = days[dotw].long+' '+months[M].long+', '+D+', '+Y+' '+time;//+' '+date.getTimezoneOffset();
+	obj.zString = days[dotw].long+' '+months[M].long+', '+D+', '+Y;
+	obj.fString = obj.zString+' '+time;
 
 	return obj;
 
