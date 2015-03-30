@@ -37,6 +37,6 @@ Rails.application.configure do
   CHANNEL_PATH = "#{Rails.root}/channel"
 
   # AUTH
-  AUTH = {'admin' => 'wcaforlife'}
+  AUTH = {'admin' => 'wcaforlife_live'}
   
 end
