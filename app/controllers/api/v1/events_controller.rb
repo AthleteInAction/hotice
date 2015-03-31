@@ -4,7 +4,7 @@ module Api
 
   		def index
         
-  			call = db.APICall path: '/classes/Events',where: params[:constraints],headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
+  			call = db.APICall path: '/classes/Events',where: params[:constraints],order: 'createdAt',headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
   			render json: call
 

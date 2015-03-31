@@ -22,7 +22,7 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 			JP($location.url());
 
-			<% if Rails.env == 'production' %>
+			<% if ENV.production? %>
 				$window.ga('send','pageview',{page: $location.url()});
 			<% end %>
 

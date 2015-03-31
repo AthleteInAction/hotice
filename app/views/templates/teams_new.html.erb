@@ -58,9 +58,8 @@
 			</div> -->
 
 			<div class="sep" align="center">
-
-				<input type="submit" class="button FULL" value="Submit" ng:if="!submitting" ng:click="createTeam()" />
-				<input type="submit" class="button FULL" value="Loading..." ng:if="submitting" ng:disabled="true" />
+				
+				<a href="" class="btn dark" ng:click="createTeam()" ng:class="{'DISABLE':submitting}">Submit</a>
 
 			</div>
 
