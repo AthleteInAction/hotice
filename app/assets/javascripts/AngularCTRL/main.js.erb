@@ -1,5 +1,5 @@
-var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval','API',
-	function($scope,$routeParams,$location,ApiModel,$timeout,$interval,API){
+var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$interval','API','$window',
+	function($scope,$routeParams,$location,ApiModel,$timeout,$interval,API,$window){
 		$scope.current_user = current_user;
 		$scope.announcements = [];
 		$scope.loading = false;
@@ -16,6 +16,16 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 
 			
+		});
+
+		$scope.$on('$viewContentLoaded',function(event){
+
+			JP($location.url());
+
+			<% if Rails.env == 'production' %>
+				$window.ga('send','pageview',{page: $location.url()});
+			<% end %>
+
 		});
 
 		zE(function(){

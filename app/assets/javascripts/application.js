@@ -21,3 +21,4 @@
 //= require AngularJS/sanitize
 //= require_tree ./AngularCTRL
 //= require_tree ./Zendesk
+//= require_tree ./Google
