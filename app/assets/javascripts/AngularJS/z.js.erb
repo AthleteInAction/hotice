@@ -674,7 +674,9 @@ HotIce.directive("scrollTo", ["$window",function($window){
 
 function JP(data){
 
-	console.log(data);
+	<% if !ENV.production? || params[:log] == 'true' %>
+		console.log(data);
+	<% end %>
 
 }
 function dateDiff(a,b){

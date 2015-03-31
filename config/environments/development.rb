@@ -35,4 +35,7 @@ Rails.application.configure do
   AD_LEFT = 'QbpXiJZ7c4'
   AD_RIGHT = 'x9XK1Bb02p'
 
+  # ENV
+  ENV = Rails.env
+
 end
