@@ -6,17 +6,17 @@ class ApplicationController < ActionController::Base
 
   private
 
-  before_filter :authenticate if Rails.env != 'development' && !session[:auth]
+  before_filter :authenticate if Rails.env != 'development'
 
   def authenticate
 
+    return false if session[:auth]
+
     authenticate_or_request_with_http_digest 'Application' do |name|
-      
-      cred = AUTH[name]
 
-      session[:auth] = true if cred
+      session[:auth] = true if AUTH[name]
 
-      cred
+      AUTH[name]
 
     end
 

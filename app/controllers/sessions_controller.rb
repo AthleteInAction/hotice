@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+	# skip_before_filter :authenticate
+
 	# GET
 	# ======================================================
 	# ======================================================
@@ -27,8 +29,7 @@ class SessionsController < ApplicationController
 	# ======================================================
 	def destroy
 
-		session[:user] = nil
-		session[:auth] = nil
+		session.delete :user
 
 		redirect_to root_url
 
