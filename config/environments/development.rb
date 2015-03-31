@@ -36,6 +36,6 @@ Rails.application.configure do
   AD_RIGHT = 'x9XK1Bb02p'
 
   # ENV
-  ENV = Rails.env
+  E = Rails.env
 
 end

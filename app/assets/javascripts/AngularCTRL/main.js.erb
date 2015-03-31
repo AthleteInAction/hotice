@@ -22,7 +22,7 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 			JP($location.url());
 
-			<% if ENV.production? %>
+			<% if E.production? %>
 				$window.ga('send','pageview',{page: $location.url()});
 			<% end %>
 
@@ -51,9 +51,24 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 
 				current_user = data.user;
 				$scope.current_user = current_user;
+				if (data.user.gamertagVerified){
+					$interval.cancel(rInt);
+				}
 
 			});
 
+		};
+
+		var rInt = $interval(function(){
+
+			JP('RINT');
+			$scope.refreshUser();
+
+		},20000);
+
+		if (current_user.gamertagVerified){$interval.cancel(rInt);} else {
+			JP('RINT');
+			$scope.refreshUser();
 		};
 
 		$scope.getUsers = function(complete){
@@ -97,16 +112,7 @@ var MainCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout','$inte
 			});
 
 		};
-		$scope.getOnlineUsers();
-
-		// setInterval(function(){
-
-		// 	$scope.getNotifications(function(notifications){
-		// 		$scope.notifications = notifications;
-		// 	});
-		// 	$scope.getOnlineUsers();
-
-		// },20000);
+		// $scope.getOnlineUsers();
 
 		$scope.linkTo = function(loc){
 

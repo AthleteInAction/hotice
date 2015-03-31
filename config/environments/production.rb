@@ -42,5 +42,8 @@ Rails.application.configure do
   # Events
   AD_LEFT = '39FVMgc2dQ'
   AD_RIGHT = 'UKGCSKaJUy'
+
+  # ENV
+  E = Rails.env
   
 end

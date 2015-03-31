@@ -674,7 +674,7 @@ HotIce.directive("scrollTo", ["$window",function($window){
 
 function JP(data){
 
-	<% if !ENV.production? || params[:log] == 'true' %>
+	<% if !E.production? || params[:log] == 'true' %>
 		console.log(data);
 	<% end %>
 
