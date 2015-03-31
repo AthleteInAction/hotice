@@ -8,7 +8,7 @@ module Api
 
         # path = "#{Rails.root}/utilities/user_key.json"
 
-  			call = db.APICall path: '/users',where: params[:constraints]
+  			call = db.APICall path: '/users',where: params[:constraints],headers: [{'X-Parse-Session-Token' => session[:user]['sessionToken']}]
 
   			render json: call,status: call[:code].to_i
 

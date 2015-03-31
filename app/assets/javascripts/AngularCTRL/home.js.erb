@@ -42,7 +42,7 @@ var HomeCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 			this.options = {
 				type: 'zendesk',
 				second: 'articles',
-				section: <%= ANNOUNCEMENTS_ID %>
+				section: '<%= ANNOUNCEMENTS_ID %>'
 			};
 
 			ApiModel.query(this.options,function(data){

@@ -84,6 +84,77 @@ HotIce.config(['$httpProvider',function($httpProvider){
 // jQuery Datepicker
 // -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
 // -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
+HotIce.directive('comments',['ApiModel','$interval',function(ApiModel,$interval){
+
+	return {
+
+		restrict: 'E',
+		scope: {
+			cUser: '=',
+			cId: '='
+		},
+		templateUrl: '/angularjs/components/comments.html',
+		replace: true,
+		link: function(scope,element,attrs){
+
+			scope.displayDate = displayDate;
+			
+			scope.comments = [];
+			scope.comment = {user: scope.cUser};
+
+			scope.getComments = function(){
+
+				this.options = {
+					type: 'comments',
+					match: scope.cId
+				};
+
+				ApiModel.query(this.options,function(data){
+
+					scope.comments = data.body.results;
+
+				});
+
+			};
+			scope.getComments();
+
+			scope.createComment = function(){
+
+				if (!scope.comment.body){return false;}
+
+				scope.loading = true;
+
+				this.options = {
+					type: 'comments',
+					match: scope.cId
+				};
+
+				var c = angular.copy(scope.comment);
+
+				var Comment = new ApiModel({comment: c});
+
+				Comment.$create(this.options,function(data){
+
+					JP(data);
+					scope.comments.push(data.comment);
+					scope.comment.body = null;
+					delete scope.loading;
+
+				},function(data){
+
+					JP({e: data});
+					delete scope.loading;
+
+				});
+
+			};
+
+		}
+
+	}
+
+}]);
+
 HotIce.directive('userTip',['$compile','$interval',function($compile,$interval){
 
 	return {

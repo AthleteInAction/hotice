@@ -7,7 +7,8 @@ var ArticlesCtrl = ['$scope','$routeParams','$location','ApiModel','$timeout',
 
 			this.options = {
 				type: 'zendesk',
-				second: 'articles'
+				second: 'articles',
+				section: '<%= ANNOUNCEMENTS_ID %>'
 			};
 
 			ApiModel.query(this.options,function(data){

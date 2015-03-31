@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       resources :relations
       get 'channel/seen',to: 'channel#seen'
       resources :channel
+      resources :comments
 
       # EASHL
       get 'eashl/top-100',to: 'eashl#top_100'
@@ -63,11 +64,7 @@ Rails.application.routes.draw do
         get 'users/many',to: 'users#many'
         resources :users
 
-        resources :articles do
-
-          resources :comments
-
-        end
+        resources :articles
 
       end
 

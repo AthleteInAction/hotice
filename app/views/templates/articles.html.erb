@@ -16,7 +16,7 @@
 			<tr ng:if="articles.length == 0 || !articles">
 				<td>Loading...</td>
 			</tr>
-			<tr ng:repeat="article in articles | limitTo:20">
+			<tr ng:repeat="article in articles | orderBy:'-created_at' | limitTo:30">
 				<td>
 					<a href="/dashboard/#/articles/{{article.id}}">{{article.title}}</a>
 					<div class="date">

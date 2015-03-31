@@ -7,17 +7,14 @@ var TournamentShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeo
 		    $interval.cancel(chat);
 		});
 
-		$scope.tab = 'overview';
+		var tabs  ={
+			'overview':'overview',
+			'bracket':'bracket',
+			'myteams':'myteams',
+			'freeagents':'freeagents'
+		};
 
-		if ($scope.params.tab == 'bracket'){
-			$scope.tab = 'bracket';
-		}
-		if ($scope.params.tab == 'myteams'){
-			$scope.tab = 'myteams';
-		}
-		if ($scope.params.tab == 'chat'){
-			$scope.tab = 'chat';
-		}
+		$scope.tab = tabs[$scope.params.tab] || 'overview';
 
 		$scope.teamFilter = true;
 
@@ -362,6 +359,109 @@ var TournamentShowCtrl = ['$scope','$routeParams','$location','ApiModel','$timeo
 		var chat = $interval(function(){
 			$scope.getMessages();
 		},1000);
+
+		$scope.freeAgents = [];
+		$scope.getFreeAgents = function(){
+			
+			JP('GET FREE AGENTS');
+
+			$scope.$parent.x.freeAgents = true;
+
+			this.options = {
+				type: 'relations',
+				constraints: '{"event":{"__type":"Pointer","className":"Events","objectId":"'+$scope.params.id+'"},"type":"free_agent"}',
+				include: 'user'
+			};
+
+			ApiModel.query(this.options,function(data){
+
+				var tmp = [];
+
+				angular.forEach(data.body.results,function(val,key){
+
+					if (val.user.objectId == current_user.objectId){
+						$scope.i_am_free_agent = val.objectId;
+					}
+
+					tmp.push(val.user);
+
+				});
+
+				$scope.freeAgents = tmp;
+
+				delete $scope.$parent.x.freeAgents;
+
+			},function(data){
+
+				delete $scope.$parent.x.freeAgents;
+
+			});
+
+		};
+
+		$scope.addFreeAgent = function(){
+
+			$scope.$parent.x.addAgent = true;
+
+			this.options = {
+				type: 'relations'
+			};
+
+			var r = {
+				relation: {
+					event: {
+						__type: 'Pointer',
+						className: 'Events',
+						objectId: $scope.params.id
+					},
+					type: 'free_agent',
+					user: {
+						__type: 'Pointer',
+						className: '_User',
+						objectId: current_user.objectId
+					}
+				}
+			};
+
+			var Relation = new ApiModel(r);
+
+			Relation.$create(this.options,function(data){
+
+				$scope.i_am_free_agent = data.body.objectId;
+				$scope.freeAgents.push(current_user);
+
+				delete $scope.$parent.x.addAgent;
+
+			},function(data){
+
+				delete $scope.$parent.x.addAgent;
+
+			});
+
+		};
+
+		$scope.removeFreeAgent = function(){
+
+			$scope.$parent.x.removeAgent = true;
+
+			this.options = {
+				type: 'relations',
+				id: $scope.i_am_free_agent
+			};
+
+			ApiModel.destroy(this.options,function(data){
+
+				delete $scope.i_am_free_agent;
+				$scope.freeAgents.removeWhere('objectId',current_user.objectId);
+				delete $scope.$parent.x.removeAgent;
+
+			},function(data){
+
+				delete $scope.$parent.x.removeAgent;
+
+			});
+
+		};
 
 	}
 ];

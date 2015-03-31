@@ -34,10 +34,34 @@
 			<a href="" class="info-item" ng:class="{'selected':tab=='overview'}" ng:click="tab = 'overview'">Overview</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='bracket'}" ng:click="tab = 'bracket'">Bracket</a>
 			<a href="" class="info-item" ng:class="{'selected':tab=='myteams'}" ng:click="tab = 'myteams'">My&nbsp;Teams</a>
+			<a href="" class="info-item" ng:class="{'selected':tab=='freeagents'}" ng:click="tab = 'freeagents'">Free&nbsp;Agents</a>
 			<!-- <a href="" class="info-item" ng:class="{'selected':tab=='chat'}" ng:click="tab = 'chat'">Event&nbsp;Chat</a> -->
 			<div class="info-item">
 				<span ng:show="tab != 'myteams'"><a href="" class="btn green" ng:click="tab = 'myteams'">Register</a></span>
 			</div>
+
+		</div>
+
+		<div class="info-body" ng:if="tab == 'freeagents'" ng:init="getFreeAgents()">
+
+			<table class="table">
+				<tr>
+					<th colspan="2">
+						<a href="" ng:if="!i_am_free_agent && !x.freeAgents" ng:click="addFreeAgent()" class="btn grey" ng:class="{'DISABLE':$parent.x.addAgent}">Click here to put me on the free agent list!</a>
+						<a href="" ng:if="i_am_free_agent && !x.freeAgents" ng:click="removeFreeAgent()" class="btn red" ng:class="{'DISABLE':$parent.x.removeAgent}">Remove me from the free agent list!</a>
+					</th>
+				</tr>
+				<tr ng:repeat="user in freeAgents | orderBy:'gamertag'">
+					<td><span user-tip="user" composer="composer">{{user.gamertag}}</span></td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr ng:if="x.freeAgents">
+					<td colspan="2">Loading...</td>
+				</tr>
+				<tr ng:if="!x.freeAgents && (!freeAgents || freeAgents.length == 0)">
+					<td colspan="2">No Free Agents to Display.</td>
+				</tr>
+			</table>
 
 		</div>
 
@@ -347,5 +371,7 @@
 		</div>
 
 	</div>
+
+	<comments c:user="current_user" c:id="params.id"></comments>
 
 </div>

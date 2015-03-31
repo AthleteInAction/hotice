@@ -1,0 +1,18 @@
+<div class="comments-section">
+
+	<div class="comments-label">Comments</div>
+
+	<ul class="comments-list">
+		<li class="comment" ng:repeat="comment in comments">
+			<div class="comment-top">
+				<div class="comment-author">{{comment.user.gamertag}}:</div>
+				<div class="comment-time">{{displayDate(comment.createdAt).sDate}}</div>
+			</div>
+			<div class="comment-body" ng-bind-html="comment.body_html"></div>
+		</li>
+	</ul>
+
+	<textarea placeholder="Add your comment" ng:model="comment.body"></textarea>
+	<a href="" class="btn dark" ng:class="{'DISABLE':loading}" ng:click="createComment()">Submit</a>
+
+</div>
